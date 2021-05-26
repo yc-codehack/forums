@@ -5,43 +5,43 @@ import cors from "cors";
 
 // routes
 import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/questions.js";
 
-// SECTION app congif
+// app config
 
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-// !SECTION
-
-// SECTION middleware
-
+// middleware
+app.use(bodyParser.json({ limit: "10mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(cors());
 app.use(express.json());
 
-// !SECTION
-
-// SECTION db config
+// db config
 
 const mongoURI =
 	"mongodb+srv://admin:TwE5Q8njUT9fPrkv@cluster0.vf9mb.mongodb.net/forumDB?retryWrites=true&w=majority";
 
-mongoose.connect(mongoURI, {
-	useCreateIndex: true,
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-});
+mongoose
+	.connect(mongoURI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() =>
+		app.listen(PORT, () => console.log(`Server running on port ${PORT} 🔥`))
+	)
+	.catch((error) => console.log(error.message));
 
-// che
 mongoose.connection.once("open", () => {
 	console.log("DB connected 🚀");
 });
 
-// !SECTION
+mongoose.set("useFindAndModify", false);
 
-// SECTION api config
+// api path
 app.use("/auth", userRoutes);
-// !SECTION
+app.use("/question", postRoutes);
 
-// SECTION listen
-app.listen(port, () => `Server running on port ${port} 🔥`);
-// !SECTION
+// listen
+// app.listen(port, () => `Server running on port ${port} 🔥`);

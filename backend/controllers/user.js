@@ -31,7 +31,7 @@ export const signin = async (req, res) => {
 		// creating token
 		const token = jwt.sign(
 			{ email: existingUser.email, id: existingUser._id },
-			"test", // REVIEW move the secrect text to env file
+			"test", // REVIEW move the secret text to env file
 			{ expiresIn: "1hr" } // REVIEW change the token expire time
 		);
 
@@ -66,7 +66,7 @@ export const signup = async (req, res) => {
 		// creating token
 		const token = jwt.sign(
 			{ email: result.email, id: result._id },
-			"test", // REVIEW move the secrect text to env file
+			"test", // REVIEW move the secret text to env file
 			{ expiresIn: "1hr" } // REVIEW change the token expire time
 		);
 
