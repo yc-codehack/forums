@@ -6,7 +6,7 @@ import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", getQuestions);
+router.get("/list/:filter/:filterInfo/:sort/:sortInfo", getQuestions); // **TODO Refactor the method to take parameter from url
 router.post("/new", auth, createQuestion);
 
 export default router;
