@@ -14,23 +14,23 @@ export const getQuestions = async (req, res) => {
 
 		// sort acc to date
 		if (filter == "recent") {
-			var postQuestions = await PostQuestion.find().sort({
+			var questionsList = await PostQuestion.find().sort({
 				createdAt: -1,
 			});
 		}
-		// filter acc to category and then sort
-		else if (filter === "category") {
-			var postQuestions = await PostQuestion.find({
+		// filter acc to ( category and user ) and then sort based on (likes and date)
+		else {
+			var questionsList = await PostQuestion.find({
 				[filter]: filterInfo,
 			}).sort({ [sort]: sortInfo });
 		}
 
-		if (postQuestions.length === 0) {
+		if (questionsList.length === 0) {
 			return res.status(400).json({ message: "No data found!!!" });
 		}
 
 		// console.log(postQuestions);
-		return res.status(200).json(postQuestions);
+		return res.status(200).json(questionsList);
 	} catch (error) {
 		return res.status(404).json({ message: error.message });
 	}

@@ -32,7 +32,7 @@ export const signin = async (req, res) => {
 		const token = jwt.sign(
 			{ email: existingUser.email, id: existingUser._id },
 			"test", // REVIEW move the secret text to env file
-			{ expiresIn: "1hr" } // REVIEW change the token expire time
+			{ expiresIn: "7d" } // REVIEW change the token expire time
 		);
 
 		return res.status(200).json({ result: existingUser, token });
@@ -67,7 +67,7 @@ export const signup = async (req, res) => {
 		const token = jwt.sign(
 			{ email: result.email, id: result._id },
 			"test", // REVIEW move the secret text to env file
-			{ expiresIn: "1hr" } // REVIEW change the token expire time
+			{ expiresIn: "7d" } // REVIEW change the token expire time
 		);
 
 		return res.status("200").json({ result: result, token });
