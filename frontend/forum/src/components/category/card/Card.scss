@@ -8,6 +8,11 @@
 	align-items: center;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	overflow: hidden;
+	transition: ease-out 500ms;
+
+	&:hover {
+		transform: scale(1.009);
+	}
 
 	.card__startLine {
 		width: 3px;

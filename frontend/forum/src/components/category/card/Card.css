@@ -13,6 +13,13 @@
   -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   overflow: hidden;
+  -webkit-transition: ease-out 500ms;
+  transition: ease-out 500ms;
+}
+
+.card:hover {
+  -webkit-transform: scale(1.009);
+          transform: scale(1.009);
 }
 
 .card .card__startLine {
