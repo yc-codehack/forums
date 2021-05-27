@@ -1,0 +1,137 @@
+.card {
+	border: 1ps solid black;
+	width: 90%;
+	max-width: 800px;
+	height: 200px;
+	padding: 2px 1rem 1rem 1rem;
+	display: flex;
+	align-items: center;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	overflow: hidden;
+
+	.card__startLine {
+		width: 3px;
+		height: 70%;
+		background-color: peru;
+		border-radius: 25px;
+		opacity: 0.5;
+		z-index: 10;
+	}
+	.card__info {
+		flex: 0.5;
+		display: flex;
+		align-items: center;
+
+		& > img {
+			margin-left: 0.5rem;
+			width: 150px;
+			height: 150px;
+		}
+
+		.card__infoText {
+			margin-left: 0.5rem;
+
+			& > h3 {
+				font-weight: 400;
+			}
+
+			& > p {
+				width: 100%;
+				max-width: 200px;
+				font-size: 12px;
+			}
+		}
+	}
+
+	.card__details {
+		flex: 0.5;
+		display: flex;
+		flex-direction: column;
+
+		.card__detailsAnalytics {
+			flex: 0.6;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			border-bottom: 1px solid grey;
+
+			& > div {
+				& > h4 {
+					font-weight: 400;
+					font-size: 14px;
+					color: #b1acac;
+				}
+				& > p {
+					font-weight: 300;
+					font-size: 14px;
+					text-align: center;
+				}
+			}
+		}
+
+		.card__detailsLatestQuestion {
+			flex: 0.4;
+			display: flex;
+			flex-direction: column;
+
+			& > h4 {
+				font-weight: 400;
+				font-size: 14px;
+				color: #b1acac;
+			}
+
+			.card__detailsLatestQuestionUser {
+				display: flex;
+				align-items: center;
+				& > img {
+					width: 46px;
+					height: 46px;
+					border: peru 2px solid;
+					border-radius: 50%;
+					object-fit: cover;
+				}
+				& > p {
+					flex: 0.7;
+					padding-left: 1rem;
+					font-size: 14px;
+					font-weight: 350;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 840px) {
+	.card {
+		flex-direction: column;
+		width: 350px;
+		height: fit-content;
+		justify-content: space-around;
+		align-items: center;
+
+		.card__details {
+			margin-top: -30px;
+			flex: 1;
+			width: 90%;
+			.card__detailsAnalytics {
+				// flex: 1;
+				justify-content: space-around;
+				.card__detailsQuestions,
+				.card__detailsAnswers {
+					display: flex;
+					flex-direction: row;
+					justify-content: space-evenly;
+					align-items: center;
+
+					& > h4 {
+						padding-right: 5px;
+					}
+				}
+			}
+
+			.card__detailsLatestQuestion {
+				display: none;
+			}
+		}
+	}
+}

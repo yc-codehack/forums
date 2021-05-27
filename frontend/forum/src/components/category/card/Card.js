@@ -1,0 +1,55 @@
+import React from "react";
+
+import "./Card.css";
+
+// images
+import all from "../../../assets/category/all.svg";
+
+function CategoryCard() {
+	return (
+		<div className="card">
+			<div className="card__startLine"></div>
+			<div className="card__info">
+				<img className="card__infoImg" src={all} alt="" />
+				<div className="card__infoText">
+					<h3 className="card__infoTextHeading">All</h3>
+					<p className="card__infoTextPara">
+						Lorem Ipsum is simply dummy text of the printing and
+						typesetting industry.
+					</p>
+				</div>
+			</div>
+			<div className="card__details">
+				<div className="card__detailsAnalytics">
+					<div className="card__detailsQuestions">
+						<h4>Questions</h4>
+						<p className="card__detailsQuestionsCount">126</p>
+					</div>
+					<div className="card__detailsAnswers">
+						<h4>Answers</h4>
+						<p className="card__detailsAnswersCount">156</p>
+					</div>
+				</div>
+
+				<div className="card__detailsLatestQuestion">
+					<h4 className="card__detailsLatestQuestionHeading">
+						Latest Question
+					</h4>
+
+					<div className="card__detailsLatestQuestionUser">
+						<img
+							className="card__detailsLatestQuestionUserImg"
+							src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP._hGeapLP9fx2lCAsettHeQHaLH%26pid%3DApi&f=1"
+							alt=""
+						/>
+						<p className="card__detailsLatestQuestionUserQuestion">
+							Are their any simple way
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+export default CategoryCard;
