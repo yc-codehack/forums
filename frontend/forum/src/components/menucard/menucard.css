@@ -1,0 +1,41 @@
+.menu-card{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    text-align: start;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.icon{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.menu-card-item:hover{
+    border-left: 10px rgb(100, 100, 100) solid;
+    background-color: rgb(185, 185, 185,0.5);
+}
+
+@media (max-width:1136px){
+    .menu-card{
+        width: 200px;
+    }
+}
+
+@media (max-width : 1024px) {
+    .menu-card{
+        margin-left: 10px;
+        width: 170px;
+    }
+}
+
+@media (max-width : 768px) {
+    .menu-card{
+        margin-left: 10px;
+        width: 180px;
+    }
+
+}

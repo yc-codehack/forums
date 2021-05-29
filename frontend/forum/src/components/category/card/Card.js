@@ -7,7 +7,7 @@ import all from "../../../assets/category/all.svg";
 
 function CategoryCard() {
 	return (
-		<div className="card">
+		<div className="card__category">
 			<div className="card__startLine"></div>
 			<div className="card__info">
 				<img className="card__infoImg" src={all} alt="" />

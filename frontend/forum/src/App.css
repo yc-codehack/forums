@@ -1,5 +1,66 @@
-.app {
+/*.app {
 	padding: 1rem;
 	display: flex;
 	justify-content: space-evenly;
-}
+}*/
+
+html, body {
+	max-width: 100%;
+	overflow-x: hidden;
+  }
+  
+  .App {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+  }
+  
+  
+  
+  
+  .App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+  }
+  
+  .App-link {
+	color: #61dafb;
+  }
+  
+  
+  .main-body{
+	display: flex;
+	
+  }
+  
+  .card-compo{
+	flex : 1;
+   
+	
+  }
+  
+  .leftcard-compo{
+	flex:1;
+	display: block;
+	
+  }
+  
+  .rightcard-compo{
+	flex:1;
+   
+  }
+  
+  @media (max-width:571px){
+	.leftcard-compo{
+	  display: none;
+	}
+	.rightcard-compo{
+	  display: none;
+	}
+  }
