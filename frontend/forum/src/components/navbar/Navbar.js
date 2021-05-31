@@ -1,7 +1,17 @@
 import React,{Component} from 'react'
+import axios from "axios"
 import "./navbar.css"
 
 export default class Navbar extends Component {
+
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            quesstring : ""
+        }
+    }
 
   onHamburgerClick = () =>{
       console.log("Hamburger clicked");
@@ -16,6 +26,31 @@ export default class Navbar extends Component {
     document.querySelector(".sidebar-list").style.width = "0px";
     document.querySelector(".sidebar-list-items").classList.add("deactive");
     document.querySelector(".item").classList.add("deactive");
+  }
+
+
+  onChange = (e) =>{
+    this.setState({
+        quesstring : e.target.value
+    })
+  }
+
+
+  onSubmitSearch = (e) =>{
+
+    e.preventDefault();
+
+    axios.post("http://localhost:5000/search")
+    .then( res =>{
+        if( res.data.length > 0){
+            console.log("hurray")
+        }
+
+        else{
+            console.log("shit");
+        }
+    })
+    console.log( this.state.quesstring)
   }
 
     render(){
@@ -35,8 +70,8 @@ export default class Navbar extends Component {
                         </div>
 
                         <div className="second-search">
-                            <form action="/action_page.php">
-                                <input type="text" placeholder="Search.." name="search"></input>
+                            <form onSubmit={this.onSubmitSearch} action="/action_page.php">
+                                <input onChange={this.onChange}type="text" placeholder="Search.." name="search"></input>
                                 <button type="submit"><i className="fa fa-search"></i></button>
                             </form>
                         
