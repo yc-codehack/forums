@@ -13,6 +13,23 @@ export default class Navbar extends Component {
         }
     }
 
+
+    componentDidMount(){
+        /*axios.get(`http://localhost/5000/question/list?filter=recent`)
+        .then( res => {
+            console.log( res)
+        })*/
+
+        fetch('http://localhost:5000/question/list?filter=recent', {
+            method: 'GET'
+        })
+        .then(
+            res => {
+                console.log( res)
+            }
+        )
+    }
+
   onHamburgerClick = () =>{
       console.log("Hamburger clicked");
       
@@ -40,7 +57,7 @@ export default class Navbar extends Component {
 
     e.preventDefault();
 
-    axios.post("http://localhost:5000/search")
+    axios.get(`http://localhost:5000/question/search?${this.state.quesstring}=db`)
     .then( res =>{
         if( res.data.length > 0){
             console.log("hurray")
