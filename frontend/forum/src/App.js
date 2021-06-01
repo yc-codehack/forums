@@ -11,29 +11,23 @@ function App() {
 			<Router>
 			<Navbar />
 				<Switch>
-					<Route exact path="/">
+					
 						<div className="main-body">
 						<div className="leftcard-compo ">
 						<Menucard />
 						</div>
+						<Route exact path="/">
 						<div className="card-compo ">
 						<Card />
 						</div>
-						<div className="rightcard-compo " ></div>
-						</div>
-					</Route>
-
-					<Route path="/category">
-						<div className="main-body">
-						<div className="leftcard-compo ">
-						<Menucard />
-						</div>
+						</Route>
+						<Route path="/category">
 						<div className="card-compo ">
 						<CategoryCard />
 						</div>
+						</Route>
 						<div className="rightcard-compo " ></div>
 						</div>
-					</Route>
 				</Switch>
 			
 			</Router>
