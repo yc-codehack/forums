@@ -15,6 +15,7 @@
   overflow: hidden;
   -webkit-transition: ease-out 500ms;
   transition: ease-out 500ms;
+  background-color: white;
 }
 
 .card__category:hover {
