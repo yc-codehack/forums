@@ -1,4 +1,11 @@
 import PostQuestion from "../models/postQuestion.js";
+import UserProfile from "../models/profile.js";
+import CategoryInfo from "../models/categoryInfo.js";
+
+//
+import moment from "moment";
+import { convertTimeToString } from "../controllers/utils/time.js";
+// var moment = require("moment");
 
 // * Post new question
 export const createQuestion = async (req, res) => {
@@ -8,12 +15,26 @@ export const createQuestion = async (req, res) => {
 		...post,
 		creator: req.userId,
 		createdAt: new Date().toISOString(),
+		updatedAt: new Date().toISOString(),
 	});
 
 	try {
+		// saving the question
 		await newPost.save();
 
-		return res.status(201).json(newPost);
+		// incrementing questionCount of user
+		await UserProfile.updateOne(
+			{ accountId: req.userId },
+			{ $inc: { questionCount: 1 } }
+		);
+
+		// incrementing the quesCount of categoryInfo
+		await CategoryInfo.updateOne(
+			{ name: newPost.category },
+			{ $inc: { quesCount: 1 } }
+		);
+
+		return res.status(200).json(newPost);
 	} catch (error) {
 		return res.status(409).json({ message: error.message });
 	}
@@ -25,16 +46,45 @@ export const getQuestions = async (req, res) => {
 
 	// **TODO Refactor this section
 	try {
-		const filter = req.params.filter;
-		const filterInfo = req.params.filterInfo;
-		const sort = req.params.sort;
-		const sortInfo = req.params.sortInfo;
-		console.log(filter, filterInfo, sort, sortInfo);
+		const filter = req.query.filter;
+		const filterInfo = req.query.filterInfo;
+		const sort = req.query.sort;
+		const sortInfo = req.query.sortInfo;
 
 		// sort acc to date
 		if (filter == "recent") {
 			var questionsList = await PostQuestion.find().sort({
 				createdAt: -1,
+			});
+
+			// console.log(profile);
+
+			// console.log(questionsList.createdAt);
+
+			var i = 0;
+			var questionsIs = questionsList.map((question) => {
+				const currentTime = moment(
+					new Date().toISOString(),
+					"YYYY-MM-DD HH:mm:ss"
+				);
+				const createdAt = moment(
+					question.createdAt,
+					"YYYY-MM-DD HH:mm:ss"
+				);
+				const tempTime = moment.duration(currentTime.diff(createdAt));
+				const newTimeDuration = convertTimeToString(tempTime);
+
+				var properties = {
+					_id: question._id,
+					title: question.title,
+					description: question.description,
+					createdAt: newTimeDuration,
+					likeCount: question.likeCount,
+					dislikeCount: question.dislikeCount,
+					creatorName: "Static",
+				};
+
+				return properties;
 			});
 		}
 		// filter acc to ( category and user ) and then sort based on (likes and date)
@@ -42,14 +92,41 @@ export const getQuestions = async (req, res) => {
 			var questionsList = await PostQuestion.find({
 				[filter]: filterInfo,
 			}).sort({ [sort]: sortInfo });
+
+			var questionsIs = questionsList.map((question) => {
+				const currentTime = moment(
+					new Date().toISOString(),
+					"YYYY-MM-DD HH:mm:ss"
+				);
+				const createdAt = moment(
+					question.createdAt,
+					"YYYY-MM-DD HH:mm:ss"
+				);
+				const tempTime = moment.duration(currentTime.diff(createdAt));
+				const newTimeDuration = convertTimeToString(tempTime);
+				const userInfo = UserProfile.find({
+					accountId: question.creator,
+				});
+
+				var properties = {
+					_id: question._id,
+					title: question.title,
+					description: question.description,
+					createdAt: newTimeDuration,
+					likeCount: question.likeCount,
+					dislikeCount: question.dislikeCount,
+					creatorName: "Static",
+				};
+				return properties;
+			});
 		}
 
-		if (questionsList.length === 0) {
+		if (questionsIs.length === 0) {
 			return res.status(400).json({ message: "No data found!!!" });
 		}
 
 		// console.log(postQuestions);
-		return res.status(200).json(questionsList);
+		return res.status(200).json(questionsIs);
 	} catch (error) {
 		return res.status(404).json({ message: error.message });
 	}
@@ -59,7 +136,7 @@ export const getQuestions = async (req, res) => {
 export const searchQuestions = async (req, res) => {
 	try {
 		const searchItem = req.query.searchItem;
-		const questionList = await PostQuestion.find({
+		const questionsList = await PostQuestion.find({
 			title: { $regex: searchItem, $options: "i" }, // ** Uses regex to get fuzzy search functionality and option i make it case insensitive
 		}).sort({ likeCount: -1 });
 
@@ -68,12 +145,42 @@ export const searchQuestions = async (req, res) => {
 		// 	$text: { $search: searchItem, $caseSensitive: true },
 		// }).sort({ score: { $meta: "textScore" } });
 
+		var questionsIs = questionsList.map((question) => {
+			const currentTime = moment(
+				new Date().toISOString(),
+				"YYYY-MM-DD HH:mm:ss"
+			);
+			const createdAt = moment(question.createdAt, "YYYY-MM-DD HH:mm:ss");
+			const tempTime = moment.duration(currentTime.diff(createdAt));
+			const newTimeDuration = convertTimeToString(tempTime);
+			const userInfo = UserProfile.find({
+				accountId: question.creator,
+			});
+
+			var properties = {
+				_id: question._id,
+				title: question.title,
+				description: question.description,
+				createdAt: newTimeDuration,
+				likeCount: question.likeCount,
+				dislikeCount: question.dislikeCount,
+				creatorName: "Static",
+			};
+			return properties;
+		});
+
 		if (questionsList.length === 0) {
 			return res.status(400).json({ message: "No data found!!!" });
 		}
 
-		return res.status(200).json(questionList);
+		return res.status(200).json(questionsIs);
 	} catch (error) {
 		return res.status(400).json({ message: error.message });
 	}
+};
+
+const getUserInfo = async (creatorId) => {
+	const info = await UserProfile.find({ accountId: creatorId });
+	// console.log(info);
+	return info;
 };

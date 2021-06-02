@@ -3,10 +3,6 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 
-// routes
-import userRoutes from "./routes/users.js";
-import postRoutes from "./routes/questions.js";
-
 // app config
 
 const app = express();
@@ -18,6 +14,11 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(cors());
 app.use(express.json());
 
+// routes
+import userRoutes from "./routes/users.js";
+import quesRoutes from "./routes/questions.js";
+import ansRoutes from "./routes/answers.js";
+import adminRoutes from "./routes/admin.js";
 // db config
 
 const mongoURI =
@@ -41,7 +42,9 @@ mongoose.set("useFindAndModify", false);
 
 // api path
 app.use("/auth", userRoutes);
-app.use("/question", postRoutes);
+app.use("/question", quesRoutes);
+app.use("/answer", ansRoutes);
+app.use("/admin", adminRoutes);
 
 // listen
 // app.listen(port, () => `Server running on port ${port} 🔥`);

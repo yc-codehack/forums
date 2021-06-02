@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./card.css";
-import Ques from "../ques/Ques";
+import Ques from "./ques/Ques";
 
 import { useSelector } from "react-redux";
+
+// material ui
+import { CircularProgress } from "@material-ui/core";
 
 const Card = () => {
 	const questions = useSelector((state) => state.questions);
@@ -62,7 +65,12 @@ const Card = () => {
 	// <Ques item={ques[0]}/>
 
 	// return <div className="queslist mt-5">{queslist}</div>;
-	return <Ques item={ques[0]} />;
+
+	return !questions.length ? (
+		<CircularProgress />
+	) : (
+		questions.map((question) => <Ques key={question._id} item={question} />)
+	);
 };
 
 export default Card;

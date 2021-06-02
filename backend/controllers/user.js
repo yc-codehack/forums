@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user.js";
+import UserProfile from "../models/profile.js";
 
 export const signin = async (req, res) => {
 	const { email, password } = req.body;
@@ -53,7 +54,7 @@ export const signup = async (req, res) => {
 			return res.status(400).json({ message: "User already exists" });
 		}
 
-		// hasing the password
+		// hashing the password
 		const hashedPassword = await bcrypt.hash(password, 12);
 
 		// creating user
@@ -61,6 +62,12 @@ export const signup = async (req, res) => {
 			email,
 			password: hashedPassword,
 			name: `${firstName} ${lastName}`,
+		});
+		// creates the detail of user in profile schema
+		await UserProfile.create({
+			name: `${firstName} ${lastName}`,
+			accountId: result._id,
+			createdAt: new Date().toISOString(),
 		});
 
 		// creating token

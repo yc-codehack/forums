@@ -15,7 +15,34 @@ const postQuestionSchema = mongoose.Schema({
 		type: Number,
 		default: 0,
 	},
+	answer: [
+		{
+			id: String,
+			description: String,
+			creator: String,
+			likeCount: {
+				type: Number,
+				default: 0,
+			},
+			dislikeCount: {
+				type: Number,
+				default: 0,
+			},
+			createdAt: {
+				type: Date,
+				default: new Date(),
+			},
+			updatedAt: {
+				type: Date,
+				default: new Date(),
+			},
+		},
+	],
 	createdAt: {
+		type: Date,
+		default: new Date(),
+	},
+	updatedAt: {
 		type: Date,
 		default: new Date(),
 	},
