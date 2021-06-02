@@ -7,6 +7,7 @@ import Card from "../../components/card/Card.js";
 function Home() {
 	return (
 		<div className="home">
+			<Navbar />
 			<Card />
 		</div>
 	);

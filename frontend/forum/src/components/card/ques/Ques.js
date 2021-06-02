@@ -89,6 +89,7 @@ export default function Ques({ item }) {
 										<img
 											className=" avatar "
 											src={avatar}
+											alt=""
 										/>
 									</div>
 

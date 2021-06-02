@@ -1,27 +1,20 @@
 import React, { useEffect } from "react";
+
 import "./App.css";
+// import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 // import CategoryCard from "./components/category/card/Card";
-import Navbar from "./components/navbar/Navbar.js";
-// import Card from "./components/card/Card";
-// import Menucard from "./components/menucard/Menucard";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-// Hooks
+// import Navbar from "./components/navbar/Navbar.js"
+// import Card from "./components/card/Card"
+// import Menucard from "./components/menucard/Menucard"
+// import Quesmain from "./components/ques-main/Quesmain"
 import { useDispatch } from "react-redux";
-
-// pages
-import Home from "./pages/home/Home";
-
-// actions
 import { getRecent } from "./actions/questions.js";
 
-function App() {
-	// hooks
+import Home from "./pages/home/Home.js";
 
-	// dispatch
+function App() {
 	const dispatch = useDispatch();
 
-	// useEffect
 	useEffect(() => {
 		dispatch(getRecent());
 	}, [dispatch]);
@@ -46,12 +39,16 @@ function App() {
 						<CategoryCard />
 						</div>
 						</Route>
+						<Route path="/quesmain">
+						<div className="card-compo ">
+						<Quesmain />
+						</div>
+						</Route>
 						<div className="rightcard-compo " ></div>
 						</div>
 				</Switch>
 			
 			</Router> */}
-			<Navbar />
 			<Home />
 		</div>
 	);
