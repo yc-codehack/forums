@@ -1,14 +1,34 @@
+import React, { useEffect } from "react";
 import "./App.css";
-import CategoryCard from "./components/category/card/Card";
-import Navbar from "./components/navbar/Navbar.js"
-import Card from "./components/card/Card"
-import Menucard from "./components/menucard/Menucard"
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+// import CategoryCard from "./components/category/card/Card";
+import Navbar from "./components/navbar/Navbar.js";
+// import Card from "./components/card/Card";
+// import Menucard from "./components/menucard/Menucard";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+// Hooks
+import { useDispatch } from "react-redux";
+
+// pages
+import Home from "./pages/home/Home";
+
+// actions
+import { getRecent } from "./actions/questions.js";
 
 function App() {
+	// hooks
+
+	// dispatch
+	const dispatch = useDispatch();
+
+	// useEffect
+	useEffect(() => {
+		dispatch(getRecent());
+	}, [dispatch]);
+
 	return (
 		<div className="App">
-			<Router>
+			{/* <Router>
 			<Navbar />
 				<Switch>
 					
@@ -30,7 +50,9 @@ function App() {
 						</div>
 				</Switch>
 			
-			</Router>
+			</Router> */}
+			<Navbar />
+			<Home />
 		</div>
 	);
 }
