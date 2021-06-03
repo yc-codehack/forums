@@ -1,0 +1,112 @@
+.card{
+    width: 100%;
+    max-width: 900px;
+    height: 450px;
+    overflow: hidden;
+    box-shadow: 0px 0px 15px -5px;
+    transition: 0.3s;
+    animation: ease-in;
+    margin-top: 50px;
+    margin-left: 235px;
+    padding-top: 20px;
+    background-color: whitesmoke;
+}
+
+.card:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px 0px;
+}
+
+.card-content{
+    margin: 1rem;
+    margin-top: 0.5rem;
+}
+
+.title{    
+    width: 100%;
+    max-width: 840px;
+    margin-left: 15px;
+    margin-bottom: 0.5rem;
+}
+
+.category{
+    width: 100%;
+    max-width: 840px;
+    margin-left: 15px;
+    margin-bottom: 0.5rem;
+    color: whitesmoke;
+}
+
+.sub-category{
+    width: 100%;
+    max-width: 840px;
+    margin-top: 25px;
+    margin-left: 15px;
+    margin-bottom: 0.5rem;
+    color: whitesmoke;
+}
+
+.description{
+    margin-left: 15px;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    width: 100px;
+    margin-left: 85%;
+}
+
+.btn button{
+    border-radius: 5px;
+    padding: 0.5rem;
+    background-color:rgb(255, 255, 255);
+    border: none;
+    transition: 0.25s;
+    margin: 0.5rem;
+}
+
+.btn:hover{
+    background-color: rgba(27, 156, 252, 0.1);
+}
+
+a{  
+    text-transform: uppercase;
+    color: #109CFC;
+    text-decoration: solid;
+    font-weight: bold;
+}
+
+.checkboc{
+    margin-left: 15px;
+}
+
+@media screen and (max-width: 840px){
+    .card{
+        margin: 22px 22px;
+        width: 540px;
+        max-width: 88%;
+        height: 480px;
+    }
+    .title, .category select, .sub-category{
+        width: 340px;
+        max-width: 92%;
+    }
+    .description textarea{
+        width: 340px;
+        max-width: 94%;
+    }
+    .checkbox label{
+        font-size: 0.9rem;
+    }
+    .btn{
+        margin-left: 70%;
+    }
+    
+}
+
+
+
+
+
