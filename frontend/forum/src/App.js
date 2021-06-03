@@ -9,15 +9,16 @@ import "./App.css";
 // import Quesmain from "./components/ques-main/Quesmain"
 import { useDispatch } from "react-redux";
 import { getRecent, questionLike } from "./actions/questions.js";
+import { getCategory } from "./actions/extra.js";
 
 import Home from "./pages/home/Home.js";
-
 function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(getRecent());
-		// dispatch(questionLike());
+		dispatch(questionLike());
+		dispatch(getCategory());
 	}, [dispatch]);
 
 	return (

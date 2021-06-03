@@ -19,6 +19,7 @@ import userRoutes from "./routes/users.js";
 import quesRoutes from "./routes/questions.js";
 import ansRoutes from "./routes/answers.js";
 import adminRoutes from "./routes/admin.js";
+import extraRoutes from "./routes/extra.js";
 // db config
 
 const mongoURI =
@@ -45,6 +46,7 @@ app.use("/auth", userRoutes);
 app.use("/question", quesRoutes);
 app.use("/answer", ansRoutes);
 app.use("/admin", adminRoutes);
+app.use("/extra", extraRoutes);
 
 // listen
 // app.listen(port, () => `Server running on port ${port} 🔥`);

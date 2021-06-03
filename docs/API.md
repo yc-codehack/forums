@@ -269,3 +269,34 @@
                 "image": "technology"
             }
             ```
+
+### Extra
+
+    1.  Category List (without AUTH)
+
+        {{domain}}/extra/category/
+
+        -GET
+
+            ```
+                [
+                    {
+                        "quesCount": 4,
+                        "ansCount": 1,
+                        "_id": "60b1c2d0c6b2916cc2a90819",
+                        "name": "Technology",
+                        "description": "Technology is great",
+                        "image": "technology",
+                        "__v": 0
+                    },
+                    {
+                        "quesCount": 2,
+                        "ansCount": 0,
+                        "_id": "60b7ab958e0f6d514000ff44",
+                        "name": "Health",
+                        "description": "health is great",
+                        "image": "health",
+                        "__v": 0
+                    }
+                ]
+            ```
