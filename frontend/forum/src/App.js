@@ -8,7 +8,7 @@ import "./App.css";
 // import Menucard from "./components/menucard/Menucard"
 // import Quesmain from "./components/ques-main/Quesmain"
 import { useDispatch } from "react-redux";
-import { getRecent } from "./actions/questions.js";
+import { getRecent, questionLike } from "./actions/questions.js";
 
 import Home from "./pages/home/Home.js";
 
@@ -17,6 +17,7 @@ function App() {
 
 	useEffect(() => {
 		dispatch(getRecent());
+		// dispatch(questionLike());
 	}, [dispatch]);
 
 	return (

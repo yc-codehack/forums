@@ -40,6 +40,44 @@ export const createQuestion = async (req, res) => {
 	}
 };
 
+// * Update question
+export const updateQuestion = async (req, res) => {
+	try {
+		const { id: _id } = req.params;
+		const post = req.body;
+
+		if (!PostQuestion.findById(_id)) {
+			return res.status(404).json({ message: "Invalid Question ID" });
+		}
+
+		const nonUpdatedQuestion = await PostQuestion.findById(_id);
+
+		const updatedQuestion = await PostQuestion.findByIdAndUpdate(
+			_id,
+			{ ...post, updatedAt: new Date().toISOString() },
+			{
+				new: true,
+			}
+		);
+
+		// ! Refactor code to use something else that findOneAndUpdate (becoz it will be deprecated in future)
+		if (nonUpdatedQuestion.category != updatedQuestion.category) {
+			await CategoryInfo.findOneAndUpdate(
+				{ name: nonUpdatedQuestion.category },
+				{ $inc: { quesCount: -1 } }
+			);
+			await CategoryInfo.findOneAndUpdate(
+				{ name: updatedQuestion.category },
+				{ $inc: { quesCount: 1 } }
+			);
+		}
+
+		return res.status(200).json({ updatedQuestion });
+	} catch (error) {
+		return res.status(409).json({ message: error.message });
+	}
+};
+
 // * Question list for main page
 export const getQuestions = async (req, res) => {
 	// extract the parameters from url and store it in variable

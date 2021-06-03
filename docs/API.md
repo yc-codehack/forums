@@ -62,6 +62,21 @@
             }
         ```
 
+    2. Update Question (Auth)
+
+        {{domain}}/question/update/60ae7452f6aab05d8c5ba8a2
+        {{domain}}/question/update/{questionId}
+
+        - PATCH
+        ```
+            {
+                "title": "What are good1?",
+                "description": "MongoDB is a non-relational database ",
+                "category":"Technology",
+                "subCategory":"DB"
+            }
+        ```
+
 ### Answers
 
         1. Create Answer (Auth)

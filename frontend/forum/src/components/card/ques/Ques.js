@@ -1,48 +1,66 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ques.css";
 import avatar from "../../images/avatar.png";
+
+import { useDispatch } from "react-redux";
+import { questionLike, questionDislike } from "../../../actions/questions.js";
 
 export default function Ques({ item }) {
 	/* 
         ? Under review 
     */
 
-	function onClickUpArrow(e) {
-		console.log(e.target.parentNode.nextSibling.nextSibling);
+	// function onClickUpArrow(e) {
+	// 	console.log(e.target.parentNode.nextSibling.nextSibling);
 
-		if (e.target.classList.contains("up-arrow-color") === true) {
-			e.target.classList.remove("up-arrow-color");
-		} else {
-			e.target.classList.add("up-arrow-color");
-			let down =
-				e.target.parentNode.nextSibling.nextSibling.querySelector(
-					"#down-arrow"
-				);
-			if (down.classList.contains("down-arrow-color") === true) {
-				down.classList.remove("down-arrow-color");
-				console.log("hello");
-			}
-		}
-	}
+	// 	if (e.target.classList.contains("up-arrow-color") === true) {
+	// 		e.target.classList.remove("up-arrow-color");
+	// 	} else {
+	// 		e.target.classList.add("up-arrow-color");
+	// 		let down =
+	// 			e.target.parentNode.nextSibling.nextSibling.querySelector(
+	// 				"#down-arrow"
+	// 			);
+	// 		if (down.classList.contains("down-arrow-color") === true) {
+	// 			down.classList.remove("down-arrow-color");
+	// 			console.log("hello");
+	// 		}
+	// 	}
+	// }
 
-	function onClickDownArrow(e) {
-		console.log(e.target.parentNode.previousSibling.previousSibling);
+	// function onClickDownArrow(e) {
+	// 	console.log(e.target.parentNode.previousSibling.previousSibling);
 
-		if (e.target.classList.contains("down-arrow-color") === true) {
-			e.target.classList.remove("down-arrow-color");
-		} else {
-			e.target.classList.add("down-arrow-color");
-			let up =
-				e.target.parentNode.previousSibling.previousSibling.querySelector(
-					"#up-arrow"
-				);
-			console.log(up);
-			if (up.classList.contains("up-arrow-color") === true) {
-				up.classList.remove("up-arrow-color");
-				console.log("hello");
-			}
-		}
-	}
+	// 	if (e.target.classList.contains("down-arrow-color") === true) {
+	// 		e.target.classList.remove("down-arrow-color");
+	// 	} else {
+	// 		e.target.classList.add("down-arrow-color");
+	// 		let up =
+	// 			e.target.parentNode.previousSibling.previousSibling.querySelector(
+	// 				"#up-arrow"
+	// 			);
+	// 		console.log(up);
+	// 		if (up.classList.contains("up-arrow-color") === true) {
+	// 			up.classList.remove("up-arrow-color");
+	// 			console.log("hello");
+	// 		}
+	// 	}
+	// }
+
+	const [question, setQuestion] = useState({ ...item });
+
+	const dispatch = useDispatch();
+
+	const likeHandler = (id) => {
+		dispatch(questionLike({ type: "question", quesId: id }));
+		setQuestion({
+			likeCount: question.likeCount + 1,
+		});
+	};
+
+	const dislikeHandler = (id) => {
+		dispatch(questionDislike({ type: "question", quesId: id }));
+	};
 
 	return (
 		<div>
@@ -58,16 +76,19 @@ export default function Ques({ item }) {
 									className="fa fa-arrow-up"
 									id="up-arrow"
 									aria-hidden="true"
-									onClick={onClickUpArrow}
+									onClick={() => likeHandler(item._id)}
+									// onClick={onClickUpArrow}
 								></i>
 							</div>
-							<div className="row-md-1 ">{item.likeCount}</div>
+							<div className="row-md-1 ">
+								{question.likeCount}
+							</div>
 							<div className="row-md-1 arrow">
 								<i
 									className="fa fa-arrow-down"
 									aria-hidden="true"
 									id="down-arrow"
-									onClick={onClickDownArrow}
+									onClick={() => dislikeHandler(item._id)}
 								></i>
 							</div>
 						</div>

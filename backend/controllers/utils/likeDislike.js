@@ -3,8 +3,13 @@ import PostQuestion from "../../models/postQuestion.js";
 
 export const like = async (req, res) => {
 	const post = req.body;
+	console.log(post);
+	console.log(post.type);
+	console.log(post.quesId);
+	console.log("userId", req.userId);
 
 	if (post.type == "question") {
+		console.log("=> question");
 		try {
 			const isLiked = await Profile.updateOne(
 				{
@@ -15,6 +20,7 @@ export const like = async (req, res) => {
 					$push: { likedQuestion: post.quesId },
 				}
 			);
+			console.log("isLiked", isLiked);
 			if (isLiked.n == 1) {
 				await PostQuestion.updateOne(
 					{
