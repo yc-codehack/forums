@@ -8,8 +8,6 @@ import { CircularProgress } from "@material-ui/core";
 const Category = () => {
 	const category = useSelector((state) => state.list);
 
-	console.log(category);
-
 	return !category.length ? (
 		<CircularProgress />
 	) : (
