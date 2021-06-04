@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import axios from "axios"
 import "./navbar.css"
+import {Link} from 'react-router-dom'
 
 export default class Navbar extends Component {
 
@@ -88,8 +89,13 @@ export default class Navbar extends Component {
 
                         <div className="second-search">
                             <form onSubmit={this.onSubmitSearch} action="/action_page.php">
-                                <input onChange={this.onChange}type="text" placeholder="Search.." name="search"></input>
-                                <button type="submit"><i className="fa fa-search"></i></button>
+                                {/*<input onChange={this.onChange}type="text" placeholder="Search.." name="search"></input>
+                                <button type="submit"><i className="fa fa-search"></i></button>*/}
+
+                                <div className="navbar-box">
+                                        <input onChange={this.onChange} type="text" name=""  placeholder="Search.." ></input>
+                                        <button type="submit"><i className="fas fa-search" aria-hidden="true"></i></button>
+                                </div>
                             </form>
                         
                         </div>
@@ -101,10 +107,10 @@ export default class Navbar extends Component {
                             <div className="second-cross fas fa-times item" onClick={this.onCrossClick}></div>
                             <div className="sidebar-list-items">
                                 <div className="second-home item"> Home  </div>
-                                <div className="second-topusers item"> Top Users </div>
-                                <div className="second-category item"> Category </div>
+                                <div className="second-topusers item">  Top Users </div>
+                                <div className="second-category item">Category </div>
                                 <div className="second-login item"> Login </div>
-                                <div className="second-signup item">Sign Up</div>
+                                <div className="second-signup item"> SignUp</div>
                             </div>
                         </div>
                     </div>

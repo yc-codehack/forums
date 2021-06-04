@@ -1,0 +1,17 @@
+.textbox-card{
+    padding-left: 40px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+textarea{
+    resize: none;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.row{
+    width: 100%;
+}

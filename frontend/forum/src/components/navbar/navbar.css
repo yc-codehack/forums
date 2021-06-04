@@ -13,13 +13,17 @@ html, body {
     display: flex;
     background-color: white;
     padding-top: 10px;
+    padding-bottom: 8px;
     font-size: 20px;
+
 }
 
 .second-search{
     flex:1;
+    text-align: center;
     font-size: 18px;
-    margin-top: 2px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .second-logo{
@@ -62,7 +66,12 @@ html, body {
     padding-top:20px;
     transition: all 0.5s ease;
     color: white;
+    text-decoration: none;
     overflow-x: hidden;
+}
+
+.sidebar-item{
+    color: white;
 }
 
 .second-cross{
@@ -91,6 +100,74 @@ html, body {
 
 
 
+.navbar-box{
+	width: 500px;
+	height: 40px;
+	background-color: rgb(233, 233, 233);
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	padding: 20px;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+.navbar-box > i {
+	font-size: 20px;
+	color: rgb(0, 0, 0);
+}
+
+.navbar-box > input{
+	flex: 1;
+	height: 30px;
+	border: none;
+    background-color: rgb(233, 233, 233);
+    color: rgb(0, 0, 0);
+	outline: none;
+	font-size: 18px;
+	padding-left: 10px;
+}
+
+.navbar-box > button{
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.navbar-box > button:focus{
+    outline: none;
+}
+
+@media (min-width:572px){
+    .sidebar-list{
+        display: none;
+    }
+}
+
+@media (max-width:768px){
+    .navbar-box{
+        height: 20px;
+        width: 350px;
+    }
+
+    .navbar-box > input{
+        font-size: 14px;
+    }
+}
+
+@media (max-width:760px){
+    .navbar-box{
+        width: 400px;
+    }
+}
+
+@media (max-width:638px){
+    .navbar-box{
+        width: 300px;
+    }
+}
+
 @media (max-width:571px){
     
  
@@ -106,10 +183,35 @@ html, body {
     }
 }
 
+@media (max-width:460px){
+    .navbar-box{
+        width: 250px;
+    }
+
+    .navbar-box > i{
+        font-size: 15px !important;
+        padding-right: 10px;
+    }
+    
+    .navbar-box > input{
+        font-size: 15px;
+    }
+}
+
+
 @media (max-width:375px){
     .second-search{
         font-size: 12px;
         padding-top: 4px;
+    }
+
+    .navbar-box{
+        height: 20px;
+        width: 220px;
+    }
+
+    .navbar-box > input{
+        font-size: 12px;
     }
 }
 
@@ -117,12 +219,41 @@ html, body {
 @media (max-width:360px){
     .second-search{
         padding-right: 20px;
+        padding-left: 0px;
+        margin-left: 0;
     }
+   
+    .navbar-box > i{
+        font-size: 15px;
+        padding-right: 10px;
+    }
+    
+    .navbar-box{
+        height: 20px;
+        width: 200px;
+    }
+
+    .navbar-box > input{
+        font-size: 12px;
+    }
+
+    .hamburger{
+        margin-left: 5px;
+    }
+    
 }
 
 @media (max-width : 320px){
     .second-search{
         font-size: 12px;
         padding-top: 4px;
+    }
+
+    .navbar-box{
+        width: 180px;
+    }
+
+    .navbar-box > input{
+        font-size: 10px;
     }
 }

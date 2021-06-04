@@ -2,7 +2,7 @@
     cursor: pointer;
 }
 
-.ques-card{
+.ans-card{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     width: 800px;
     border-radius: 10px;
@@ -49,10 +49,10 @@
     width: auto;
 }
 
-.ques-startline{
+.ans-startline{
     width: 4px;
     height: 100%;
-    background-color: peru;
+    background-color: rgb(74, 230, 121);
     border-radius: 25px;
     opacity: 0.5;
     z-index: 10;
@@ -60,7 +60,7 @@
 }
 
 @media (max-width : 768px) {
-    .ques-card{
+    .ans-card{
         width: 540px;
     }
 }
@@ -81,13 +81,13 @@
         width: 400px;
     }
 
-    .ques-card{
+    .ans-card{
         width: 800px;
     }
 }
 
 @media (max-width:540px){
-    .ques-card{
+    .ans-card{
         width: 500px;
     }
 }
@@ -111,7 +111,7 @@
         margin-left: 0px;
     }
 
-    .ques-card{
+    .ans-card{
         width: 335px;
     }
 }
@@ -121,7 +121,7 @@
         width: 230px;
     }
 
-    .ques-card{
+    .ans-card{
         width: 290px !important;
     }
 }

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./ques.css";
+import "./ans.css";
 import avatar from "../../images/avatar.png";
 
 import { useDispatch } from "react-redux";
 import { questionLike, questionDislike } from "../../../actions/questions.js";
 
-export default function Ques({ item }) {
+export default function Ans() {
 	/* 
         ? Under review 
     */
-	console.log(item);
+	
 	// function onClickUpArrow(e) {
 	// 	console.log(e.target.parentNode.nextSibling.nextSibling);
 
@@ -47,7 +47,7 @@ export default function Ques({ item }) {
 	// 	}
 	// }
 
-	const [question, setQuestion] = useState({ ...item });
+	{/*const [question, setQuestion] = useState({ ...item });
 
 	const dispatch = useDispatch();
 
@@ -60,15 +60,15 @@ export default function Ques({ item }) {
 
 	const dislikeHandler = (id) => {
 		dispatch(questionDislike({ type: "question", quesId: id }));
-	};
+	};*/}
 
 	return (
 		<div>
 			<div
 				className="container-sm d-flex justify-content-center "
-				key={item._id}
+				/*key={item._id}*/
 			>
-				<div className="card mb-3 ques-card">
+				<div className="card mb-3 ans-card">
 					<div className="row g-0 ">
 						<div className="col-xs ml-5 mr-2 mt-2 vote-col">
 							<div className="row-md-1 arrow ">
@@ -76,19 +76,20 @@ export default function Ques({ item }) {
 									className="fa fa-arrow-up"
 									id="up-arrow"
 									aria-hidden="true"
-									onClick={() => likeHandler(item._id)}
+									//*onClick={() => likeHandler(/*item._id*/)}
 									// onClick={onClickUpArrow}
 								></i>
 							</div>
 							<div className="row-md-1 ">
-								{question.likeCount}
+						
+                                55
 							</div>
 							<div className="row-md-1 arrow">
 								<i
 									className="fa fa-arrow-down"
 									aria-hidden="true"
 									id="down-arrow"
-									onClick={() => dislikeHandler(item._id)}
+									//onClick={() => dislikeHandler(/*item._id*/)}
 								></i>
 							</div>
 							
@@ -96,21 +97,19 @@ export default function Ques({ item }) {
 
 
 						<div className="col-xs mt-3 mb-3">
-							<div className="ques-startline "  ></div>
+							<div className="ans-startline "  ></div>
 						</div>
 						<div className="col-sm text-col">
 							<div className="card-body overflow-hidden ">
-								<h5 className="card-title question overflow-hidden text-left">
-									{item.title}
-								</h5>
+								
 								<p className="card-text  answer overflow-hidden text-left ">
-									{item.description}
+									{/*item.description*/}
 								</p>
 								<div className="card-foot">
 									<div className="user">
 										<p className="card-text text-left username">
 											<small className="text-muted">
-												Posted by {item.creatorName}
+												Posted by {/*item.creatorName*/}
 											</small>
 										</p>
 										<img
@@ -122,7 +121,7 @@ export default function Ques({ item }) {
 
 									<p className="card-text text-left time">
 										<small className="text-muted">
-											{item.createdAt}
+											{/*item.createdAt*/}
 										</small>
 									</p>
 								</div>
