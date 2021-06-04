@@ -29,9 +29,9 @@ function Answer() {
             <div className="mt-5">
                 <Ques item={tasks[0]} />
                 <div className="" style={{ color :"black" , fontSize : "24px"}}> 
-                    Answers ... 
+                    Answers... 
                 </div>
-                <hr style={{width : "50%", maxWidth : "650px",  border: "none",  height: "8px", background : "black"}}></hr>
+                <hr style={{width : "50%", maxWidth : "650px",  border: "none",  height: "5px", background : "black"}}></hr>
                 <Ans />
                 <Textbox />
             </div>
