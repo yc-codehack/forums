@@ -3,11 +3,10 @@ import React from "react";
 import "./Card.css";
 
 // images
-import all from "../../../assets/category/all.svg";
 
 function CategoryCard({ item }) {
 	return (
-		<div className="card__category mt-5">
+		<div className="card__category">
 			<div className="card__startLine"></div>
 			<div className="card__info">
 				<img className="card__infoImg" src={item.image} alt="" />
