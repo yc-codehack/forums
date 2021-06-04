@@ -54,7 +54,7 @@ export default function Textbox() {
                     <div className="row ">
                         <form>
                             <div className="d-flex justify-content-start">
-                                <label title="File Upload" for="file-upload-icon"><i class="fas fa-plus-square"></i></label>
+                                <label title="File Upload" for="file-upload-icon"><i class="fas fa-file-alt"></i></label>
                                 <input id="file-upload-icon" className="file-input" type="file"></input>
                                 <label title="Image Upload" for="image-upload-icon"><i class="fas fa-image"></i></label>
                                 <input id="image-upload-icon" className="image-input" type="file" onChange={fileValidation}></input>
