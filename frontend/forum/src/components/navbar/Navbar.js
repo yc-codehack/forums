@@ -1,117 +1,164 @@
-import React,{Component} from 'react'
-import axios from "axios"
-import "./navbar.css"
+import React, { useState, useEffect } from "react";
+import "./Navbar.css";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+// import decode from "jwt-decode";
 
-export default class Navbar extends Component {
+// materialUI
+import SearchIcon from "@material-ui/icons/Search";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
+import SettingsIcon from "@material-ui/icons/Settings";
+import { Avatar, Button, Typography } from "@material-ui/core";
 
+// image
+import logo from "../../assets/logo/forum_logo.png";
 
-    constructor(props){
-        super(props);
+const Navbar = () => {
+	const dispatch = useDispatch();
 
-        this.state = {
-            quesstring : ""
-        }
-    }
+	// used to redirect to different url
+	// in this case to home page after login/logout
+	const history = useHistory();
 
+	//
+	const location = useLocation();
 
-    componentDidMount(){
-        /*axios.get(`http://localhost/5000/question/list?filter=recent`)
-        .then( res => {
-            console.log( res)
-        })*/
+	// * State to keep track of if sidebar is open or close
+	// * and toggle css class accordingly to show/hide sidebar
+	const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-        fetch('http://localhost:5000/question/list?filter=recent', {
-            method: 'GET'
-        })
-        .then(
-            res => {
-                console.log( res)
-            }
-        )
-    }
+	const [isUserInfoOpen, setUserInfoOpen] = useState(false);
 
-  onHamburgerClick = () =>{
-      console.log("Hamburger clicked");
-      
-      document.querySelector(".sidebar-list").style.width = "200px";
-      document.querySelector(".item").classList.remove("deactive");
-      document.querySelector(".sidebar-list-items").classList.remove("deactive");
-  }
-    
-  onCrossClick = () =>{
-    
-    document.querySelector(".sidebar-list").style.width = "0px";
-    document.querySelector(".sidebar-list-items").classList.add("deactive");
-    document.querySelector(".item").classList.add("deactive");
-  }
+	const [user, setUser] = useState(
+		JSON.parse(localStorage.getItem("profile")) // * Getting data of user saved in local storage
+	);
 
+	useEffect(() => {
+		const token = user?.token;
 
-  onChange = (e) =>{
-    this.setState({
-        quesstring : e.target.value
-    })
-  }
+		// if (token) {
+		// 	const decodedToken = decode(token);
+		// 	if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+		// }
 
+		// JWT logic
+		setUser(JSON.parse(localStorage.getItem("profile")));
+	}, [location]);
 
-  onSubmitSearch = (e) =>{
+	const logout = () => {
+		setSidebarOpen(false);
+		dispatch({ type: "LOGOUT" });
+		history.push("/auth");
+		setUser(null);
+	};
 
-    e.preventDefault();
+	return (
+		<div className="navbar">
+			{/* LOGO */}
+			<div className="navbar__logo">
+				<img className="navbar__logoImg" src={logo} alt="forum" />
+				<div className="navbar__logoText">
+					for<span className="navbar__logoTextColor">um</span>
+				</div>
+			</div>
 
-    axios.get(`http://localhost:5000/question/search?${this.state.quesstring}=db`)
-    .then( res =>{
-        if( res.data.length > 0){
-            console.log("hurray")
-        }
+			<div
+				className="navbar__toggle"
+				onClick={() => setSidebarOpen(!isSidebarOpen)}
+			>
+				{isSidebarOpen ? (
+					<CloseIcon className="navbar__close" />
+				) : (
+					<MenuIcon className="navbar__hamburger" />
+				)}
+			</div>
 
-        else{
-            console.log("shit");
-        }
-    })
-    console.log( this.state.quesstring)
-  }
+			<div
+				className={
+					isSidebarOpen
+						? "navbar__sidebar navbar__sidebarActive"
+						: "navbar__sidebar"
+				}
+			>
+				{/* SEARCH */}
 
-    render(){
-        return (
-            
-            <div id="navigationbar">
-                
-                    <div className="second-nav">
+				<div className="navbar__search">
+					<div className="navbar__searchWrapper">
+						<SearchIcon />
+						<input placeholder="Search for Topics"></input>
+					</div>
+				</div>
+				{/* USER-INFO */}
+				<div className="navbar__userInfo">
+					{user ? (
+						<>
+							<div
+								className="navbar__userInfoProfile"
+								onClick={() => setUserInfoOpen(!isUserInfoOpen)}
+							>
+								<Avatar
+									className="navbar__userInfoProfileAvatar"
+									alt={user.result.name}
+									src={user.result.imageUrl}
+								>
+									{user.result.name.charAt(0)}
+								</Avatar>
+								<Typography
+									className="navbar__userInfoProfileName"
+									variant="h6"
+								>
+									{isSidebarOpen
+										? user.result.name
+										: user.result.name.split(" ")[0]}
+								</Typography>
+							</div>
+							<div
+								className={
+									isUserInfoOpen
+										? "navbar__userInfoCard navbar__userInfoCardActive"
+										: "navbar__userInfoCard"
+								}
+							>
+								<div className="navbar__userInfoCardEmail">
+									{user.result.email}
+								</div>
+								<div className="navbar__userInfoCardBtnWrapper">
+									<div
+										component={Link}
+										className="navbar__userInfoCardSetting"
+										onClick={() => setSidebarOpen(false)}
+									>
+										<p>Settings</p>
+										<SettingsIcon />
+									</div>
 
-                        <div className="hamburger" onClick={this.onHamburgerClick}> 
-                            <i className="fas fa-bars"></i>
-                        </div>
-                        <div className="second-logo">
-                            <a className="navbar-brand" href="#navigationbar">
-                            <div>Logo</div>
-                            </a>    
-                        </div>
-
-                        <div className="second-search">
-                            <form onSubmit={this.onSubmitSearch} action="/action_page.php">
-                                <input onChange={this.onChange}type="text" placeholder="Search.." name="search"></input>
-                                <button type="submit"><i className="fa fa-search"></i></button>
-                            </form>
-                        
-                        </div>
-                        <div className="list">
-                            <div className="second-login"> Login </div>
-                            <div className="second-signup">Sign Up</div>
-                        </div>
-                        <div className="sidebar-list">
-                            <div className="second-cross fas fa-times item" onClick={this.onCrossClick}></div>
-                            <div className="sidebar-list-items">
-                                <div className="second-home item"> Home  </div>
-                                <div className="second-topusers item"> Top Users </div>
-                                <div className="second-category item"> Category </div>
-                                <div className="second-login item"> Login </div>
-                                <div className="second-signup item">Sign Up</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-             
-
-                
-        )
-    }
-}
+									<div
+										component={Link}
+										className="navbar__userInfoCardLogout"
+										onClick={logout}
+									>
+										<p>Logout</p>
+										<ExitToAppIcon />
+									</div>
+								</div>
+							</div>
+						</>
+					) : (
+						<Button
+							className="navbar__userInfoButton"
+							component={Link}
+							to="/auth"
+							variant="contained"
+							color="#4b5ef0"
+						>
+							SingIn
+						</Button>
+					)}
+				</div>
+			</div>
+		</div>
+	);
+};
+export default Navbar;

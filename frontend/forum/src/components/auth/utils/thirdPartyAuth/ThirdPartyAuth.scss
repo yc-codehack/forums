@@ -1,0 +1,84 @@
+.thirdPartyAuth {
+	width: 95%;
+	max-width: 340px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+
+	.thirdPartyAuth__text {
+		font-size: 14px;
+		font-weight: 300;
+		text-align: center;
+		width: 100%;
+	}
+
+	.thirdPartyAuth__btn {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+
+		& > .MuiButton-root {
+			margin: 5px;
+			cursor: pointer;
+			i {
+				font-size: 16px;
+			}
+		}
+		.thirdPartyAuth__btnGoogle {
+			border-color: #4386f5;
+			i {
+				color: #4386f5;
+			}
+
+			&:hover {
+				background-color: #4386f5;
+
+				i {
+					color: whitesmoke;
+				}
+			}
+		}
+		.thirdPartyAuth__btnFacebook {
+			border-color: #4267b2;
+			i {
+				color: #4267b2;
+			}
+			&:hover {
+				background-color: #4267b2;
+
+				i {
+					color: whitesmoke;
+				}
+			}
+		}
+		.thirdPartyAuth__btnGithub {
+			border-color: #23292e;
+			i {
+				color: #23292e;
+			}
+			&:hover {
+				background-color: #23292e;
+
+				i {
+					color: whitesmoke;
+				}
+			}
+		}
+		.thirdPartyAuth__btnTwitter {
+			border-color: #54abef;
+			i {
+				color: #54abef;
+			}
+			&:hover {
+				background-color: #54abef;
+
+				i {
+					color: whitesmoke;
+				}
+			}
+		}
+	}
+}

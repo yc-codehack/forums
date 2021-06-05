@@ -1,0 +1,189 @@
+import React, { useState } from "react";
+
+import "./Auth.css";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+// image
+import logo from "../../assets/logo/forum_logo.png";
+
+// materialUi
+import { Button } from "@material-ui/core";
+
+import DivideOrLine from "../../components/utils/divideOrLine/DivideOrLine.js";
+import ThirdPartyAuth from "../../components/auth/utils/thirdPartyAuth/ThirdPartyAuth.js";
+import InputField from "../../components/auth/utils/input/Input.js";
+
+import { signin, signup } from "../../actions/auth.js";
+
+const initialFormDataState = {
+	firstName: "",
+	lastName: "",
+	email: "",
+	password: "",
+	confirmPassword: "",
+};
+
+const Auth = () => {
+	// states
+	const [isSignIn, setSignIn] = useState(true);
+
+	const [showPassword, setShowPassword] = useState(false);
+
+	const [formData, setFormData] = useState(initialFormDataState);
+
+	const dispatch = useDispatch();
+	const history = useHistory();
+
+	// function
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		if (isSignIn) {
+			dispatch(signin(formData, history));
+		} else {
+			dispatch(signup(formData, history));
+		}
+
+		console.log("component/Auth.js", formData);
+	};
+
+	const handleShowPassword = () =>
+		setShowPassword((prevShowPassword) => !prevShowPassword);
+
+	const handleSwitch = () => {
+		setSignIn((prevIsSignIn) => !prevIsSignIn);
+		setShowPassword(false);
+	};
+
+	return (
+		<div className="auth">
+			{/* Banner */}
+			<div className="auth__banner">
+				<img
+					src="https://images.unsplash.com/photo-1622676017526-4a8e99f5fdf3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+					alt=""
+				/>
+			</div>
+			{/* Login/Signup */}
+			<div className="auth__main">
+				<div className="auth__mainHeader">
+					<div className="auth__mainHeaderLogo">
+						<img
+							className="auth__mainHeaderLogoImg"
+							src={logo}
+							alt="forum"
+						/>
+						<div className="auth__mainHeaderLogoText">
+							for
+							<span className="auth__mainHeaderLogoTextColor">
+								um
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<form onSubmit={handleSubmit} className="auth__mainCredentials">
+					{/* show only is signUp */}
+					{!isSignIn && (
+						<>
+							<InputField
+								name="firstName"
+								label="First Name"
+								handleChange={handleChange}
+								autoFocus
+								type="text"
+							/>
+							<InputField
+								name="lastName"
+								label="Last Name"
+								handleChange={handleChange}
+								type="text"
+							/>
+						</>
+					)}
+
+					{/* always show */}
+					<InputField
+						name="email"
+						label="Email"
+						handleChange={handleChange}
+						type="email"
+					/>
+					<InputField
+						name="password"
+						label="Password"
+						handleChange={handleChange}
+						type={showPassword ? "text" : "password"}
+						handleShowPassword={handleShowPassword}
+					/>
+
+					{/* forgot password link */}
+					{isSignIn && (
+						<Link className="auth__mainCredentialsLink" to="/">
+							<p>forgot password ?</p>
+						</Link>
+					)}
+
+					{/* show only is signUp */}
+					{!isSignIn && (
+						<InputField
+							name="confirmPassword"
+							label="Repeat Password"
+							handleChange={handleChange}
+							type="password"
+						/>
+					)}
+
+					{/* Btn */}
+					<Button
+						type="submit"
+						variant="contained"
+						className="auth__mainCredentialsBtn"
+					>
+						{isSignIn ? "Sign In" : "SIgn Up"}
+					</Button>
+				</form>
+
+				<div className="auth__mainFooter">
+					{/* DivideLine */}
+					<DivideOrLine color="#e9e9e9" />
+
+					{/* SingIn/SignUp */}
+					{isSignIn ? (
+						<Button
+							variant="contained"
+							className="auth__mainFooterBtn"
+							onClick={handleSwitch}
+						>
+							Sign Up
+						</Button>
+					) : (
+						<Button
+							type="submit"
+							variant="contained"
+							className="auth__mainFooterBtn"
+							onClick={handleSwitch}
+						>
+							Sign In
+						</Button>
+					)}
+
+					{/* 3rd part Options */}
+					<ThirdPartyAuth />
+				</div>
+			</div>
+
+			{/* Components */}
+
+			{/* Btn */}
+		</div>
+	);
+};
+
+export default Auth;

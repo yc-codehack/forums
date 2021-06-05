@@ -1,0 +1,346 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat&family=Indie+Flower&family=Pacifico&display=swap");
+.navbar {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 1500px;
+  height: 8vh;
+  min-height: 64px;
+  background-color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.navbar .navbar__logo {
+  -webkit-box-flex: 0.3;
+      -ms-flex: 0.3;
+          flex: 0.3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.navbar .navbar__logo .navbar__logoImg {
+  width: 46px;
+  height: 46px;
+}
+
+.navbar .navbar__logo .navbar__logoText {
+  color: #20242a;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-family: "Pacifico";
+}
+
+.navbar .navbar__logo .navbar__logoText > span {
+  color: #469ae2;
+}
+
+.navbar .navbar__toggle > .MuiSvgIcon-root {
+  display: none;
+}
+
+.navbar .navbar__sidebar {
+  -webkit-box-flex: 0.7;
+      -ms-flex: 0.7;
+          flex: 0.7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.navbar .navbar__sidebar .navbar__search {
+  -webkit-box-flex: 0.6;
+      -ms-flex: 0.6;
+          flex: 0.6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper {
+  max-width: 550px;
+  width: 80%;
+  background-color: #f3f3f3;
+  border-radius: 25px;
+}
+
+.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper > .MuiSvgIcon-root {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper > input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 90%;
+  font-size: 14px;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo {
+  -webkit-box-flex: 0.3;
+      -ms-flex: 0.3;
+          flex: 0.3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoProfile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoProfile .navbar__userInfoProfileAvatar {
+  height: "36px";
+  width: "36px";
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoProfile .navbar__userInfoProfileName {
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 24px;
+  font-family: "Caveat";
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard {
+  display: none;
+  position: absolute;
+  top: 10vh;
+  right: 5%;
+  background-color: #20242a;
+  color: whitesmoke;
+  width: 220px;
+  border-radius: 7px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 5px;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardEmail {
+  margin: 5px auto;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardLogout,
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardSetting {
+  margin-top: 10px;
+  padding: 5px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #2a2d31;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardLogout > .MuiSvgIcon-root,
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardSetting > .MuiSvgIcon-root {
+  margin-left: 10px;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardLogout p,
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardSetting p {
+  padding: 0;
+  margin: 0;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoButton {
+  font-size: 12px;
+  color: white;
+  background-color: #469ae2;
+}
+
+.navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCardActive {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media only screen and (max-width: 1012px) {
+  .navbar .navbar__sidebar .navbar__search .navbar__searchWrapper > input {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .navbar {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    position: relative;
+  }
+  .navbar .navbar__logo {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
+  .navbar .navbar__toggle {
+    cursor: pointer;
+  }
+  .navbar .navbar__toggle > .MuiSvgIcon-root {
+    display: block;
+  }
+  .navbar .navbar__sidebar {
+    z-index: 100;
+    position: absolute;
+    background-color: white;
+    top: 10vh;
+    right: 0;
+    width: 90%;
+    height: 92vh;
+    right: -100%;
+    -webkit-transition: -webkit-transform 1000ms ease-in;
+    transition: -webkit-transform 1000ms ease-in;
+    transition: transform 1000ms ease-in;
+    transition: transform 1000ms ease-in, -webkit-transform 1000ms ease-in;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .navbar .navbar__sidebar .navbar__search {
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    top: 30vh;
+    width: 100%;
+  }
+  .navbar .navbar__sidebar .navbar__userInfo {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    height: 25vh;
+    border-bottom: solid #333333 1px;
+  }
+  .navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoProfile {
+    width: 100%;
+    position: absolute;
+    top: 5vh;
+    left: 10px;
+  }
+  .navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard {
+    background: none;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    top: 8vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: #20242a;
+  }
+  .navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardEmail {
+    background-color: whitesmoke;
+    width: 80%;
+    max-width: 220px;
+    text-align: center;
+    border-radius: 15px;
+    margin-top: 5px;
+  }
+  .navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardBtnWrapper {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardBtnWrapper .navbar__userInfoCardSetting,
+  .navbar .navbar__sidebar .navbar__userInfo .navbar__userInfoCard .navbar__userInfoCardBtnWrapper .navbar__userInfoCardLogout {
+    max-width: 120px;
+    color: white;
+  }
+  .navbar .navbar__sidebarActive {
+    right: 0;
+  }
+}
+/*# sourceMappingURL=Navbar.css.map */

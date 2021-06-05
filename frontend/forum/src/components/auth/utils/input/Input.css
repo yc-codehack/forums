@@ -1,0 +1,17 @@
+.input {
+  margin: 0.5rem 0;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+.input > .MuiGrid-root {
+  width: 70%;
+  max-width: 300px;
+}
+
+.input > .MuiGrid-root > .MuiTextField-root {
+  outline: none;
+  border: none;
+}
+/*# sourceMappingURL=Input.css.map */
