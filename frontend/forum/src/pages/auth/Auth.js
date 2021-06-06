@@ -44,6 +44,7 @@ const Auth = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
+		console.log(isSignIn);
 		if (isSignIn) {
 			dispatch(signin(formData, history));
 		} else {
@@ -57,6 +58,7 @@ const Auth = () => {
 		setShowPassword((prevShowPassword) => !prevShowPassword);
 
 	const handleSwitch = () => {
+		setFormData(initialFormDataState);
 		setSignIn((prevIsSignIn) => !prevIsSignIn);
 		setShowPassword(false);
 	};
@@ -118,6 +120,7 @@ const Auth = () => {
 					<InputField
 						name="password"
 						label="Password"
+						min={8}
 						handleChange={handleChange}
 						type={showPassword ? "text" : "password"}
 						handleShowPassword={handleShowPassword}

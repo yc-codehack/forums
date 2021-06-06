@@ -11,11 +11,12 @@ import Auth from "./pages/auth/Auth.js";
 function App() {
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		// dispatch(getRecent());
-		// dispatch(questionLike());
-		// dispatch(getCategory());
-	}, [dispatch]);
+	// useEffect(() => {
+	// 	// dispatch(getRecent());
+	// 	// dispatch(questionLike());
+	// 	// dispatch(getCategory());
+	// dispatch()
+	// }, [dispatch]);
 
 	return (
 		<div className="app">

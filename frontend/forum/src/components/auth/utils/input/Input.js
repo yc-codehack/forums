@@ -15,6 +15,7 @@ const Input = ({
 	autoFocus,
 	type,
 	handleShowPassword,
+	min,
 }) => {
 	return (
 		<div className="input">
@@ -29,6 +30,7 @@ const Input = ({
 					label={label}
 					autoFocus={autoFocus}
 					type={type}
+					minLength={min}
 					InputProps={
 						name === "password"
 							? {
