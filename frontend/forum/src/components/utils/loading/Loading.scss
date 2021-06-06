@@ -1,0 +1,30 @@
+.loading {
+	z-index: 10;
+	// position: absolute;
+	// display: flex;
+	// flex-direction: column;
+	// align-items: center;
+	// justify-content: center;
+	// place-items: center;
+	background-color: #242424;
+	opacity: 0.9;
+
+	// width: 40%;
+	// height: 100%;
+}
+.loading__wrapper {
+	color: whitesmoke;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.MuiCircularProgress-root {
+		color: #469ae2;
+	}
+
+	h4 {
+		margin: 1rem auto;
+		font-size: 20px;
+		font-family: "Caveat";
+	}
+}

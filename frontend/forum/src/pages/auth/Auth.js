@@ -14,6 +14,7 @@ import { Button } from "@material-ui/core";
 import DivideOrLine from "../../components/utils/divideOrLine/DivideOrLine.js";
 import ThirdPartyAuth from "../../components/auth/utils/thirdPartyAuth/ThirdPartyAuth.js";
 import InputField from "../../components/auth/utils/input/Input.js";
+import Loading from "../../components/utils/loading/Loading.js";
 
 import { signin, signup } from "../../actions/auth.js";
 
@@ -33,7 +34,10 @@ const Auth = () => {
 
 	const [formData, setFormData] = useState(initialFormDataState);
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	const dispatch = useDispatch();
+	// to redirect page to main after auth
 	const history = useHistory();
 
 	// function
@@ -43,6 +47,8 @@ const Auth = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		setIsLoading(true);
 
 		console.log(isSignIn);
 		if (isSignIn) {
@@ -74,6 +80,17 @@ const Auth = () => {
 			</div>
 			{/* Login/Signup */}
 			<div className="auth__main">
+				{isLoading && (
+					<Loading
+						text={
+							isSignIn
+								? "Please hold on signing you in..."
+								: "Creating your account"
+						}
+						flex={0.4}
+					/>
+				)}
+
 				<div className="auth__mainHeader">
 					<div className="auth__mainHeaderLogo">
 						<img
