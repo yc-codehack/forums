@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "./ques.css";
+import "./Card.css";
 import avatar from "../../images/avatar.png";
 
 import { useDispatch } from "react-redux";
 import { questionLike, questionDislike } from "../../../actions/questions.js";
 
-export default function Ques({ item }) {
+// material ui
+import { Avatar } from "@material-ui/core";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+
+const Card = ({ item }) => {
 	/* 
         ? Under review 
     */
@@ -47,7 +52,9 @@ export default function Ques({ item }) {
 	// 	}
 	// }
 
-	const [question, setQuestion] = useState({ ...item });
+	const [question, setQuestion] = useState({
+		item,
+	});
 
 	const dispatch = useDispatch();
 
@@ -70,29 +77,35 @@ export default function Ques({ item }) {
 			>
 				<div className="card mb-3 ques-card">
 					<div className="row g-0 ">
-						<div className="col-xs ml-5 mr-2 mt-2 vote-col">
+						<div className="col-xs ml-5 mr-2 mt-2 vote-col card__left">
 							<div className="row-md-1 arrow ">
-								<i
+								{/* <i
 									className="fa fa-arrow-up"
 									id="up-arrow"
 									aria-hidden="true"
 									onClick={() => likeHandler(item._id)}
 									// onClick={onClickUpArrow}
-								></i>
+								></i> */}
+								<ArrowUpwardIcon
+									className="upArrow"
+									onClick={() => likeHandler(item._id)}
+								/>
 							</div>
-							<div className="row-md-1 ">
-								{question.likeCount}
-							</div>
+							<div className="row-md-1 ">{item.likeCount}</div>
 							<div className="row-md-1 arrow">
-								<i
+								{/* <i
 									className="fa fa-arrow-down"
 									aria-hidden="true"
 									id="down-arrow"
 									onClick={() => dislikeHandler(item._id)}
-								></i>
+								></i> */}
+								<ArrowDownwardIcon
+									className="downArrow"
+									onClick={() => dislikeHandler(item._id)}
+								/>
 							</div>
 						</div>
-						<div className="col-sm text-col">
+						<div className="col-sm text-col card__right">
 							<div className="card-body overflow-hidden ">
 								<h5 className="card-title question overflow-hidden text-left">
 									{item.title}
@@ -107,11 +120,15 @@ export default function Ques({ item }) {
 												Posted by {item.creatorName}
 											</small>
 										</p>
-										<img
-											className=" avatar "
-											src={avatar}
-											alt=""
-										/>
+
+										<div className="card__rightFootAvatar">
+											<Avatar
+												src={item.creatorImage}
+												alt={item.creatorName}
+											>
+												{item.creatorName.charAt(0)}
+											</Avatar>
+										</div>
 									</div>
 
 									<p className="card-text text-left time">
@@ -127,4 +144,6 @@ export default function Ques({ item }) {
 			</div>
 		</div>
 	);
-}
+};
+
+export default Card;

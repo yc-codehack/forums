@@ -5,6 +5,7 @@ export default (questions = [], action) => {
 			return action.payload;
 
 		case "LIKE":
+			console.log("reducers/question/LIKE", action);
 			return questions.map((question) =>
 				question._id === action.payload._id ? action.payload : question
 			);
