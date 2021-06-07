@@ -95,35 +95,41 @@ export const getQuestions = async (req, res) => {
 				createdAt: -1,
 			});
 
-			// console.log(profile);
-
-			// console.log(questionsList.createdAt);
-
 			var i = 0;
-			var questionsIs = questionsList.map((question) => {
-				const currentTime = moment(
-					new Date().toISOString(),
-					"YYYY-MM-DD HH:mm:ss"
-				);
-				const createdAt = moment(
-					question.createdAt,
-					"YYYY-MM-DD HH:mm:ss"
-				);
-				const tempTime = moment.duration(currentTime.diff(createdAt));
-				const newTimeDuration = convertTimeToString(tempTime);
+			var questionsIs = await Promise.all(
+				questionsList.map(async (question) => {
+					const currentTime = moment(
+						new Date().toISOString(),
+						"YYYY-MM-DD HH:mm:ss"
+					);
+					const createdAt = moment(
+						question.createdAt,
+						"YYYY-MM-DD HH:mm:ss"
+					);
+					const tempTime = moment.duration(
+						currentTime.diff(createdAt)
+					);
+					const newTimeDuration = convertTimeToString(tempTime);
 
-				var properties = {
-					_id: question._id,
-					title: question.title,
-					description: question.description,
-					createdAt: newTimeDuration,
-					likeCount: question.likeCount,
-					dislikeCount: question.dislikeCount,
-					creatorName: "Static",
-				};
-
-				return properties;
-			});
+					const userInfo = await UserProfile.findOne({
+						accountId: question.creator,
+					});
+					const tempName = userInfo ? userInfo.name : "h";
+					console.log("userInfo", userInfo);
+					const properties = {
+						_id: question._id,
+						title: question.title,
+						description: question.description,
+						createdAt: newTimeDuration,
+						likeCount: question.likeCount,
+						dislikeCount: question.dislikeCount,
+						creatorName: userInfo ? userInfo.name : "h",
+					};
+					// console.log("properties", properties);
+					return properties;
+				})
+			);
+			return res.status(200).json(questionsIs);
 		}
 		// filter acc to ( category and user ) and then sort based on (likes and date)
 		else {
@@ -163,8 +169,7 @@ export const getQuestions = async (req, res) => {
 			return res.status(400).json({ message: "No data found!!!" });
 		}
 
-		// console.log(postQuestions);
-		return res.status(200).json(questionsIs);
+		// console.log(questionsIs);
 	} catch (error) {
 		return res.status(404).json({ message: error.message });
 	}
@@ -220,5 +225,5 @@ export const searchQuestions = async (req, res) => {
 const getUserInfo = async (creatorId) => {
 	const info = await UserProfile.find({ accountId: creatorId });
 	// console.log(info);
-	return info;
+	return info.name;
 };

@@ -55,6 +55,7 @@ const Card = ({ item }) => {
 	const [question, setQuestion] = useState({
 		item,
 	});
+	console.log("item=>", item);
 
 	const dispatch = useDispatch();
 
@@ -69,11 +70,12 @@ const Card = ({ item }) => {
 		dispatch(questionDislike({ type: "question", quesId: id }));
 	};
 
+	console.log("question=>", question);
 	return (
 		<div>
 			<div
 				className="container-sm d-flex justify-content-center "
-				key={item._id}
+				key={question.item._id}
 			>
 				<div className="card mb-3 ques-card">
 					<div className="row g-0 ">
@@ -88,10 +90,14 @@ const Card = ({ item }) => {
 								></i> */}
 								<ArrowUpwardIcon
 									className="upArrow"
-									onClick={() => likeHandler(item._id)}
+									onClick={() =>
+										likeHandler(question.item._id)
+									}
 								/>
 							</div>
-							<div className="row-md-1 ">{item.likeCount}</div>
+							<div className="row-md-1 ">
+								{question.item.likeCount}
+							</div>
 							<div className="row-md-1 arrow">
 								{/* <i
 									className="fa fa-arrow-down"
@@ -101,39 +107,48 @@ const Card = ({ item }) => {
 								></i> */}
 								<ArrowDownwardIcon
 									className="downArrow"
-									onClick={() => dislikeHandler(item._id)}
+									onClick={() =>
+										dislikeHandler(question.item._id)
+									}
 								/>
 							</div>
 						</div>
 						<div className="col-sm text-col card__right">
 							<div className="card-body overflow-hidden ">
 								<h5 className="card-title question overflow-hidden text-left">
-									{item.title}
+									{question.item.title}
 								</h5>
 								<p className="card-text  answer overflow-hidden text-left ">
-									{item.description}
+									{question.item.description}
 								</p>
 								<div className="card-foot">
 									<div className="user">
 										<p className="card-text text-left username">
 											<small className="text-muted">
-												Posted by {item.creatorName}
+												Posted by{" "}
+												{question.item.creatorName
+													? question.item.creatorName
+													: "H"}
 											</small>
 										</p>
 
 										<div className="card__rightFootAvatar">
 											<Avatar
-												src={item.creatorImage}
-												alt={item.creatorName}
+												src={question.item.creatorImage}
+												alt={question.item.creatorName}
 											>
-												{item.creatorName.charAt(0)}
+												{question.item.creatorName
+													? question.item.creatorName.charAt(
+															0
+													  )
+													: "H"}
 											</Avatar>
 										</div>
 									</div>
 
 									<p className="card-text text-left time">
 										<small className="text-muted">
-											{item.createdAt}
+											{question.item.createdAt}
 										</small>
 									</p>
 								</div>

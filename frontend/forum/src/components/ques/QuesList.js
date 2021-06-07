@@ -23,9 +23,7 @@ const QuesList = ({ filter, sort }) => {
 			{!questions.length ? (
 				<CircularProgress />
 			) : (
-				questions.map((question) => (
-					<Card key={question._id} item={question} />
-				))
+				questions.map((item) => <Card key={item._id} item={item} />)
 			)}
 		</div>
 	);
