@@ -59,9 +59,23 @@
     padding-top: 0px;
 }
 
+.title-box{
+    display: flex;
+    flex-direction: row;
+}
+
+.delete-icon{
+    margin-left: auto;
+}
+
 @media (max-width : 768px) {
     .ques-card{
         width: 540px;
+    }
+
+    .title-box{
+  
+        width: 380px;
     }
 }
 
@@ -78,50 +92,118 @@
 
     .text-col{
         font-size: 14px;
-        width: 400px;
+        width: 420px !important;
     }
 
     .ques-card{
-        width: 800px;
+        width: 500px !important;
+    }
+
+    .title-box{
+ 
+        width: 370px;
     }
 }
 
 @media (max-width:540px){
     .ques-card{
-        width: 500px;
+        width: 400px !important;
     }
+
+    .text-col{
+        width: 320px !important;
+    }
+    .title-box{
+   
+        width: 270px;
+    }
+
+    .question{
+        font-size: 15px;
+    }
+
+    .answer{
+        font-size: 10px;
+    }
+   
 }
 
 
 @media (max-width:472px){
     .text-col{
-        width: 260px;
+        width: 320px !important;
+      
+        
+        height: 150px;
+    }
+
+    .question{
+        font-size: 12px;
+  
+        width: 140px;
+    }
+
+    .title-box{
+        width: 269px ;
+    }
+
+    .answer{
+        font-size: 8px !important;
+      
+        width: 140px;
+        height: 40px !important;
     }
     .vote-col{
         width: 14px;
-      
+       
     }
 
     .card-foot{
-        flex-direction: column;
+        display: flex;
+        flex-direction: row !important;
+        font-size: 8px;
+    
+        height: 15px;
+        padding-bottom: 15px !important;
+        justify-content: center;
+        align-items: center;
+        width: 270px;
     }
 
     .time{
-        margin-right: auto;
-        margin-left: 0px;
+        margin-right: auto !important;
+        
+        justify-content: flex-end;
+    }
+
+    .user{
+        flex: 1 !important;
+        margin-top: 15px;
+        
     }
 
     .ques-card{
-        width: 335px;
+        width: 300px;
+        height: 150px;
     }
 }
 
-@media (max-width:320px){
+@media ( max-width : 425px){
+
+
     .text-col{
-        width: 230px;
+        width: 210px !important;
+    }
+    .ques-card{
+        width: 295px !important;
     }
 
-    .ques-card{
-        width: 290px !important;
+    .card-foot{
+        width: 165px;
+    }
+
+    .title-box{
+        width: 160px;
     }
 }
+

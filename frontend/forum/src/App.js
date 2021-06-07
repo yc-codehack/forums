@@ -56,7 +56,7 @@ function App() {
 			
 			
 
-			<Answer />
+			<Home />
 		</div>
 	);
 }

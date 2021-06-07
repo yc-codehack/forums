@@ -100,9 +100,12 @@ export default function Ques({ item }) {
 						</div>
 						<div className="col-sm text-col">
 							<div className="card-body overflow-hidden ">
+								<div className="title-box">
 								<h5 className="card-title question overflow-hidden text-left">
 									{item.title}
 								</h5>
+								<i class="fas fa-trash-alt  delete-icon"></i>
+								</div>
 								<p className="card-text  answer overflow-hidden text-left ">
 									{item.description}
 								</p>
