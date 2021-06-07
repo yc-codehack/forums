@@ -68,6 +68,25 @@
     margin-left: auto;
 }
 
+
+.popup{
+    position:absolute;
+    background-color: white;
+    opacity: 1;
+    z-index: 12;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    display: none;
+    font-size: 12px;
+    text-align: center;
+}
+
+.active{
+    display: block;
+}
+
 @media (max-width : 768px) {
     .ques-card{
         width: 540px;

@@ -62,12 +62,61 @@ export default function Ques({ item }) {
 		dispatch(questionDislike({ type: "question", quesId: id }));
 	};
 
+	const getPostion = (el) =>{
+		console.log(el)
+
+	
+		var xPos = 0;
+		var yPos = 0;
+	   
+		while (el) {
+		  if (el.tagName == "BODY") {
+			// deal with browser quirks with body/window/document and page scroll
+			var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+			var yScroll = el.scrollTop || document.documentElement.scrollTop;
+	   
+			xPos += (el.offsetLeft - xScroll + el.clientLeft);
+			yPos += (el.offsetTop - yScroll + el.clientTop);
+			console.log("if")
+		  } else {
+			// for all other non-BODY elements
+			xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+			yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+			console.log("else")
+
+		  }
+	   
+		  el = el.offsetParent;
+		}
+		return {
+		  x: xPos,
+		  y: yPos
+		};
+
+	}
+
+
+	const popUpHandler = (e) =>{
+		const pos = getPostion(e.target);
+		console.log( pos.x , pos.y)
+		document.querySelector(".popup").style.top = `${pos.y - 8}px`;
+		document.querySelector(".popup").style.left = `${pos.x + 20}px`;
+		console.log( `Top:- ${document.querySelector(".popup").style.top}`)
+		console.log( `Left:- ${document.querySelector(".popup").style.left}`)
+		document.querySelector(".popup").classList.add("active")
+
+		setTimeout(function(){ document.querySelector(".popup").classList.remove("active"); }, 1500);
+	}
+
 	return (
 		<div>
 			<div
 				className="container-sm d-flex justify-content-center "
 				key={item._id}
 			>
+				<div className="card popup">
+							<p>Please Login!</p>
+						</div>
 				<div className="card mb-3 ques-card">
 					<div className="row g-0 ">
 						<div className="col-xs ml-5 mr-2 mt-2 vote-col">
@@ -76,8 +125,9 @@ export default function Ques({ item }) {
 									className="fa fa-arrow-up"
 									id="up-arrow"
 									aria-hidden="true"
-									onClick={() => likeHandler(item._id)}
+									//onClick={() => likeHandler(item._id)}
 									// onClick={onClickUpArrow}
+									onClick={popUpHandler}
 								></i>
 							</div>
 							<div className="row-md-1 ">
@@ -88,12 +138,15 @@ export default function Ques({ item }) {
 									className="fa fa-arrow-down"
 									aria-hidden="true"
 									id="down-arrow"
-									onClick={() => dislikeHandler(item._id)}
+									//onClick={() => dislikeHandler(item._id)}
+									onClick={popUpHandler}
 								></i>
 							</div>
 							
 						</div>
 
+
+						
 
 						<div className="col-xs mt-3 mb-3">
 							<div className="ques-startline "  ></div>
