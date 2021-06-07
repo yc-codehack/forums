@@ -24,7 +24,7 @@ export const createAnswer = async (req, res) => {
 		// incrementing answerCount of user
 		await Profile.updateOne(
 			{ accountId: req.userId },
-			{ $inc: { answerCount: 1 } }
+			{ $inc: { answerCount: 1, score: 1 } }
 		);
 
 		// incrementing the quesCount of categoryInfo

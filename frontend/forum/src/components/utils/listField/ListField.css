@@ -1,0 +1,39 @@
+.listField {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: center;
+          flex-direction: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin: 0.5rem;
+  padding: 0.1rem;
+  width: 100%;
+}
+
+.listField .listField__avatar {
+  -webkit-box-flex: 0.3;
+      -ms-flex: 0.3;
+          flex: 0.3;
+  max-width: 20px;
+  max-height: 20px;
+  background-color: #8bb2bf;
+}
+
+.listField .listField__name {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.listField .listField__score {
+  -webkit-box-flex: 0.3;
+      -ms-flex: 0.3;
+          flex: 0.3;
+}
+/*# sourceMappingURL=ListField.css.map */

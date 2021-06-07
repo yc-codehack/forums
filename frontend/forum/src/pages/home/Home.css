@@ -13,9 +13,9 @@
 
 .home .home__main .home__leftSide {
   margin: 0.5rem;
-  -webkit-box-flex: 0.25;
-      -ms-flex: 0.25;
-          flex: 0.25;
+  -webkit-box-flex: 0.15;
+      -ms-flex: 0.15;
+          flex: 0.15;
   height: 100vh;
 }
 
@@ -53,10 +53,11 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  height: 100vh;
+  height: 96vh;
 }
 
 .home .home__main .home__rightSide .home__rightSideBox1 {
+  margin: 0.5rem;
   -webkit-box-flex: 0.2;
       -ms-flex: 0.2;
           flex: 0.2;
@@ -98,5 +99,13 @@
       -ms-flex: 0.4;
           flex: 0.4;
   width: 100%;
+  margin: 0.5rem;
+}
+
+@media only screen and (max-width: 1000px) {
+  .home .home__main .home__leftSide,
+  .home .home__main .home__rightSide {
+    display: none;
+  }
 }
 /*# sourceMappingURL=Home.css.map */

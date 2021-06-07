@@ -25,7 +25,7 @@ export const createQuestion = async (req, res) => {
 		// incrementing questionCount of user
 		await UserProfile.updateOne(
 			{ accountId: req.userId },
-			{ $inc: { questionCount: 1 } }
+			{ $inc: { questionCount: 1, score: 1 } }
 		);
 
 		// incrementing the quesCount of categoryInfo

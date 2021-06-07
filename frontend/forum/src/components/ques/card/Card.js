@@ -55,7 +55,7 @@ const Card = ({ item }) => {
 	const [question, setQuestion] = useState({
 		item,
 	});
-	console.log("item=>", item);
+	// console.log("item=>", item);
 
 	const dispatch = useDispatch();
 
@@ -70,7 +70,7 @@ const Card = ({ item }) => {
 		dispatch(questionDislike({ type: "question", quesId: id }));
 	};
 
-	console.log("question=>", question);
+	// console.log("question=>", question);
 	return (
 		<div>
 			<div

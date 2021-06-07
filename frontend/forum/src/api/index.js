@@ -30,3 +30,7 @@ export const dislikeQuestion = (data) => {
 
 // category list {category page}
 export const categoryList = () => API.get("/extra/category");
+
+// top list
+export const topUserList = () => API.get("/extra/topUser");
+export const topCategoryList = () => API.get("/extra/topCategory");

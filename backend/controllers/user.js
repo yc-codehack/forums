@@ -10,7 +10,7 @@ export const signin = async (req, res) => {
 	// async block
 	try {
 		// finding user detail in db
-		const existingUser = await User.findOne({ email });
+		var existingUser = await User.findOne({ email });
 
 		// user does not exist
 		if (!existingUser) {
@@ -36,7 +36,22 @@ export const signin = async (req, res) => {
 			{ expiresIn: "7d" } // REVIEW change the token expire time
 		);
 
-		return res.status(200).json({ result: existingUser, token });
+		const imageUrl = await UserProfile.findOne({
+			accountId: existingUser._id,
+		});
+
+		const userData = {
+			email: existingUser.email,
+			name: existingUser.name,
+			_id: existingUser._id,
+			imageUrl: imageUrl
+				? imageUrl.image
+					? imageUrl.image
+					: null
+				: null,
+		};
+
+		return res.status(200).json({ result: userData, token });
 	} catch (error) {
 		return res.status(500).json({ message: "Something went wrong" });
 	}
@@ -76,6 +91,21 @@ export const signup = async (req, res) => {
 			"test", // REVIEW move the secret text to env file
 			{ expiresIn: "7d" } // REVIEW change the token expire time
 		);
+
+		const imageUrl = await UserProfile.findOne({
+			accountId: result._id,
+		});
+
+		const userData = {
+			email: result.email,
+			name: result.name,
+			_id: result._id,
+			imageUrl: imageUrl
+				? imageUrl.image
+					? imageUrl.image
+					: null
+				: null,
+		};
 
 		return res.status("200").json({ result: result, token });
 	} catch (error) {

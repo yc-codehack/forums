@@ -7,7 +7,7 @@
 
 		.home__leftSide {
 			margin: 0.5rem;
-			flex: 0.25;
+			flex: 0.15;
 			height: 100vh;
 			// background-color: blueviolet;
 		}
@@ -26,10 +26,11 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			height: 100vh;
+			height: 96vh;
 			// background-color: cadetblue;
 
 			.home__rightSideBox1 {
+				margin: 0.5rem;
 				flex: 0.2;
 				display: grid;
 				place-items: center;
@@ -58,6 +59,7 @@
 			.home__rightSideBox3 {
 				flex: 0.4;
 				width: 100%;
+				margin: 0.5rem;
 			}
 
 			.home__rightSideBox2 {
@@ -70,4 +72,13 @@
 	}
 }
 
-// @media only screen and (max-width: );
+@media only screen and (max-width: 1000px) {
+	.home {
+		.home__main {
+			.home__leftSide,
+			.home__rightSide {
+				display: none;
+			}
+		}
+	}
+}

@@ -14,7 +14,6 @@ function App() {
 						<Home />
 					</Route>
 					<Route path="/categoryList">
-						{console.log("/categoryList")}
 						<Home filter="category" />
 					</Route>
 					<Route path="/auth">
