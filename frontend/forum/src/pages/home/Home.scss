@@ -1,0 +1,73 @@
+.home {
+	.home__main {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		justify-content: space-around;
+
+		.home__leftSide {
+			margin: 0.5rem;
+			flex: 0.25;
+			height: 100vh;
+			// background-color: blueviolet;
+		}
+		.home__middleSide {
+			margin: 0.5rem;
+			flex: 0.75;
+			// background-color: brown;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.home__rightSide {
+			margin: 0.5rem;
+			flex: 0.25;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			// background-color: cadetblue;
+
+			.home__rightSideBox1 {
+				flex: 0.2;
+				display: grid;
+				place-items: center;
+				// background-color: red;
+				width: 100%;
+				.home__rightSideBtn {
+					background-color: #469ae2;
+					border-radius: 5px;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					place-items: center;
+					color: white;
+					font-size: 10px;
+					min-width: 150px;
+					outline: none;
+					border: none;
+					.MuiSvgIcon-root {
+						width: 16px;
+						height: 16px;
+					}
+				}
+			}
+
+			.home__rightSideBox2,
+			.home__rightSideBox3 {
+				flex: 0.4;
+				width: 100%;
+			}
+
+			.home__rightSideBox2 {
+				// background-color: rosybrown;
+			}
+			.home__rightSideBox3 {
+				// background-color: royalblue;
+			}
+		}
+	}
+}
+
+// @media only screen and (max-width: );

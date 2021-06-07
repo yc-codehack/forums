@@ -1,7 +1,8 @@
 .card__category {
+  margin: 0.5rem auto;
   border: 1ps solid black;
   width: 90%;
-  max-width: 800px;
+  max-width: 700px;
   height: 200px;
   padding: 2px 1rem 1rem 1rem;
   display: -webkit-box;
@@ -14,6 +15,7 @@
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   overflow: hidden;
   background-color: white;
+  cursor: pointer;
 }
 
 .card__category .card__startLine {
