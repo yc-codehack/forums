@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ques.css";
 import avatar from "../../images/avatar.png";
-
+import iziToast from "izitoast"
 import { useDispatch } from "react-redux";
 import { questionLike, questionDislike } from "../../../actions/questions.js";
 
@@ -97,7 +97,7 @@ export default function Ques({ item }) {
 
 
 	const popUpHandler = (e) =>{
-		const pos = getPostion(e.target);
+		/*const pos = getPostion(e.target);
 		console.log( pos.x , pos.y)
 		document.querySelector(".popup").style.top = `${pos.y - 8}px`;
 		document.querySelector(".popup").style.left = `${pos.x + 20}px`;
@@ -105,7 +105,27 @@ export default function Ques({ item }) {
 		console.log( `Left:- ${document.querySelector(".popup").style.left}`)
 		document.querySelector(".popup").classList.add("active")
 
-		setTimeout(function(){ document.querySelector(".popup").classList.remove("active"); }, 1500);
+		setTimeout(function(){ document.querySelector(".popup").classList.remove("active"); }, 1000);*/
+
+		iziToast.show({
+			theme: 'dark',
+			color : "#FF6666",
+			title: 'You are not logged in!',
+			message: '',
+			maxWidth: '200px',
+			position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
+			timeout: 2000,
+			closeOnClick: true,
+			pauseOnHover: false,
+			progressBar : false,
+			close : false,
+			onOpening: function(instance, toast){
+				console.info('callback abriu!');
+			},
+			onClosing: function(instance, toast, closedBy){
+				console.info('closedBy: ' + closedBy); // tells if it was closed by 'drag' or 'button'
+			}
+		});
 	}
 
 	return (
