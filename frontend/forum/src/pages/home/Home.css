@@ -106,6 +106,10 @@
   margin: 0.5rem;
 }
 
+.home .home__main .home__rightSide .home__rightSideBox3 {
+  text-decoration: none;
+}
+
 @media only screen and (max-width: 1000px) {
   .home .home__main .home__leftSide,
   .home .home__main .home__rightSide {

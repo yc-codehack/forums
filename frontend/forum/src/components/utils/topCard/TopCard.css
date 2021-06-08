@@ -7,6 +7,9 @@
 
 .topUserCard .topUserCard__heading {
   font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000000;
 }
 
 .topUserCard .topUserCard__top5,

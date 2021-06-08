@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./Home.css";
+import { Link } from "react-router-dom";
 
 // components
 import Navbar from "../../components/navbar/Navbar.js";

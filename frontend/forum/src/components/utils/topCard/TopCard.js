@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListField from "../listField/ListField";
+import { Link } from "react-router-dom";
 
 import "./TopCard.css";
 
@@ -33,7 +34,15 @@ function TopUserCard({ type }) {
 			{!topUserInfo.length && !topCategoryInfo.length ? null : (
 				<div className="topUserCard">
 					{/* Heading */}
-					<div className="topUserCard__heading">Top {type}</div>
+					{type === "Category" ? (
+						<Link to="/categoryList">
+							<div className="topUserCard__heading">
+								Top {type}
+							</div>
+						</Link>
+					) : (
+						<div className="topUserCard__heading">Top {type}</div>
+					)}
 					{/* Top 5 */}
 					<div className="topUserCard__top5">
 						{type === "User"
