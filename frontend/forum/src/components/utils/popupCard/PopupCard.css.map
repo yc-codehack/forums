@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,GAAG,CAAC;EACH,SAAS,EAAE,KAAK;EAChB,UAAU,EAAE,KAAK;CACjB",
+    "sources": [
+        "PopupCard.scss"
+    ],
+    "names": [],
+    "file": "PopupCard.css"
+}

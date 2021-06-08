@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Card.css";
 import avatar from "../../images/avatar.png";
 import { useDispatch } from "react-redux";
@@ -9,6 +10,18 @@ import { Avatar, Popover, Typography } from "@material-ui/core";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import PopupCard from "../../utils/popupCard/PopupCard";
+// maertial UI
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from "@material-ui/core";
+
+import notLogedIn from "../../../assets/popups/notLogedIn.png";
 
 export default function Ques({ item }) {
 	const [user, setUser] = useState(
@@ -73,10 +86,18 @@ export default function Ques({ item }) {
 		}, 500);
 	};
 
-	const signinPopup = () => {};
-
 	const openLike = Boolean(anchorElLike);
 	const openDislike = Boolean(anchorElDislike);
+
+	const [isCardOpen, setIsCardOpen] = useState(false);
+
+	const handlePopupOpen = () => {
+		setIsCardOpen(true);
+	};
+
+	const handlePopupClose = () => {
+		setIsCardOpen(false);
+	};
 
 	return (
 		<div>
@@ -95,7 +116,7 @@ export default function Ques({ item }) {
 								onClick={
 									user
 										? () => likeHandler(item._id)
-										: () => signinPopup()
+										: () => handlePopupOpen()
 								}
 								onMouseEnter={handlePopoverOpenLike}
 								onMouseLeave={handlePopoverCloseLike}
@@ -142,7 +163,7 @@ export default function Ques({ item }) {
 								onClick={
 									user
 										? () => dislikeHandler(item._id)
-										: () => signinPopup()
+										: () => handlePopupOpen()
 								}
 								onMouseEnter={handlePopoverOpenDislike}
 								onMouseLeave={handlePopoverCloseDislike}
@@ -229,6 +250,36 @@ export default function Ques({ item }) {
 					</div>
 				</div>
 			</div>
+			<Dialog
+				open={isCardOpen}
+				onClose={handlePopupClose}
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+			>
+				<DialogTitle id="alert-dialog-title">
+					{"You are not signed in"}
+				</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-description">
+						<img src={notLogedIn} alt="" />
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handlePopupClose} color="primary">
+						Close
+					</Button>
+					<Button
+						color="primary"
+						// onClick={handlePopupClose}
+						variant="contained"
+						autoFocus
+						component={Link}
+						to="/auth"
+					>
+						Sign In
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }
