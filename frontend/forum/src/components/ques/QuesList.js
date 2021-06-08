@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./QuesList.css";
-import Card from "./card/Card.js";
+import Card from "./newCard/Card.js";
 
 import { useSelector, useDispatch } from "react-redux";
 

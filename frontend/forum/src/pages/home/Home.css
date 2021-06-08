@@ -1,3 +1,7 @@
+.home {
+  overflow-y: auto;
+}
+
 .home .home__main {
   display: -webkit-box;
   display: -ms-flexbox;

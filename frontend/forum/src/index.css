@@ -1,7 +1,17 @@
+* {
+	-ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+	display: none;
+	/* width: 10px; */
+}
+
 html,
 body {
+	scrollbar-width: none;
 	height: 100%;
 	overflow-x: hidden;
+	/* overflow-y: hidden; */
 }
 
 body {
@@ -13,6 +23,8 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background-color: rgb(233, 233, 233);
 }
+/* .scrollable-element {
+} */
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
