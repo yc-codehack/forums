@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Card.css";
 import avatar from "../../images/avatar.png";
-import { Avatar, Popover, Typography } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { questionLike, questionDislike } from "../../../actions/questions.js";
+
+// material ui
+import { Avatar, Popover, Typography } from "@material-ui/core";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
 
 export default function Ques({ item }) {
 	const [user, setUser] = useState(
@@ -12,17 +17,37 @@ export default function Ques({ item }) {
 
 	const [question, setQuestion] = useState({ ...item });
 
+	const [isLiked, setIsLiked] = useState(item.liked);
+	const [isDisliked, setIsDisliked] = useState(item.disliked);
+	// const [isLiked, setIsLiked] = useState()
+
 	const dispatch = useDispatch();
 
 	const likeHandler = (id) => {
 		dispatch(questionLike({ type: "question", quesId: id }));
-		setQuestion({
-			likeCount: question.likeCount + 1,
-		});
+
+		!isLiked
+			? setQuestion({
+					likeCount: question.likeCount + 1,
+			  })
+			: setQuestion({
+					likeCount: question.likeCount - 1,
+			  });
+
+		setIsLiked((prevIsLiked) => !prevIsLiked);
+		setIsDisliked(false);
 	};
 
 	const dislikeHandler = (id) => {
 		dispatch(questionDislike({ type: "question", quesId: id }));
+
+		isLiked &&
+			setQuestion({
+				likeCount: question.likeCount - 1,
+			});
+
+		setIsDisliked((prevIsDisliked) => !prevIsDisliked);
+		setIsLiked(false);
 	};
 
 	// popover
@@ -48,6 +73,8 @@ export default function Ques({ item }) {
 		}, 500);
 	};
 
+	const signinPopup = () => {};
+
 	const openLike = Boolean(anchorElLike);
 	const openDislike = Boolean(anchorElDislike);
 
@@ -65,7 +92,11 @@ export default function Ques({ item }) {
 						<div className="col-xs ml-5 mr-2 mt-2 vote-col">
 							<div
 								className="row-md-1 arrow "
-								onClick={() => likeHandler(item._id)}
+								onClick={
+									user
+										? () => likeHandler(item._id)
+										: () => signinPopup()
+								}
 								onMouseEnter={handlePopoverOpenLike}
 								onMouseLeave={handlePopoverCloseLike}
 								aria-owns={
@@ -74,11 +105,10 @@ export default function Ques({ item }) {
 										: undefined
 								}
 							>
-								<i
-									className="fa fa-arrow-up"
-									id="up-arrow"
-									// aria-hidden="true"
-								></i>
+								<ArrowUpwardIcon
+									classNam="UpArrow"
+									htmlColor={isLiked ? "#4a5edf" : "#333333"}
+								/>
 							</div>
 							{/* Popover */}
 							<Popover
@@ -109,7 +139,11 @@ export default function Ques({ item }) {
 							</div>
 							<div
 								className="row-md-1 arrow"
-								onClick={() => dislikeHandler(item._id)}
+								onClick={
+									user
+										? () => dislikeHandler(item._id)
+										: () => signinPopup()
+								}
 								onMouseEnter={handlePopoverOpenDislike}
 								onMouseLeave={handlePopoverCloseDislike}
 								aria-owns={
@@ -118,10 +152,11 @@ export default function Ques({ item }) {
 										: undefined
 								}
 							>
-								<i
-									className="fa fa-arrow-down"
-									id="down-arrow"
-								></i>
+								<ArrowDownward
+									htmlColor={
+										isDisliked ? "#db3c30" : "#333333"
+									}
+								/>
 							</div>
 							<Popover
 								id="mouse-over-popover-dislike"
@@ -158,7 +193,10 @@ export default function Ques({ item }) {
 									<h5 className="card-title question overflow-hidden text-left">
 										{item.title}
 									</h5>
-									<i class="fas fa-trash-alt  delete-icon"></i>
+									{user &&
+										user.result._id === item.creatorId && (
+											<i class="fas fa-trash-alt  delete-icon"></i>
+										)}
 								</div>
 								<p className="card-text  answer overflow-hidden text-left ">
 									{item.description}
@@ -170,11 +208,14 @@ export default function Ques({ item }) {
 												Posted by {item.creatorName}
 											</small>
 										</p>
-										<img
-											className=" avatar "
-											src={avatar}
-											alt=""
-										/>
+
+										<Avatar
+											className="avatar"
+											src={item.creatorImage}
+											alt={item.creatorName}
+										>
+											{item.creatorName.charAt(0)}
+										</Avatar>
 									</div>
 
 									<p className="card-text text-left time">

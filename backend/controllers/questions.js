@@ -1,6 +1,7 @@
 import PostQuestion from "../models/postQuestion.js";
 import UserProfile from "../models/profile.js";
 import CategoryInfo from "../models/categoryInfo.js";
+import authUserInfo from "./utils/authUserInfo.js";
 
 //
 import moment from "moment";
@@ -88,6 +89,9 @@ export const getQuestions = async (req, res) => {
 		const filterInfo = req.query.filterInfo;
 		const sort = req.query.sort;
 		const sortInfo = req.query.sortInfo;
+		const currentUserId = req.headers.authorization
+			? authUserInfo(req.headers.authorization.split(" ")[1])
+			: null;
 
 		// sort acc to date
 		if (filter == "recent") {
@@ -95,7 +99,6 @@ export const getQuestions = async (req, res) => {
 				createdAt: -1,
 			});
 
-			var i = 0;
 			var questionsIs = await Promise.all(
 				questionsList.map(async (question) => {
 					const currentTime = moment(
@@ -114,6 +117,29 @@ export const getQuestions = async (req, res) => {
 					const userInfo = await UserProfile.findOne({
 						accountId: question.creator,
 					});
+
+					var isLiked = false;
+					var isDisliked = false;
+
+					// if user is logged in then check if the question is liked by them or not
+					currentUserId &&
+						((isLiked = Boolean(
+							(
+								await UserProfile.find({
+									accountId: currentUserId,
+									likedQuestion: { $in: [question._id] },
+								})
+							).length
+						)),
+						(isDisliked = Boolean(
+							(
+								await UserProfile.find({
+									accountId: currentUserId,
+									dislikedQuestion: { $in: [question._id] },
+								})
+							).length
+						)));
+
 					const properties = {
 						_id: question._id,
 						title: question.title,
@@ -127,6 +153,9 @@ export const getQuestions = async (req, res) => {
 								? userInfo.image
 								: null
 							: null,
+						liked: isLiked,
+						disliked: isDisliked,
+						creatorId: question.creator,
 					};
 					return properties;
 				})

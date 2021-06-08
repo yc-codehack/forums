@@ -1,4 +1,4 @@
-.arrow > i:hover {
+.arrow {
 	cursor: pointer;
 }
 
@@ -33,7 +33,9 @@
 }
 
 .avatar {
-	padding-left: 10px;
+	margin-left: 20px;
+	max-width: 20px;
+	max-height: 20px;
 }
 
 .user {

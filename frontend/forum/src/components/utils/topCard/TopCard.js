@@ -55,10 +55,12 @@ function TopUserCard({ type }) {
 						<>
 							<div className="line"></div>
 							<div className="topUserCard__your">
-								<ListField
-									key={topUserInfo.slice(-1)[0]._id}
-									item={topUserInfo.slice(-1)[0]}
-								/>
+								{topUserInfo.slice(-1)[0] && (
+									<ListField
+										key={topUserInfo.slice(-1)[0]._id}
+										item={topUserInfo.slice(-1)[0]}
+									/>
+								)}
 							</div>
 						</>
 					)}

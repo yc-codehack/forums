@@ -23,6 +23,27 @@ export const like = async (req, res) => {
 					{ $inc: { likeCount: 1 } }
 				);
 			}
+			if (isLiked.n == 0) {
+				const isRemoveLike = await Profile.updateOne(
+					{
+						accountId: req.userId,
+						likedQuestion: { $in: [post.quesId] },
+					},
+					{
+						$pull: {
+							likedQuestion: post.quesId,
+						},
+					}
+				);
+				if (isRemoveLike.n == 1) {
+					await PostQuestion.updateOne(
+						{
+							_id: post.quesId,
+						},
+						{ $inc: { likeCount: -1 } }
+					);
+				}
+			}
 
 			const isDisliked = await Profile.updateOne(
 				{
@@ -42,6 +63,7 @@ export const like = async (req, res) => {
 					{ $inc: { dislikeCount: 1 } }
 				);
 			}
+
 			return res.status(200).json({ message: "Updated" });
 		} catch (error) {
 			return res.status(400).json({ message: error.message });
@@ -66,6 +88,27 @@ export const like = async (req, res) => {
 					{ $inc: { "answer.$[elem].likeCount": 1 } },
 					{ arrayFilters: [{ "elem._id": post.ansId }] }
 				);
+			}
+
+			if (isLiked.n == 0) {
+				const isRemoveLike = await Profile.updateOne(
+					{
+						accountId: req.userId,
+						likedAnswer: { $in: [post.ansId] },
+					},
+					{
+						$pull: { likedAnswer: post.ansId },
+					}
+				);
+				if (isRemoveLike.n == 1) {
+					await PostQuestion.updateOne(
+						{
+							_id: post.quesId,
+						},
+						{ $inc: { "answer.$[elem].likeCount": -1 } },
+						{ arrayFilters: [{ "elem._id": post.ansId }] }
+					);
+				}
 			}
 
 			const isDisliked = await Profile.updateOne(
@@ -135,6 +178,27 @@ export const dislike = async (req, res) => {
 					{ $inc: { dislikeCount: -1 } }
 				);
 			}
+
+			if (isDisliked.n == 0) {
+				const isRemoveDislike = await Profile.updateOne(
+					{
+						accountId: req.userId,
+						dislikeQuestion: { $in: [post.quesId] },
+					},
+					{
+						$pull: { dislikeQuestion: post.quesId },
+					}
+				);
+				if (isRemoveDislike) {
+					await PostQuestion.updateOne(
+						{
+							_id: post.quesId,
+						},
+						{ $inc: { dislikeCount: 1 } }
+					);
+				}
+			}
+
 			return res.status(200).json({ message: "Updated" });
 		} catch (error) {
 			return res.status(400).json({ message: error.message });
@@ -180,6 +244,28 @@ export const dislike = async (req, res) => {
 					{ arrayFilters: [{ "elem._id": post.ansId }] }
 				);
 			}
+
+			if (isDisliked.n == 0) {
+				const isRemoveDislike = await Profile.updateOne(
+					{
+						accountId: req.userId,
+						dislikeAnswer: { $in: [post.ansId] },
+					},
+					{
+						$pull: { dislikedAnswer: post.ansId },
+					}
+				);
+				if (isRemoveDislike.n == 1) {
+					await PostQuestion.updateOne(
+						{
+							_id: post.quesId,
+						},
+						{ $inc: { "answer.$[elem].dislikeCount": 1 } },
+						{ arrayFilters: [{ "elem._id": post.ansId }] }
+					);
+				}
+			}
+
 			return res.status(200).json({ message: "Updated" });
 		} catch (error) {
 			return res.status(400).json({ message: error.message });
