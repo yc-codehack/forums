@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Verification</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        background-color: whitesmoke;
+        font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    }
+    
+    .verify-box {
+        padding: 0px;
+        margin-left: 25%;
+        margin-right: 25%;
+        margin-top: 2%;
+        border: 0px solid;
+        border-radius: 5px;
+        width: 50%;
+        max-width: 684px;
+        background-color: white;
+    }
+    
+    /* .verify-img>img {} */
+    .verify-img>img{
+        width: 684px;
+        height: 180px;
+    }
+    .verify-heading>h1 {
+        color: black;
+        text-align: center;
+        font-size: 38px;
+        padding-top: 4%;
+        font-weight: lighter;
+    }
+    
+    .verify-description {
+        text-align: center;
+        line-height: 1.7;
+        word-break: break-word;
+        /* font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; */
+        font-size: 16px;
+        color: black;
+        padding-top: 2%;
+        font-weight: lighter;
+    }
+    
+    button {
+        padding: 20px;
+        width: 50%;
+        text-transform: uppercase;
+        font-weight: 700;
+        background-color: orange;
+        text-decoration: none;
+        cursor: pointer;
+        color: white;
+        border: 0px;
+        margin-bottom: 20px;
+    }
+    @media screen and (max-width: 840px){
+        .verify-box{
+            margin-top: 45px;
+            margin-left: 20%;
+            margin-right: 20%;
+            width: 60%;
+            max-width: 60%;
+        }
+        .verify-img>img{
+            width: 216px;
+            height: 80px;
+        }
+        .verify-heading>h1{
+            font-size: 20px;
+        }
+        .verify-description{
+            font-size: 12px;
+        }
+        .verify-btn>button{
+            width: 140px;
+            height: 25px;
+            font-size: 09px;
+            text-align:center;
+            padding: 08px;
+        }
+    }
+</style>
+<!-- height="180px" width="auto" -->
+<body>
+    <div class="verify-box">
+        <div class="verify-img">
+            <img src="./email-confirmation.png"><br><br>
+        </div>
+        <div class="verify-heading">
+            <h1>Email Confirmation</h1><br>
+            <div class="verify-description"> Hey, you`re almost ready to start enjoying our site Simply click the <br>big yellow button below to verify your <br> email address.
+                <br><br>
+                <div class="verify-btn"><button>
+                    Verify email address</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="main-ex"></div>
+    <br>
+    <div class="verify-icons"></div>
+    <br>
+    <div class="copyright"></div>
+</body>
+
+</html>
