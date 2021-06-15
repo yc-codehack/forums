@@ -95,18 +95,35 @@
   border-radius: 25px;
 }
 
-.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper > .MuiSvgIcon-root {
-  margin-left: 5px;
-  margin-right: 5px;
+.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper form {
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper > input {
-  background-color: transparent;
+.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper form > .MuiAutocomplete-root {
+  background-color: white;
+}
+
+.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper form > .MuiButtonBase-root {
+  margin-top: 5px;
   border: none;
   outline: none;
-  text-align: center;
-  width: 90%;
-  font-size: 14px;
+}
+
+.navbar .navbar__sidebar .navbar__search .navbar__searchWrapper form > .MuiButtonBase-root:hover {
+  background-color: #70b7f4;
 }
 
 .navbar .navbar__sidebar .navbar__userInfo {

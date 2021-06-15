@@ -59,21 +59,27 @@
 				background-color: #f3f3f3;
 				border-radius: 25px;
 
-				& > .MuiSvgIcon-root {
-					margin-left: 5px;
-					margin-right: 5px;
-				}
-
-				& > input {
-					background-color: transparent;
-					border: none;
-					outline: none;
-					text-align: center;
-					width: 90%;
-					font-size: 14px;
+				form {
+					background-color: white;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: center;
+					& > .MuiAutocomplete-root {
+						background-color: white;
+					}
+					& > .MuiButtonBase-root {
+						margin-top: 5px;
+						border: none;
+						outline: none;
+						&:hover {
+							background-color: #70b7f4;
+						}
+					}
 				}
 			}
 		}
+
 		.navbar__userInfo {
 			flex: 0.3;
 			display: flex;

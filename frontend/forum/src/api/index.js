@@ -37,3 +37,11 @@ export const topCategoryList = () => API.get("/extra/topCategory");
 
 // create question
 export const postQuestion = (formData) => API.post("/question/new", formData);
+
+// search question autocomplete
+export const searchAutocomplete = (searchItem) =>
+	API.get(`/question/search/autocomplete?searchItem=${searchItem}`);
+
+// search question
+export const searchQuestion = (searchItem) =>
+	API.get(`/question/search?searchItem=${searchItem}`);

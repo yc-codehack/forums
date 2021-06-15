@@ -248,33 +248,38 @@ export const searchQuestions = async (req, res) => {
 		// 	$text: { $search: searchItem, $caseSensitive: true },
 		// }).sort({ score: { $meta: "textScore" } });
 
-		var questionsIs = questionsList.map(async (question) => {
-			const currentTime = moment(
-				new Date().toISOString(),
-				"YYYY-MM-DD HH:mm:ss"
-			);
-			const createdAt = moment(question.createdAt, "YYYY-MM-DD HH:mm:ss");
-			const tempTime = moment.duration(currentTime.diff(createdAt));
-			const newTimeDuration = convertTimeToString(tempTime);
-			const userInfo = await UserProfile.findOne({
-				accountId: question.creator,
-			});
-			const properties = {
-				_id: question._id,
-				title: question.title,
-				description: question.description,
-				createdAt: newTimeDuration,
-				likeCount: question.likeCount,
-				dislikeCount: question.dislikeCount,
-				creatorName: userInfo ? userInfo.name : "h",
-				creatorImage: userInfo
-					? userInfo.image
+		var questionsIs = await Promise.all(
+			questionsList.map(async (question) => {
+				const currentTime = moment(
+					new Date().toISOString(),
+					"YYYY-MM-DD HH:mm:ss"
+				);
+				const createdAt = moment(
+					question.createdAt,
+					"YYYY-MM-DD HH:mm:ss"
+				);
+				const tempTime = moment.duration(currentTime.diff(createdAt));
+				const newTimeDuration = convertTimeToString(tempTime);
+				const userInfo = await UserProfile.findOne({
+					accountId: question.creator,
+				});
+				const properties = {
+					_id: question._id,
+					title: question.title,
+					description: question.description,
+					createdAt: newTimeDuration,
+					likeCount: question.likeCount,
+					dislikeCount: question.dislikeCount,
+					creatorName: userInfo ? userInfo.name : "h",
+					creatorImage: userInfo
 						? userInfo.image
-						: null
-					: null,
-			};
-			return properties;
-		});
+							? userInfo.image
+							: null
+						: null,
+				};
+				return properties;
+			})
+		);
 
 		if (questionsList.length === 0) {
 			return res.status(400).json({ message: "No data found!!!" });
@@ -286,7 +291,24 @@ export const searchQuestions = async (req, res) => {
 	}
 };
 
-const getUserInfo = async (creatorId) => {
-	const info = await UserProfile.find({ accountId: creatorId });
-	return info.name;
+export const searchBar = async (req, res) => {
+	try {
+		const searchItem = req.query.searchItem;
+		const questionsList = await PostQuestion.find({
+			title: { $regex: searchItem, $options: "i" }, // ** Uses regex to get fuzzy search functionality and option i make it case insensitive
+		})
+			.sort({ likeCount: -1 })
+			.limit(5);
+		var result = [];
+		const searchResult = questionsList.map((question) => {
+			result.push(question.title);
+		});
+
+		if (result.length === 0) {
+			return res.status(400).json({ message: "No data found!!!" });
+		}
+		return res.status(200).json(result);
+	} catch (error) {
+		return res.status(400).json({ message: error.message });
+	}
 };

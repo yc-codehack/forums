@@ -1,5 +1,6 @@
+import * as actionType from "../constants/actionType.js";
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (questions = [], action) => {
+export const Question = (questions = [], action) => {
 	switch (action.type) {
 		case "FETCH_RECENT":
 			return action.payload;
@@ -17,7 +18,20 @@ export default (questions = [], action) => {
 		case "CREATE":
 			return [...questions, action.payload.data];
 
+		case actionType.SEARCH_QUESTION:
+			return action.payload.data;
+
 		default:
 			return questions;
+	}
+};
+
+export const Autocomplete = (autocomplete_list = [], action) => {
+	switch (action.type) {
+		case actionType.SEARCH_AUTOCOMPLETE:
+			return action.payload.data;
+
+		default:
+			return autocomplete_list;
 	}
 };

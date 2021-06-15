@@ -16,7 +16,8 @@ const QuesList = ({ filter, sort }) => {
 		dispatch(getRecent());
 	}, [dispatch]);
 
-	const questions = useSelector((state) => state.questions);
+	const questions = useSelector((state) => state.Question);
+	console.log(questions);
 
 	return (
 		<div className="quesList">

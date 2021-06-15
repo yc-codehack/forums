@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import decode from "jwt-decode";
 
 // materialUI
@@ -10,7 +10,10 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { Avatar, Button, Typography } from "@material-ui/core";
+import { Avatar, Button, Typography, TextField } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+
+import { autocompleteSearch, questionSearch } from "../../actions/questions.js";
 
 // image
 import logo from "../../assets/logo/forum_logo.png";
@@ -31,19 +34,30 @@ const Navbar = () => {
 
 	const [isUserInfoOpen, setUserInfoOpen] = useState(false);
 
+	const [formData, setFormData] = useState("");
+
+	const [searchAuto, setSearchAuto] = useState([]);
+
+	const handleChange = (e) => {
+		setFormData(e.target.value);
+		dispatch(autocompleteSearch(formData));
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		{
+			formData.length && dispatch(questionSearch(formData));
+		}
+		setSidebarOpen(false);
+	};
+
+	const autoCompleteData = useSelector((state) => state.Autocomplete);
+
 	const [user, setUser] = useState(
 		JSON.parse(localStorage.getItem("profile")) // * Getting data of user saved in local storage
 	);
 
 	useEffect(() => {
-		const token = user?.token;
-
-		// if (token) {
-		// 	const decodedToken = decode(token);
-		// 	if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-		// }
-
-		// JWT logic
 		setUser(JSON.parse(localStorage.getItem("profile")));
 	}, [location]);
 
@@ -86,8 +100,40 @@ const Navbar = () => {
 
 				<div className="navbar__search">
 					<div className="navbar__searchWrapper">
-						<SearchIcon />
-						<input placeholder="Search for Topics"></input>
+						<form onSubmit={handleSubmit}>
+							<Autocomplete
+								className=".navbar__searchAutocomplete"
+								loading
+								color="secondary"
+								closeIcon={<></>}
+								fullWidth
+								autoComplete
+								freeSolo
+								size="small"
+								options={
+									autoCompleteData.length
+										? autoCompleteData.map((item) => item)
+										: ["None"]
+								}
+								renderInput={(params) => (
+									<TextField
+										{...params}
+										onChange={handleChange}
+										label="Search input"
+										margin="normal"
+										variant="outlined"
+										InputProps={{
+											...params.InputProps,
+											type: "search",
+										}}
+										size="small"
+									/>
+								)}
+							></Autocomplete>
+							<Button type="submit">
+								<SearchIcon />
+							</Button>
+						</form>
 					</div>
 				</div>
 				{/* USER-INFO */}

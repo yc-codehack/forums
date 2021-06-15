@@ -35,3 +35,21 @@ export const questionDislike = (post) => async (dispatch) => {
 		console.log(error);
 	}
 };
+
+export const autocompleteSearch = (post) => async (dispatch) => {
+	try {
+		const data = await api.searchAutocomplete(post);
+		dispatch({ type: "SEARCH_AUTOCOMPLETE", payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const questionSearch = (post) => async (dispatch) => {
+	try {
+		const data = await api.searchQuestion(post);
+		dispatch({ type: "SEARCH", payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
