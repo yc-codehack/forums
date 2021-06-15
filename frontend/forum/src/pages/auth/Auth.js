@@ -13,7 +13,7 @@ import { Button } from "@material-ui/core";
 
 import DivideOrLine from "../../components/utils/divideOrLine/DivideOrLine.js";
 import ThirdPartyAuth from "../../components/auth/utils/thirdPartyAuth/ThirdPartyAuth.js";
-import InputField from "../../components/auth/utils/input/Input.js";
+import { Input } from "../../components/utils/input/Input.js";
 import Loading from "../../components/utils/loading/Loading.js";
 
 import { signin, signup } from "../../actions/auth.js";
@@ -111,14 +111,14 @@ const Auth = () => {
 					{/* show only is signUp */}
 					{!isSignIn && (
 						<>
-							<InputField
+							<Input
 								name="firstName"
 								label="First Name"
 								handleChange={handleChange}
 								autoFocus
 								type="text"
 							/>
-							<InputField
+							<Input
 								name="lastName"
 								label="Last Name"
 								handleChange={handleChange}
@@ -128,13 +128,13 @@ const Auth = () => {
 					)}
 
 					{/* always show */}
-					<InputField
+					<Input
 						name="email"
 						label="Email"
 						handleChange={handleChange}
 						type="email"
 					/>
-					<InputField
+					<Input
 						name="password"
 						label="Password"
 						min={8}
@@ -152,7 +152,7 @@ const Auth = () => {
 
 					{/* show only is signUp */}
 					{!isSignIn && (
-						<InputField
+						<Input
 							name="confirmPassword"
 							label="Repeat Password"
 							handleChange={handleChange}

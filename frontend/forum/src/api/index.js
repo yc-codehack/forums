@@ -34,3 +34,6 @@ export const categoryList = () => API.get("/extra/category");
 // top list
 export const topUserList = () => API.get("/extra/topUser");
 export const topCategoryList = () => API.get("/extra/topCategory");
+
+// create question
+export const postQuestion = (formData) => API.post("/question/new", formData);

@@ -12,7 +12,7 @@ import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/new", auth, createQuestion);
+router.post("/new", createQuestion);
 router.patch("/update/:id", auth, updateQuestion);
 
 router.get("/list", getQuestions); // **TODO Refactor the method to take parameter from url

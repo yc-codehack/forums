@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 
@@ -7,12 +7,19 @@ import Navbar from "../../components/navbar/Navbar.js";
 import QuesList from "../../components/ques/QuesList.js";
 import Category from "../../components/category/list/CategoryList.js";
 import TopCard from "../../components/utils/topCard/TopCard.js";
+import CreateQues from "../../components/ques/createQues/CreateQues.js";
 
 // materialUI
 import { Button } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 function Home({ filter }) {
+	const [showCreateQues, setShowCreateQues] = useState(false);
+
+	const handleCreateQues = () => {
+		setShowCreateQues((prevShow) => !prevShow);
+	};
+
 	return (
 		<div className="home">
 			{/* header */}
@@ -27,12 +34,17 @@ function Home({ filter }) {
 
 				{/* middle side */}
 				<div className="home__middleSide">
+					{/* Proper naming for the show create Ques fun */}
+					{showCreateQues && <CreateQues fun={setShowCreateQues} />}
 					{filter === "category" ? <Category /> : <QuesList />}
 				</div>
 				{/* right side */}
 				<div className="home__rightSide">
 					<div className="home__rightSideBox1">
-						<Button className="home__rightSideBtn">
+						<Button
+							className="home__rightSideBtn"
+							onClick={handleCreateQues}
+						>
 							<AddIcon />
 							Ask a Question
 						</Button>

@@ -14,6 +14,9 @@ export default (questions = [], action) => {
 				question._id === action.payload._id ? action.payload : question
 			);
 
+		case "CREATE":
+			return [...questions, action.payload.data];
+
 		default:
 			return questions;
 	}

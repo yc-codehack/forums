@@ -10,10 +10,17 @@ export const getRecent = () => async (dispatch) => {
 	}
 };
 
+export const createQuestion = (post) => async (dispatch) => {
+	try {
+		const data = await api.postQuestion(post);
+		console.log("actions=>", data);
+		dispatch({ type: "CREATE", payload: data });
+	} catch (error) {}
+};
+
 export const questionLike = (post) => async (dispatch) => {
 	try {
 		const data = await api.likeQuestion(post);
-		console.log(data);
 		dispatch({ type: "LIKE", payload: data });
 	} catch (error) {
 		console.log(error);

@@ -24,6 +24,8 @@ import {
 import notLogedIn from "../../../assets/popups/notLogedIn.png";
 
 export default function Ques({ item }) {
+	console.log("card=>", item);
+
 	const [user, setUser] = useState(
 		JSON.parse(localStorage.getItem("profile")) // * Getting data of user saved in local storage
 	);
@@ -235,7 +237,8 @@ export default function Ques({ item }) {
 											src={item.creatorImage}
 											alt={item.creatorName}
 										>
-											{item.creatorName.charAt(0)}
+											{item.creatorName &&
+												item.creatorName.charAt(0)}
 										</Avatar>
 									</div>
 

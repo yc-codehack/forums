@@ -18,6 +18,8 @@ const Category = () => {
 
 	const category = useSelector((state) => state.list);
 
+	console.log(category);
+
 	return (
 		<div className="categoryList">
 			{!category.length ? (

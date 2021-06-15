@@ -1,3 +1,8 @@
+export const FETCH_RECENT = "FETCH_RECENT";
+export const CREATE_QUESTION = "CREATE";
+export const LIKE_QUESTION = "LIKE";
+export const DISLIKE_QUESTION = "DISLIKE";
+
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
 

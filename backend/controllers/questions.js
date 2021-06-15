@@ -11,10 +11,14 @@ import { convertTimeToString } from "../controllers/utils/time.js";
 // * Post new question
 export const createQuestion = async (req, res) => {
 	const post = req.body;
+	const user = req.headers.authorization
+		? authUserInfo(req.headers.authorization.split(" ")[1])
+		: null;
 
 	const newPost = new PostQuestion({
 		...post,
-		creator: req.userId,
+		creator: user ? user : null,
+
 		createdAt: new Date().toISOString(),
 		updatedAt: new Date().toISOString(),
 	});
@@ -24,18 +28,41 @@ export const createQuestion = async (req, res) => {
 		await newPost.save();
 
 		// incrementing questionCount of user
-		await UserProfile.updateOne(
-			{ accountId: req.userId },
-			{ $inc: { questionCount: 1, score: 1 } }
-		);
+		user &&
+			(await UserProfile.updateOne(
+				{ accountId: req.userId },
+				{ $inc: { questionCount: 1, score: 1 } }
+			));
 
 		// incrementing the quesCount of categoryInfo
 		await CategoryInfo.updateOne(
 			{ name: newPost.category },
-			{ $inc: { quesCount: 1 } }
+			{ $inc: { quesCount: 1 }, lastQues: newPost._id }
 		);
 
-		return res.status(200).json(newPost);
+		// formatting acc to required output
+		const userInfo = await UserProfile.findOne({
+			accountId: user,
+		});
+		const question = {
+			_id: newPost._id,
+			title: newPost.title,
+			description: newPost.description,
+			createdAt: newPost.createdAt,
+			likeCount: newPost.likeCount,
+			dislikeCount: newPost.dislikeCount,
+			liked: false,
+			disliked: false,
+			creatorId: newPost.creator,
+			creatorName: userInfo ? userInfo.name : "Anonymous",
+			creatorImage: userInfo
+				? userInfo.image
+					? userInfo.image
+					: null
+				: null,
+		};
+
+		return res.status(200).json(question);
 	} catch (error) {
 		return res.status(409).json({ message: error.message });
 	}
@@ -147,7 +174,7 @@ export const getQuestions = async (req, res) => {
 						createdAt: newTimeDuration,
 						likeCount: question.likeCount,
 						dislikeCount: question.dislikeCount,
-						creatorName: userInfo ? userInfo.name : "h",
+						creatorName: userInfo ? userInfo.name : "Anonymous",
 						creatorImage: userInfo
 							? userInfo.image
 								? userInfo.image

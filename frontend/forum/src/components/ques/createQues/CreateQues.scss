@@ -1,0 +1,82 @@
+.createQues {
+	max-width: 800px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	padding: 2rem;
+
+	.createQues__heading {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+
+		& > .MuiAvatar-root {
+			margin: 0.5rem;
+		}
+		& > .MuiTypography-root {
+			margin: 0.5rem;
+		}
+	}
+
+	.createQues__title {
+		width: 100%;
+	}
+
+	.createQues__2section {
+		width: 100%;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+
+		.createQues__2sectionSelectWrapper {
+			width: 49%;
+			padding: 0.5rem;
+			display: inline-block;
+		}
+		.createQues__2sectionTextWrapper {
+			width: 49%;
+			padding: 0.5rem;
+			display: inline-block;
+		}
+	}
+
+	.createQues__footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		& > .MuiButton-root {
+			background-color: #469ae2;
+		}
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.createQues {
+		.createQues__2section {
+			flex-direction: column;
+
+			.createQues__2sectionSelectWrapper {
+				display: block;
+				width: 100%;
+				padding: 0;
+			}
+			.createQues__2sectionTextWrapper {
+				display: block;
+				width: 100%;
+				padding: 0;
+			}
+		}
+		.createQues__footer {
+			flex-direction: column;
+
+			.MuiButton-root {
+				margin-top: 1rem;
+			}
+		}
+	}
+}

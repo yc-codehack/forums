@@ -38,6 +38,9 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   overflow-y: auto;
   padding-bottom: 5rem;
 }
@@ -107,6 +110,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  max-width: 400px;
 }
 
 .auth .auth__main .auth__mainCredentials .auth__mainCredentialsLink {

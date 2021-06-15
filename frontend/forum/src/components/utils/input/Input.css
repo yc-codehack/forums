@@ -6,8 +6,7 @@
 }
 
 .input > .MuiGrid-root {
-  width: 70%;
-  max-width: 300px;
+  width: 100%;
 }
 
 .input > .MuiGrid-root > .MuiTextField-root {
