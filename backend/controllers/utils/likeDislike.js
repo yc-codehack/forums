@@ -3,6 +3,7 @@ import PostQuestion from "../../models/postQuestion.js";
 
 export const like = async (req, res) => {
 	const post = req.body;
+	console.log("post", post.quesId);
 
 	if (post.type == "question") {
 		try {
@@ -64,7 +65,15 @@ export const like = async (req, res) => {
 				);
 			}
 
-			return res.status(200).json({ message: "Updated" });
+			const question = await PostQuestion.findOne({ _id: post.quesId });
+			const questionData = {
+				_id: question._id,
+				likeCount: question.likeCount,
+				dislikeCount: question.dislikeCount,
+				liked: Boolean(isLiked.n),
+				disliked: Boolean(isDisliked.n),
+			};
+			return res.status(200).json(questionData);
 		} catch (error) {
 			return res.status(400).json({ message: error.message });
 		}
@@ -130,7 +139,21 @@ export const like = async (req, res) => {
 					{ arrayFilters: [{ "elem._id": post.ansId }] }
 				);
 			}
-			return res.status(200).json({ message: "Updated" });
+			const answer = await PostQuestion.findOne(
+				{ _id: post.quesId },
+				{ answer: { $elemMatch: { _id: post.ansId } } }
+			);
+			// console.log("likeDislike", answer);
+
+			const answerData = {
+				id: answer.answer[0]._id,
+				likeCount: answer.answer[0].likeCount,
+				dislikeCount: answer.answer[0].dislikeCount,
+				liked: Boolean(isLiked.n),
+				disliked: Boolean(isDisliked.n),
+			};
+			console.log("likeDislike", answerData);
+			return res.status(200).json(answerData);
 		} catch (error) {
 			return res.status(400).json({ message: error.message });
 		}
@@ -199,7 +222,16 @@ export const dislike = async (req, res) => {
 				}
 			}
 
-			return res.status(200).json({ message: "Updated" });
+			const question = await PostQuestion.findOne({ _id: post.quesId });
+			const questionData = {
+				_id: question._id,
+				likeCount: question.likeCount,
+				dislikeCount: question.dislikeCount,
+				liked: Boolean(isLiked.n),
+				disliked: Boolean(isDisliked.n),
+			};
+
+			return res.status(200).json(questionData);
 		} catch (error) {
 			return res.status(400).json({ message: error.message });
 		}
@@ -266,7 +298,19 @@ export const dislike = async (req, res) => {
 				}
 			}
 
-			return res.status(200).json({ message: "Updated" });
+			const answer = await PostQuestion.findOne(
+				{ _id: post.quesId },
+				{ answer: { $elemMatch: { _id: post.ansId } } }
+			);
+
+			const answerData = {
+				id: answer.answer[0]._id,
+				likeCount: answer.answer[0].likeCount,
+				dislikeCount: answer.answer[0].dislikeCount,
+				liked: Boolean(isLiked.n),
+				disliked: Boolean(isDisliked.n),
+			};
+			return res.status(200).json(answerData);
 		} catch (error) {
 			return res.status(400).json({ message: error.message });
 		}

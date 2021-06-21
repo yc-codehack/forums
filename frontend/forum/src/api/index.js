@@ -19,14 +19,10 @@ export const signIn = (formData) => API.post("/auth/signin", formData);
 export const signUp = (formData) => API.post("/auth/signup", formData);
 
 // Like Question
-export const likeQuestion = (data) => {
-	API.patch("/question/like", data);
-};
+export const like = (formData) => API.patch("/question/like", formData);
 
 // Dislike Question
-export const dislikeQuestion = (data) => {
-	API.patch("/question/dislike", data);
-};
+export const dislike = (formData) => API.patch("/question/dislike", formData);
 
 // category list {category page}
 export const categoryList = () => API.get("/extra/category");
@@ -45,3 +41,9 @@ export const searchAutocomplete = (searchItem) =>
 // search question
 export const searchQuestion = (searchItem) =>
 	API.get(`/question/search?searchItem=${searchItem}`);
+
+// get question
+export const fetchThread = (id) => API.get(`/question/thread?quesId=${id}`);
+
+// post answer
+export const postAnswer = (formData) => API.post("/answer/new/", formData);

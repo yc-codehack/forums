@@ -1,0 +1,10 @@
+.richEditor {
+  max-width: 880px;
+  margin: 0.5rem;
+  width: 100%;
+}
+
+.richEditor .ql-editor {
+  min-height: 100px;
+}
+/*# sourceMappingURL=RichEditor.css.map */

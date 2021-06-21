@@ -7,6 +7,7 @@ import {
 	searchQuestions,
 	updateQuestion,
 	searchBar,
+	getThread,
 } from "../controllers/questions.js";
 import { like, dislike } from "../controllers/utils/likeDislike.js";
 import auth from "../middleware/auth.js";
@@ -15,6 +16,8 @@ const router = express.Router();
 
 router.post("/new", createQuestion);
 router.patch("/update/:id", auth, updateQuestion);
+
+router.get("/thread", getThread);
 
 router.get("/list", getQuestions); // **TODO Refactor the method to take parameter from url
 router.get("/search", searchQuestions);

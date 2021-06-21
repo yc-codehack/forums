@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./pages/home/Home.js";
 import Auth from "./pages/auth/Auth.js";
-import CreateQues from "./components/ques/createQues/CreateQues.js";
+import Thread from "./pages/thread/Thread.js";
 function App() {
 	return (
 		<div className="app">
@@ -20,8 +20,8 @@ function App() {
 					<Route path="/auth">
 						<Auth />
 					</Route>
-					<Route path="/ques">
-						<CreateQues />
+					<Route path="/thread/:id">
+						<Thread />
 					</Route>
 				</Switch>
 			</Router>

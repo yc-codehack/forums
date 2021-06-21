@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,WAAW,CAAC;EACX,SAAS,EAAE,KAAK;EAChB,MAAM,EAAE,MAAM;EACd,KAAK,EAAE,IAAI;CAKX;;AARD,AAKC,WALU,CAKV,UAAU,CAAC;EACV,UAAU,EAAE,KAAK;CACjB",
+    "sources": [
+        "RichEditor.scss"
+    ],
+    "names": [],
+    "file": "RichEditor.css"
+}

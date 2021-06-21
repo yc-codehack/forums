@@ -6,9 +6,10 @@ export const Question = (questions = [], action) => {
 			return action.payload;
 
 		case "LIKE":
-			console.log("reducers/question/LIKE", action);
 			return questions.map((question) =>
-				question._id === action.payload._id ? action.payload : question
+				question._id === action.payload._id
+					? [...question, action.payload]
+					: question
 			);
 		case "DISLIKE":
 			return questions.map((question) =>
@@ -16,10 +17,10 @@ export const Question = (questions = [], action) => {
 			);
 
 		case "CREATE":
-			return [...questions, action.payload.data];
+			return questions;
 
 		case actionType.SEARCH_QUESTION:
-			return action.payload.data;
+			return action.payload;
 
 		default:
 			return questions;
@@ -33,5 +34,47 @@ export const Autocomplete = (autocomplete_list = [], action) => {
 
 		default:
 			return autocomplete_list;
+	}
+};
+
+export const Thread = (thread = null, action) => {
+	switch (action.type) {
+		case actionType.FETCH_THREAD:
+			return action.payload;
+
+		case actionType.LIKE_THREAD_QUESTION:
+			thread = {
+				...thread,
+				liked: action.payload.liked,
+				disliked: action.payload.disliked,
+				likeCount: action.payload.likeCount,
+				dislikeCount: action.payload.dislikeCount,
+			};
+			return thread;
+
+		case actionType.DISLIKE_THREAD_QUESTION:
+			thread = {
+				...thread,
+				liked: action.payload.liked,
+				disliked: action.payload.disliked,
+				likeCount: action.payload.likeCount,
+				dislikeCount: action.payload.dislikeCount,
+			};
+			return thread;
+
+		case actionType.LIKE_THREAD_ANSWER:
+			return thread;
+
+		case actionType.DISLIKE_THREAD_ANSWER:
+			return thread;
+
+		case actionType.POST_ANSWER:
+			return {
+				...thread,
+				answer: [...thread.answer, action.payload.postedAnswer],
+			};
+
+		default:
+			return thread;
 	}
 };

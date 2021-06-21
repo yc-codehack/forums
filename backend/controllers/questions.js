@@ -270,7 +270,7 @@ export const searchQuestions = async (req, res) => {
 					createdAt: newTimeDuration,
 					likeCount: question.likeCount,
 					dislikeCount: question.dislikeCount,
-					creatorName: userInfo ? userInfo.name : "h",
+					creatorName: userInfo ? userInfo.name : "Anonymous",
 					creatorImage: userInfo
 						? userInfo.image
 							? userInfo.image
@@ -291,6 +291,7 @@ export const searchQuestions = async (req, res) => {
 	}
 };
 
+// * Search autocomplete
 export const searchBar = async (req, res) => {
 	try {
 		const searchItem = req.query.searchItem;
@@ -310,5 +311,118 @@ export const searchBar = async (req, res) => {
 		return res.status(200).json(result);
 	} catch (error) {
 		return res.status(400).json({ message: error.message });
+	}
+};
+
+// * Thread
+export const getThread = async (req, res) => {
+	try {
+		const quesId = req.query.quesId;
+
+		// getting current user info
+		const currentUserId = req.headers.authorization
+			? authUserInfo(req.headers.authorization.split(" ")[1])
+			: null;
+
+		const question = await PostQuestion.findOne({ _id: quesId });
+		if (!question) {
+			return res.status(400).json({ message: "No data found!!!" });
+		}
+
+		const quesUserInfo = await UserProfile.findOne({
+			accountId: question.creator,
+		});
+
+		var isLiked = false;
+		var isDisliked = false;
+
+		// if user is logged in then check if the question is liked by them or not
+		currentUserId &&
+			((isLiked = Boolean(
+				(
+					await UserProfile.find({
+						accountId: currentUserId,
+						likedQuestion: { $in: [question._id] },
+					})
+				).length
+			)),
+			(isDisliked = Boolean(
+				(
+					await UserProfile.find({
+						accountId: currentUserId,
+						dislikedQuestion: { $in: [question._id] },
+					})
+				).length
+			)));
+
+		const answer = await Promise.all(
+			question.answer.map(async (ans) => {
+				const ansUserInfo = await UserProfile.findOne({
+					accountId: ans.creator,
+				});
+
+				var ansLiked = false;
+				var ansDisliked = false;
+
+				// if user is logged in then check if the question is liked by them or not
+				currentUserId &&
+					((ansLiked = Boolean(
+						(
+							await UserProfile.find({
+								accountId: currentUserId,
+								likedAnswer: { $in: [ans.id] },
+							})
+						).length
+					)),
+					(ansDisliked = Boolean(
+						(
+							await UserProfile.find({
+								accountId: currentUserId,
+								dislikedAnswer: { $in: [ans.id] },
+							})
+						).length
+					)));
+
+				const properties = {
+					id: ans._id,
+					description: ans.description,
+					creatorName: ansUserInfo ? ansUserInfo.name : "Anonymous",
+					creatorImage: ansUserInfo
+						? ansUserInfo.image
+							? ansUserInfo.image
+							: null
+						: null,
+					createdAt: ans.createdAt,
+					likeCount: ans.likeCount,
+					dislikeCount: ans.dislikeCount,
+					liked: ansLiked,
+					dislike: ansDisliked,
+				};
+				return properties;
+			})
+		);
+
+		var questionDetails = {
+			_id: question._id,
+			title: question.title,
+			description: question.description,
+			createdAt: question.createdAt,
+			likeCount: question.likeCount,
+			dislikeCount: question.dislikeCount,
+			creatorName: quesUserInfo ? quesUserInfo.name : "Anonymous",
+			creatorImage: quesUserInfo
+				? quesUserInfo.image
+					? quesUserInfo.image
+					: null
+				: null,
+			liked: isLiked,
+			disliked: isDisliked,
+			creatorId: question.creator,
+			answer: answer,
+		};
+
+		return res.status(200).json(questionDetails);
+	} catch (error) {
+		console.log(error);
 	}
 };

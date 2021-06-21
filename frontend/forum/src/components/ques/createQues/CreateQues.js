@@ -10,6 +10,7 @@ import { Button, Avatar, Typography } from "@material-ui/core";
 
 import { createQuestion } from "../../../actions/questions.js";
 import { getCategory } from "../../../actions/extra.js";
+import RichEditor from "../../richEditor/RichEditor.js";
 
 const initialFormDataState = {
 	title: "",
@@ -43,12 +44,17 @@ function CreateQues({ fun }) {
 	};
 
 	const handleChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+		// console.log(e.target);
+		e.target
+			? setFormData({ ...formData, [e.target.name]: e.target.value })
+			: setFormData({ ...formData, ["description"]: e });
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		console.log(formData);
 		setIsLoading(true);
+
 		dispatch(createQuestion(formData));
 		fun(false);
 	};
@@ -109,7 +115,7 @@ function CreateQues({ fun }) {
 							size="small"
 						/>
 					</div>
-					<Input
+					{/* <Input
 						name="description"
 						label="Description"
 						type="text"
@@ -117,6 +123,11 @@ function CreateQues({ fun }) {
 						multiline
 						handleChange={handleChange}
 						size="small"
+					/> */}
+					<RichEditor
+						handleChange={handleChange}
+						name="description"
+						value={formData.description}
 					/>
 				</div>
 				<div className="createQues__footer">

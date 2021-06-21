@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { Question, Autocomplete } from "./questions.js";
+import { Question, Autocomplete, Thread } from "./questions.js";
 import list from "./extra.js";
 import auth from "./auth.js";
 import topUser from "./dashboard/topUser.js";
@@ -13,4 +13,5 @@ export default combineReducers({
 	topUser,
 	topCategory,
 	Autocomplete,
+	Thread,
 });

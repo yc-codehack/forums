@@ -1,0 +1,94 @@
+.thread {
+  background-color: white;
+  width: 100%;
+}
+
+.thread .thread__main {
+  padding-top: 3rem;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.thread .thread__main .thread__leftSide {
+  -webkit-box-flex: 0.25;
+      -ms-flex: 0.25;
+          flex: 0.25;
+  height: 90vh;
+}
+
+.thread .thread__main .thread__rightSide {
+  -webkit-box-flex: 0.75;
+      -ms-flex: 0.75;
+          flex: 0.75;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.thread .thread__main .thread__rightSide > .MuiTypography-root {
+  margin-left: 1rem;
+}
+
+.thread .thread__main .thread__rightSide .btnGrpContainer {
+  width: 85%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.thread .thread__main .thread__rightSide form {
+  width: 100%;
+}
+
+.thread .thread__main .thread__rightSide form .richEditor {
+  max-width: 85%;
+}
+
+.MuiCircularProgress-root {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.line {
+  width: 85%;
+  height: 1px;
+  margin: 0.5rem;
+  background-color: #333333;
+  opacity: 75%;
+}
+
+.popover-text {
+  background-color: #333333;
+  color: whitesmoke;
+  text-align: end;
+  padding: 0.3rem;
+  font-size: 12px !important;
+}
+
+.line {
+  width: 90%;
+  height: 2px;
+  opacity: 50%;
+  background-color: #333333;
+}
+/*# sourceMappingURL=Thread.css.map */

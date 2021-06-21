@@ -17,7 +17,6 @@ const QuesList = ({ filter, sort }) => {
 	}, [dispatch]);
 
 	const questions = useSelector((state) => state.Question);
-	console.log(questions);
 
 	return (
 		<div className="quesList">

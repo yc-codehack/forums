@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import "./Card.css";
 import avatar from "../../images/avatar.png";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import PopupCard from "../../utils/popupCard/PopupCard";
+import InnerHTML from "dangerously-set-html-content";
 // maertial UI
 import {
 	Button,
@@ -35,6 +36,7 @@ export default function Ques({ item }) {
 	// const [isLiked, setIsLiked] = useState()
 
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const likeHandler = (id) => {
 		dispatch(questionLike({ type: "question", quesId: id }));
@@ -97,6 +99,15 @@ export default function Ques({ item }) {
 
 	const handlePopupClose = () => {
 		setIsCardOpen(false);
+	};
+
+	const handleRedirect = () => {
+		console.log("hi");
+		history.push(`/thread/${item._id}`);
+	};
+
+	const setHtml = (str) => {
+		return <div dan></div>;
 	};
 
 	return (
@@ -210,7 +221,10 @@ export default function Ques({ item }) {
 						</div>
 						<div className="col-sm text-col">
 							<div className="card-body overflow-hidden ">
-								<div className="title-box">
+								<div
+									className="title-box"
+									onClick={handleRedirect}
+								>
 									<h5 className="card-title question overflow-hidden text-left">
 										{item.title}
 									</h5>
@@ -219,8 +233,15 @@ export default function Ques({ item }) {
 											<i class="fas fa-trash-alt  delete-icon"></i>
 										)}
 								</div>
-								<p className="card-text  answer overflow-hidden text-left ">
-									{item.description}
+								<p
+									className="card-text  answer overflow-hidden text-left "
+									onClick={handleRedirect}
+								>
+									{item.description.charAt(0) === "<" ? (
+										<InnerHTML html={item.description} />
+									) : (
+										item.description
+									)}
 								</p>
 								<div className="card-foot">
 									<div className="user">

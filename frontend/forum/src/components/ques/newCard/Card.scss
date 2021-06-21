@@ -94,6 +94,15 @@
 	font-size: 12px !important;
 }
 
+.card-body {
+	.title-box {
+		cursor: pointer;
+	}
+	.card-text {
+		cursor: pointer;
+	}
+}
+
 @media (max-width: 768px) {
 	.ques-card {
 		width: 540px;
