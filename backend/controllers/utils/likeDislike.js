@@ -3,7 +3,7 @@ import PostQuestion from "../../models/postQuestion.js";
 
 export const like = async (req, res) => {
 	const post = req.body;
-	console.log("post", post.quesId);
+	// console.log("post", post.quesId);
 
 	if (post.type == "question") {
 		try {
@@ -152,7 +152,7 @@ export const like = async (req, res) => {
 				liked: Boolean(isLiked.n),
 				disliked: Boolean(isDisliked.n),
 			};
-			console.log("likeDislike", answerData);
+			// console.log("likeDislike", answerData);
 			return res.status(200).json(answerData);
 		} catch (error) {
 			return res.status(400).json({ message: error.message });

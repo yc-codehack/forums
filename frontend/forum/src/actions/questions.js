@@ -12,8 +12,7 @@ export const getRecent = () => async (dispatch) => {
 
 export const createQuestion = (post) => async (dispatch) => {
 	try {
-		const data = await api.postQuestion(post);
-		console.log("actions=>", data);
+		const { data } = await api.postQuestion(post);
 		dispatch({ type: "CREATE", payload: data });
 	} catch (error) {}
 };
@@ -80,6 +79,6 @@ export const getThread = (post) => async (dispatch) => {
 		const { data } = await api.fetchThread(post);
 		dispatch({ type: "FETCH_THREAD", payload: data });
 	} catch (error) {
-		console.error();
+		console.log(error);
 	}
 };

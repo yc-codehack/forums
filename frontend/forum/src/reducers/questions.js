@@ -13,11 +13,14 @@ export const Question = (questions = [], action) => {
 			);
 		case "DISLIKE":
 			return questions.map((question) =>
-				question._id === action.payload._id ? action.payload : question
+				question._id === action.payload._id
+					? [...question, action.payload]
+					: question
 			);
 
 		case "CREATE":
-			return questions;
+			console.log("reducer=>", [action.payload, ...questions]);
+			return [action.payload, ...questions];
 
 		case actionType.SEARCH_QUESTION:
 			return action.payload;
