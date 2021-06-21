@@ -20,6 +20,7 @@ import InnerHTML from "dangerously-set-html-content";
 const ThreadCard = ({ item }) => {
 	const dispatch = useDispatch();
 	const [data, setData] = useState({ ...item });
+	// console.table("threadCard", data);
 
 	const [user, setUser] = useState(
 		JSON.parse(localStorage.getItem("profile")) // * Getting data of user saved in local storage
@@ -42,12 +43,15 @@ const ThreadCard = ({ item }) => {
 		setIsDisliked(false);
 	};
 	const dislikeHandler = () => {
-		dispatch(threadQuesDislike({ type: item.type, quesId: item.id }));
-
-		// isLiked &&
-		// 	setData({
-		// 		likeCount: item.likeCount - 1,
-		// 	});
+		item.type === "question"
+			? dispatch(threadQuesDislike({ type: item.type, quesId: item.id }))
+			: dispatch(
+					threadQuesDislike({
+						type: item.type,
+						quesId: item.quesId,
+						ansId: item.id,
+					})
+			  );
 
 		setIsDisliked((prevIsDisliked) => !prevIsDisliked);
 		setIsLiked(false);

@@ -11,7 +11,7 @@ const RichEditor = ({ handleChange, value, name }) => {
 				modules={RichEditor.modules}
 				formats={RichEditor.formats}
 				onChange={handleChange}
-				value={value}
+				value={value || ""}
 				name={name}
 			/>
 		</div>

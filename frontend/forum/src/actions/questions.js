@@ -30,12 +30,11 @@ export const questionLike = (post) => async (dispatch) => {
 export const threadQuesLike = (post) => async (dispatch) => {
 	try {
 		const { data } = await api.like(post);
-		dispatch({ type: "LIKE_THREAD_ANSWER", payload: data });
-		// post.type === "question"
-		// 	? dispatch({ type: "LIKE_THREAD_QUESTION", payload: data })
-		// 	: console.log("action", post);
+		post.type === "question"
+			? dispatch({ type: "LIKE_THREAD_QUESTION", payload: data })
+			: dispatch({ type: "LIKE_THREAD_ANSWER", payload: data });
 	} catch (error) {
-		console.error();
+		console.log(error);
 	}
 };
 export const threadQuesDislike = (post) => async (dispatch) => {

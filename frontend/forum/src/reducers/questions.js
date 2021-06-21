@@ -63,10 +63,36 @@ export const Thread = (thread = null, action) => {
 			return thread;
 
 		case actionType.LIKE_THREAD_ANSWER:
-			return thread;
+			return {
+				...thread,
+				answer: thread.answer.map((ans) =>
+					ans.id === action.payload.id
+						? {
+								...ans,
+								likeCount: action.payload.likeCount,
+								dislikeCount: action.payload.dislikeCount,
+								likedCount: action.payload.likedCount,
+								dislikedCount: action.payload.dislikedCount,
+						  }
+						: ans
+				),
+			};
 
 		case actionType.DISLIKE_THREAD_ANSWER:
-			return thread;
+			return {
+				...thread,
+				answer: thread.answer.map((ans) =>
+					ans.id === action.payload.id
+						? {
+								...ans,
+								likeCount: action.payload.likeCount,
+								dislikeCount: action.payload.dislikeCount,
+								likedCount: action.payload.likedCount,
+								dislikedCount: action.payload.dislikedCount,
+						  }
+						: ans
+				),
+			};
 
 		case actionType.POST_ANSWER:
 			return {
