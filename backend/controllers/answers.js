@@ -8,6 +8,7 @@ import { createRequire } from "module";
 
 // * Post new answer
 export const createAnswer = async (req, res) => {
+	const post = req.body;
 	const require = createRequire(import.meta.url);
 	var ObjectID = require("mongodb").ObjectID;
 	var objectId = new ObjectID();

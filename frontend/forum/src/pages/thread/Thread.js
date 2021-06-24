@@ -34,6 +34,7 @@ const Thread = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(createAnswer(postAnswer));
+		setPostAnswer({ quesId: id });
 	};
 
 	useEffect(() => {
@@ -68,6 +69,7 @@ const Thread = () => {
 									liked: thread.liked,
 									disliked: thread.disliked,
 									createdAt: thread.createdAt,
+									creatorId: thread.creatorId,
 									creatorName: thread.creatorName,
 									creatorImage: thread.creatorImage,
 								}}
@@ -78,7 +80,7 @@ const Thread = () => {
 									: "No Answers yet"}
 							</Typography>
 							<div className="btnGrpContainer">
-								{thread.answer.length && (
+								{thread.answer.length ? (
 									<ButtonGroup
 										variant="contained"
 										size="small"
@@ -88,7 +90,7 @@ const Thread = () => {
 										<Button>Oldest</Button>
 										<Button>Recent</Button>
 									</ButtonGroup>
-								)}
+								) : null}
 							</div>
 							<div className="line"></div>
 
@@ -105,6 +107,7 @@ const Thread = () => {
 												liked: ans.liked,
 												disliked: ans.disliked,
 												createdAt: ans.createdAt,
+												creatorId: thread.creatorId,
 												creatorName: thread.creatorName,
 												creatorImage: ans.creatorImage,
 											}}

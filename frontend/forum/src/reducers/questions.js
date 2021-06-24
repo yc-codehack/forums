@@ -25,6 +25,14 @@ export const Question = (questions = [], action) => {
 		case actionType.SEARCH_QUESTION:
 			return action.payload;
 
+		case actionType.DELETE_QUESTION:
+			questions = questions.filter(
+				(question) => question._id !== action.payload._id
+			);
+			console.log("question reducer", questions);
+
+			return questions;
+
 		default:
 			return questions;
 	}
@@ -101,6 +109,17 @@ export const Thread = (thread = null, action) => {
 			return {
 				...thread,
 				answer: [...thread.answer, action.payload.postedAnswer],
+			};
+
+		case actionType.DELETE_ANSWER:
+			const answer = thread.answer.filter(
+				(ans) => ans._id !== action.payload._id
+			);
+			answer.splice(answer.indexOf(action.payload._id), 1);
+			console.log("ans reducer", answer);
+			return {
+				...thread,
+				answer: answer,
 			};
 
 		default:

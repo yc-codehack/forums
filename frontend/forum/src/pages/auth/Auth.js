@@ -15,6 +15,7 @@ import DivideOrLine from "../../components/utils/divideOrLine/DivideOrLine.js";
 import ThirdPartyAuth from "../../components/auth/utils/thirdPartyAuth/ThirdPartyAuth.js";
 import { Input } from "../../components/utils/input/Input.js";
 import Loading from "../../components/utils/loading/Loading.js";
+import AuthImage from "../../assets/auth.png";
 
 import { signin, signup } from "../../actions/auth.js";
 
@@ -74,7 +75,7 @@ const Auth = () => {
 			{/* Banner */}
 			<div className="auth__banner">
 				<img
-					src="https://images.unsplash.com/photo-1622676017526-4a8e99f5fdf3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+					src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
 					alt=""
 				/>
 			</div>
@@ -87,7 +88,6 @@ const Auth = () => {
 								? "Please hold on signing you in..."
 								: "Creating your account"
 						}
-						flex={0.4}
 					/>
 				)}
 

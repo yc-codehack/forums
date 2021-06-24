@@ -86,9 +86,26 @@
 }
 
 .line {
-  width: 90%;
+  width: 85%;
   height: 2px;
   opacity: 50%;
   background-color: #333333;
+}
+
+@media only screen and (max-width: 900px) {
+  .thread__main {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .thread__main .thread__rightSide {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    width: 100%;
+  }
+  .thread__main .thread__leftSide {
+    display: none;
+  }
 }
 /*# sourceMappingURL=Thread.css.map */

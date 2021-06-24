@@ -45,5 +45,9 @@ export const searchQuestion = (searchItem) =>
 // get question
 export const fetchThread = (id) => API.get(`/question/thread?quesId=${id}`);
 
+// delete thread
+export const removeThread = (formData) =>
+	API.post("/question/thread/delete", formData);
+
 // post answer
 export const postAnswer = (formData) => API.post("/answer/new/", formData);

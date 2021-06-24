@@ -47,6 +47,15 @@ export const threadQuesDislike = (post) => async (dispatch) => {
 	}
 };
 
+export const questionDelete = (post) => async (dispatch) => {
+	try {
+		const { data } = await api.removeThread(post);
+		dispatch({ type: "DELETE_QUESTION", payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const questionDislike = (post) => async (dispatch) => {
 	try {
 		const data = await api.dislike(post);

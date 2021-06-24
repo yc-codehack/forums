@@ -8,3 +8,12 @@ export const createAnswer = (post) => async (dispatch) => {
 		console.log(error);
 	}
 };
+
+export const answerDelete = (post) => async (dispatch) => {
+	try {
+		const { data } = await api.removeThread(post);
+		dispatch({ type: "DELETE_ANSWER", payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};

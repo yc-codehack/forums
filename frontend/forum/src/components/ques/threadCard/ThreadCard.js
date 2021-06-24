@@ -2,7 +2,7 @@ import { Typography, Avatar, IconButton, Popover } from "@material-ui/core";
 import React, { useState } from "react";
 import "./ThreadCard.css";
 import moment from "moment";
-
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 // icons
@@ -14,11 +14,15 @@ import ShareIcon from "@material-ui/icons/Share";
 import {
 	threadQuesLike,
 	threadQuesDislike,
+	questionDelete,
 } from "../../../actions/questions.js";
+import { answerDelete } from "../../../actions/answer";
 import InnerHTML from "dangerously-set-html-content";
 
 const ThreadCard = ({ item }) => {
 	const dispatch = useDispatch();
+	const history = useHistory();
+
 	const [data, setData] = useState({ ...item });
 	// console.table("threadCard", data);
 
@@ -55,6 +59,22 @@ const ThreadCard = ({ item }) => {
 
 		setIsDisliked((prevIsDisliked) => !prevIsDisliked);
 		setIsLiked(false);
+	};
+
+	// delete
+	const handleDelete = () => {
+		if (item.type === "question") {
+			dispatch(questionDelete({ type: item.type, quesId: item.id }));
+			history.push("/");
+		} else {
+			dispatch(
+				answerDelete({
+					type: item.type,
+					quesId: item.quesId,
+					ansId: item.id,
+				})
+			);
+		}
 	};
 
 	// popup
@@ -217,12 +237,19 @@ const ThreadCard = ({ item }) => {
 					</Popover>
 				</div>
 				<div className="threadCard__footerOptions">
-					<IconButton aria-label="delete">
-						<DeleteIcon />
-					</IconButton>
-					<IconButton>
-						<EditIcon />
-					</IconButton>
+					{user && user.result._id === item.creatorId && (
+						<>
+							<IconButton
+								aria-label="delete"
+								onClick={handleDelete}
+							>
+								<DeleteIcon />
+							</IconButton>
+							<IconButton>
+								<EditIcon />
+							</IconButton>
+						</>
+					)}
 					{item.type === "question" && (
 						<IconButton>
 							<ShareIcon />

@@ -171,7 +171,7 @@ export const getQuestions = async (req, res) => {
 						_id: question._id,
 						title: question.title,
 						description: question.description,
-						createdAt: newTimeDuration,
+						createdAt: question.createdAt,
 						likeCount: question.likeCount,
 						dislikeCount: question.dislikeCount,
 						creatorName: userInfo ? userInfo.name : "Anonymous",
@@ -386,6 +386,7 @@ export const getThread = async (req, res) => {
 				const properties = {
 					id: ans._id,
 					description: ans.description,
+					creatorId: ansUserInfo ? ansUserInfo.creator : null,
 					creatorName: ansUserInfo ? ansUserInfo.name : "Anonymous",
 					creatorImage: ansUserInfo
 						? ansUserInfo.image
@@ -409,6 +410,7 @@ export const getThread = async (req, res) => {
 			createdAt: question.createdAt,
 			likeCount: question.likeCount,
 			dislikeCount: question.dislikeCount,
+			creatorId: quesUserInfo ? quesUserInfo.creator : null,
 			creatorName: quesUserInfo ? quesUserInfo.name : "Anonymous",
 			creatorImage: quesUserInfo
 				? quesUserInfo.image
@@ -424,5 +426,44 @@ export const getThread = async (req, res) => {
 		return res.status(200).json(questionDetails);
 	} catch (error) {
 		console.log(error);
+	}
+};
+
+// delete thread
+export const deleteThread = async (req, res) => {
+	try {
+		const quesId = req.body.quesId;
+		const userId = req.userId;
+
+		if (!PostQuestion.findById(quesId)) {
+			return res.status(404).json({ message: "Invalid Question ID" });
+		}
+		if (req.body.type === "question") {
+			const data = await PostQuestion.deleteOne({
+				_id: quesId,
+				creator: userId,
+			});
+
+			return res.status(200).json({ _id: quesId });
+		} else {
+			const ansId = req.body.ansId;
+			if (
+				!PostQuestion.findOne(
+					{ _id: quesId },
+					{ answer: { $elemMatch: { _id: ansId, creator: userId } } }
+				)
+			) {
+				return res.status(404).json({ message: "Invalid Question ID" });
+			}
+
+			const data = await PostQuestion.updateOne(
+				{ _id: quesId },
+				{ $pull: { answer: { _id: ansId, creator: userId } } }
+			);
+			return res.status(200).json({ _id: ansId });
+		}
+	} catch (error) {
+		console.log(error);
+		return res.status(409).json({ message: error.message });
 	}
 };

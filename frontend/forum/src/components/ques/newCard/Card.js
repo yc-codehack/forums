@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import "./Card.css";
-import avatar from "../../images/avatar.png";
 import { useDispatch } from "react-redux";
 import { questionLike, questionDislike } from "../../../actions/questions.js";
+import moment from "moment";
 
 // material ui
 import { Avatar, Popover, Typography } from "@material-ui/core";
@@ -228,10 +228,10 @@ export default function Ques({ item }) {
 									<h5 className="card-title question overflow-hidden text-left">
 										{item.title}
 									</h5>
-									{user &&
+									{/* {user &&
 										user.result._id === item.creatorId && (
 											<i class="fas fa-trash-alt  delete-icon"></i>
-										)}
+										)} */}
 								</div>
 								<p
 									className="card-text  answer overflow-hidden text-left "
@@ -263,7 +263,7 @@ export default function Ques({ item }) {
 
 									<p className="card-text text-left time">
 										<small className="text-muted">
-											{item.createdAt}
+											{moment(item.createdAt).fromNow()}
 										</small>
 									</p>
 								</div>

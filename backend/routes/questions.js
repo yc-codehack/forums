@@ -8,6 +8,7 @@ import {
 	updateQuestion,
 	searchBar,
 	getThread,
+	deleteThread,
 } from "../controllers/questions.js";
 import { like, dislike } from "../controllers/utils/likeDislike.js";
 import auth from "../middleware/auth.js";
@@ -18,6 +19,7 @@ router.post("/new", createQuestion);
 router.patch("/update/:id", auth, updateQuestion);
 
 router.get("/thread", getThread);
+router.post("/thread/delete", auth, deleteThread);
 
 router.get("/list", getQuestions); // **TODO Refactor the method to take parameter from url
 router.get("/search", searchQuestions);

@@ -71,12 +71,14 @@ const Navbar = () => {
 	return (
 		<div className="navbar">
 			{/* LOGO */}
-			<div className="navbar__logo">
-				<img className="navbar__logoImg" src={logo} alt="forum" />
-				<div className="navbar__logoText">
-					for<span className="navbar__logoTextColor">um</span>
+			<Link to="/">
+				<div className="navbar__logo">
+					<img className="navbar__logoImg" src={logo} alt="forum" />
+					<div className="navbar__logoText">
+						for<span className="navbar__logoTextColor">um</span>
+					</div>
 				</div>
-			</div>
+			</Link>
 
 			<div
 				className="navbar__toggle"
