@@ -16,7 +16,7 @@ import auth from "../middleware/auth.js";
 const router = express.Router();
 
 router.post("/new", createQuestion);
-router.patch("/update/:id", auth, updateQuestion);
+router.post("/update", auth, updateQuestion);
 
 router.get("/thread", getThread);
 router.post("/thread/delete", auth, deleteThread);

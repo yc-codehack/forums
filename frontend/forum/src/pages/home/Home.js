@@ -16,6 +16,13 @@ import AddIcon from "@material-ui/icons/Add";
 function Home({ filter }) {
 	const [showCreateQues, setShowCreateQues] = useState(false);
 
+	const initialFormData = {
+		title: "",
+		category: "",
+		subcategory: "",
+		description: "",
+	};
+
 	const handleCreateQues = () => {
 		setShowCreateQues((prevShow) => !prevShow);
 	};
@@ -35,7 +42,12 @@ function Home({ filter }) {
 				{/* middle side */}
 				<div className="home__middleSide">
 					{/* Proper naming for the show create Ques fun */}
-					{showCreateQues && <CreateQues fun={setShowCreateQues} />}
+					{showCreateQues && (
+						<CreateQues
+							fun={setShowCreateQues}
+							initialFormData={initialFormData}
+						/>
+					)}
 					{filter === "category" ? <Category /> : <QuesList />}
 				</div>
 				{/* right side */}

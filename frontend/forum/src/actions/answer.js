@@ -9,6 +9,15 @@ export const createAnswer = (post) => async (dispatch) => {
 	}
 };
 
+export const updateAnswer = (post) => async (dispatch) => {
+	try {
+		const { data } = await api.patchAnswer(post);
+		dispatch({ type: "UPDATE_ANSWER", payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const answerDelete = (post) => async (dispatch) => {
 	try {
 		const { data } = await api.removeThread(post);

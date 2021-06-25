@@ -71,17 +71,17 @@ export const createQuestion = async (req, res) => {
 // * Update question
 export const updateQuestion = async (req, res) => {
 	try {
-		const { id: _id } = req.params;
+		// const { id: _id } = req.params;
 		const post = req.body;
-
-		if (!PostQuestion.findById(_id)) {
+		console.log("controller", post);
+		if (!PostQuestion.findById(post._id)) {
 			return res.status(404).json({ message: "Invalid Question ID" });
 		}
 
-		const nonUpdatedQuestion = await PostQuestion.findById(_id);
+		const nonUpdatedQuestion = await PostQuestion.findById(post._id);
 
 		const updatedQuestion = await PostQuestion.findByIdAndUpdate(
-			_id,
+			post._id,
 			{ ...post, updatedAt: new Date().toISOString() },
 			{
 				new: true,
@@ -100,7 +100,9 @@ export const updateQuestion = async (req, res) => {
 			);
 		}
 
-		return res.status(200).json({ updatedQuestion });
+		console.log("updatedQuestion", updatedQuestion);
+
+		return res.status(200).json(updatedQuestion);
 	} catch (error) {
 		return res.status(409).json({ message: error.message });
 	}
@@ -386,7 +388,7 @@ export const getThread = async (req, res) => {
 				const properties = {
 					id: ans._id,
 					description: ans.description,
-					creatorId: ansUserInfo ? ansUserInfo.creator : null,
+					creatorId: ansUserInfo ? ansUserInfo.accountId : null,
 					creatorName: ansUserInfo ? ansUserInfo.name : "Anonymous",
 					creatorImage: ansUserInfo
 						? ansUserInfo.image
@@ -410,6 +412,8 @@ export const getThread = async (req, res) => {
 			createdAt: question.createdAt,
 			likeCount: question.likeCount,
 			dislikeCount: question.dislikeCount,
+			category: question.category,
+			subcategory: question.subcategory,
 			creatorId: quesUserInfo ? quesUserInfo.creator : null,
 			creatorName: quesUserInfo ? quesUserInfo.name : "Anonymous",
 			creatorImage: quesUserInfo

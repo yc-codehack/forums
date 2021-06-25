@@ -122,6 +122,29 @@ export const Thread = (thread = null, action) => {
 				answer: answer,
 			};
 
+		case actionType.UPDATE_QUESTION:
+			return {
+				...thread,
+				title: action.payload.title,
+				description: action.payload.description,
+				category: action.payload.category,
+				subcategory: action.payload.subcategory,
+			};
+
+		case actionType.UPDATE_ANSWER:
+			thread = {
+				...thread,
+				answer: thread.answer.map((ans) =>
+					ans.id === action.payload.ansId
+						? {
+								...ans,
+								["description"]: action.payload.description,
+						  }
+						: ans
+				),
+			};
+			return thread;
+
 		default:
 			return thread;
 	}

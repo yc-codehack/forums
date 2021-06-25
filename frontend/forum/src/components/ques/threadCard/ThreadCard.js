@@ -1,4 +1,10 @@
-import { Typography, Avatar, IconButton, Popover } from "@material-ui/core";
+import {
+	Typography,
+	Avatar,
+	IconButton,
+	Popover,
+	Button,
+} from "@material-ui/core";
 import React, { useState } from "react";
 import "./ThreadCard.css";
 import moment from "moment";
@@ -16,15 +22,16 @@ import {
 	threadQuesDislike,
 	questionDelete,
 } from "../../../actions/questions.js";
-import { answerDelete } from "../../../actions/answer";
+import { answerDelete, updateAnswer } from "../../../actions/answer";
 import InnerHTML from "dangerously-set-html-content";
+import CreateQues from "../createQues/CreateQues.js";
+import RichEditor from "../../richEditor/RichEditor.js";
 
 const ThreadCard = ({ item }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	const [data, setData] = useState({ ...item });
-	// console.table("threadCard", data);
 
 	const [user, setUser] = useState(
 		JSON.parse(localStorage.getItem("profile")) // * Getting data of user saved in local storage
@@ -77,6 +84,27 @@ const ThreadCard = ({ item }) => {
 		}
 	};
 
+	// edit
+
+	const [formData, setFormData] = useState({ ...item, ansId: item.id });
+	const [isEdit, setIsEdit] = useState(false);
+	const handleEditShow = () => {};
+
+	const handleChange = (e) => {
+		setFormData({
+			...formData,
+			["description"]: e,
+		});
+		// console.log("threadCard", formData);
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		dispatch(updateAnswer(formData));
+
+		setIsEdit(false);
+	};
+
 	// popup
 	const [anchorElLike, setAnchorElLike] = useState(null);
 	const [anchorElDislike, setAnchorElDislike] = useState(null);
@@ -114,150 +142,194 @@ const ThreadCard = ({ item }) => {
 	};
 
 	return (
-		<div className="threadCard">
-			{item.type === "question" && (
-				<div className="threadCard__title">
-					<Typography variant="h5" align="left" gutterBottom>
-						{item.title}
-					</Typography>
-				</div>
+		<>
+			{isEdit ? (
+				item.type === "question" ? (
+					<CreateQues fun={setIsEdit} initialFormData={formData} />
+				) : (
+					<form onSubmit={handleSubmit}>
+						<RichEditor
+							handleChange={handleChange}
+							name="answer"
+							value={formData.description}
+						/>
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+						>
+							Post
+						</Button>
+					</form>
+				)
+			) : (
+				<>
+					<div className="threadCard">
+						{item.type === "question" && (
+							<div className="threadCard__title">
+								<Typography
+									variant="h5"
+									align="left"
+									gutterBottom
+								>
+									{item.title}
+								</Typography>
+							</div>
+						)}
+						<div className="threadCard__creator">
+							<div className="threadCard__creatorAvatar">
+								<Avatar
+									src={item.creatorImage}
+									alt={item.creatorName}
+								>
+									{item.creatorName.charAt(0)}
+								</Avatar>
+							</div>
+							<div className="threadCard__creatorInfo">
+								<Typography
+									className="threadCard__creatorInfoName"
+									variant="subtitle1"
+								>
+									{item.creatorName}
+								</Typography>
+								<Typography
+									className="threadCard__creatorInfoDate"
+									variant="caption"
+								>
+									{moment(item.createdAt).fromNow()}
+								</Typography>
+							</div>
+						</div>
+						<div className="threadCard__description">
+							<Typography variant="body1">
+								{item.description.charAt(0) === "<" ? (
+									<InnerHTML html={item.description} />
+								) : (
+									item.description
+								)}
+							</Typography>
+						</div>
+						<div className="threadCard__footer">
+							<div className="threadCard__footerInteraction">
+								<IconButton>
+									<ThumbUpAltIcon
+										onClick={
+											user
+												? () => likeHandler(item._id)
+												: () => handlePopupOpen()
+										}
+										onMouseEnter={handlePopoverOpenLike}
+										onMouseLeave={handlePopoverCloseLike}
+										aria-owns={
+											openLike
+												? "mouse-over-popover-like"
+												: undefined
+										}
+										className="thumbUpIcon"
+										htmlColor={
+											isLiked ? "#4a5edf" : "#333333"
+										}
+									/>
+								</IconButton>
+								<Popover
+									id="mouse-over-popover-like"
+									open={openLike}
+									anchorEl={anchorElLike}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "left",
+									}}
+									transformOrigin={{
+										vertical: "bottom",
+										horizontal: "center",
+									}}
+									onClose={handlePopoverCloseLike}
+									disableRestoreFocus
+								>
+									<Typography
+										className="popover-text"
+										variant="subtitle1"
+									>
+										{!user
+											? "Please login to like"
+											: "Likes"}
+									</Typography>
+								</Popover>
+								<Typography variant="caption">
+									{item.likeCount ? item.likeCount : 0}
+								</Typography>
+								<IconButton>
+									<ThumbDownAltIcon
+										className="thumbDownIcon"
+										onClick={
+											user
+												? () => dislikeHandler(item.id)
+												: () => handlePopupOpen()
+										}
+										onMouseEnter={handlePopoverOpenDislike}
+										onMouseLeave={handlePopoverCloseDislike}
+										aria-owns={
+											openDislike
+												? "mouse-over-popover-dislike"
+												: undefined
+										}
+										htmlColor={
+											isDisliked ? "#db3c30" : "#333333"
+										}
+									/>
+								</IconButton>
+								<Popover
+									id="mouse-over-popover-dislike"
+									open={openDislike}
+									anchorEl={anchorElDislike}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									transformOrigin={{
+										vertical: "bottom",
+										horizontal: "center",
+									}}
+									onClose={handlePopoverCloseDislike}
+									disableRestoreFocus
+								>
+									<Typography
+										className="popover-text"
+										variant="subtitle1"
+									>
+										{!user
+											? "Please login to dislike"
+											: "Dislikes"}
+									</Typography>
+								</Popover>
+							</div>
+							<div className="threadCard__footerOptions">
+								{user && user.result._id === item.creatorId && (
+									<>
+										<IconButton
+											aria-label="delete"
+											onClick={handleDelete}
+										>
+											<DeleteIcon />
+										</IconButton>
+										<IconButton>
+											<EditIcon
+												onClick={() => setIsEdit(true)}
+											/>
+										</IconButton>
+									</>
+								)}
+								{item.type === "question" && (
+									<IconButton>
+										<ShareIcon />
+									</IconButton>
+								)}
+							</div>
+						</div>
+					</div>
+				</>
 			)}
-			<div className="threadCard__creator">
-				<div className="threadCard__creatorAvatar">
-					<Avatar src={item.creatorImage} alt={item.creatorName}>
-						{item.creatorName.charAt(0)}
-					</Avatar>
-				</div>
-				<div className="threadCard__creatorInfo">
-					<Typography
-						className="threadCard__creatorInfoName"
-						variant="subtitle1"
-					>
-						{item.creatorName}
-					</Typography>
-					<Typography
-						className="threadCard__creatorInfoDate"
-						variant="caption"
-					>
-						{moment(item.createdAt).fromNow()}
-					</Typography>
-				</div>
-			</div>
-			<div className="threadCard__description">
-				<Typography variant="body1">
-					{item.description.charAt(0) === "<" ? (
-						<InnerHTML html={item.description} />
-					) : (
-						item.description
-					)}
-				</Typography>
-			</div>
-			<div className="threadCard__footer">
-				<div className="threadCard__footerInteraction">
-					<IconButton>
-						<ThumbUpAltIcon
-							onClick={
-								user
-									? () => likeHandler(item._id)
-									: () => handlePopupOpen()
-							}
-							onMouseEnter={handlePopoverOpenLike}
-							onMouseLeave={handlePopoverCloseLike}
-							aria-owns={
-								openLike ? "mouse-over-popover-like" : undefined
-							}
-							className="thumbUpIcon"
-							htmlColor={isLiked ? "#4a5edf" : "#333333"}
-						/>
-					</IconButton>
-					<Popover
-						id="mouse-over-popover-like"
-						open={openLike}
-						anchorEl={anchorElLike}
-						anchorOrigin={{
-							vertical: "top",
-							horizontal: "left",
-						}}
-						transformOrigin={{
-							vertical: "bottom",
-							horizontal: "center",
-						}}
-						onClose={handlePopoverCloseLike}
-						disableRestoreFocus
-					>
-						<Typography
-							className="popover-text"
-							variant="subtitle1"
-						>
-							{!user ? "Please login to like" : "Likes"}
-						</Typography>
-					</Popover>
-					<Typography variant="caption">
-						{item.likeCount ? item.likeCount : 0}
-					</Typography>
-					<IconButton>
-						<ThumbDownAltIcon
-							className="thumbDownIcon"
-							onClick={
-								user
-									? () => dislikeHandler(item.id)
-									: () => handlePopupOpen()
-							}
-							onMouseEnter={handlePopoverOpenDislike}
-							onMouseLeave={handlePopoverCloseDislike}
-							aria-owns={
-								openDislike
-									? "mouse-over-popover-dislike"
-									: undefined
-							}
-							htmlColor={isDisliked ? "#db3c30" : "#333333"}
-						/>
-					</IconButton>
-					<Popover
-						id="mouse-over-popover-dislike"
-						open={openDislike}
-						anchorEl={anchorElDislike}
-						anchorOrigin={{
-							vertical: "top",
-							horizontal: "right",
-						}}
-						transformOrigin={{
-							vertical: "bottom",
-							horizontal: "center",
-						}}
-						onClose={handlePopoverCloseDislike}
-						disableRestoreFocus
-					>
-						<Typography
-							className="popover-text"
-							variant="subtitle1"
-						>
-							{!user ? "Please login to dislike" : "Dislikes"}
-						</Typography>
-					</Popover>
-				</div>
-				<div className="threadCard__footerOptions">
-					{user && user.result._id === item.creatorId && (
-						<>
-							<IconButton
-								aria-label="delete"
-								onClick={handleDelete}
-							>
-								<DeleteIcon />
-							</IconButton>
-							<IconButton>
-								<EditIcon />
-							</IconButton>
-						</>
-					)}
-					{item.type === "question" && (
-						<IconButton>
-							<ShareIcon />
-						</IconButton>
-					)}
-				</div>
-			</div>
-		</div>
+		</>
 	);
 };
 

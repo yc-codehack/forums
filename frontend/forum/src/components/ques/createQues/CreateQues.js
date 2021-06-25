@@ -8,19 +8,15 @@ import { Input, SelectBox, CheckBox } from "../../utils/input/Input";
 
 import { Button, Avatar, Typography } from "@material-ui/core";
 
-import { createQuestion } from "../../../actions/questions.js";
+import { createQuestion, updateQuestion } from "../../../actions/questions.js";
 import { getCategory } from "../../../actions/extra.js";
 import RichEditor from "../../richEditor/RichEditor.js";
 
-const initialFormDataState = {
-	title: "",
-	category: "",
-	subcategory: "",
-	description: "",
-	email: false,
-};
-
-function CreateQues({ fun }) {
+function CreateQues({ fun, initialFormData }) {
+	const initialFormDataState = {
+		...initialFormData,
+		email: false,
+	};
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -52,10 +48,21 @@ function CreateQues({ fun }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(formData);
 		setIsLoading(true);
+		if (!formData.id) {
+			dispatch(createQuestion(formData));
+		} else {
+			const sendData = {
+				_id: formData.id,
+				title: formData.title,
+				description: formData.description,
+				category: formData.category,
+				subcategory: formData.subcategory,
+			};
+			console.log("formData", sendData);
+			dispatch(updateQuestion(sendData));
+		}
 
-		dispatch(createQuestion(formData));
 		fun(false);
 	};
 
@@ -88,6 +95,7 @@ function CreateQues({ fun }) {
 					type="text"
 					required
 					handleChange={handleChange}
+					value={formData.title}
 					size="small"
 				/>
 				<div className="createQues__2section">
@@ -111,6 +119,7 @@ function CreateQues({ fun }) {
 							label="Sub Category"
 							type="text"
 							required
+							value={formData.subcategory}
 							handleChange={handleChange}
 							size="small"
 						/>

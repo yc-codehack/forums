@@ -33,6 +33,7 @@ export const Input = ({
 	multiline,
 	select,
 	size,
+	value,
 }) => {
 	return (
 		<div className="input">
@@ -41,6 +42,7 @@ export const Input = ({
 					name={name}
 					onChange={handleChange}
 					variant="outlined"
+					value={value}
 					fullWidth
 					required={required}
 					label={label}

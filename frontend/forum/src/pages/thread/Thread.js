@@ -42,6 +42,7 @@ const Thread = () => {
 	}, [dispatch]);
 
 	const thread = useSelector((state) => state.Thread);
+	// console.log("thread", thread);
 
 	return (
 		<div className="thread">
@@ -69,6 +70,8 @@ const Thread = () => {
 									liked: thread.liked,
 									disliked: thread.disliked,
 									createdAt: thread.createdAt,
+									category: thread.category,
+									subcategory: thread.subcategory,
 									creatorId: thread.creatorId,
 									creatorName: thread.creatorName,
 									creatorImage: thread.creatorImage,
@@ -107,8 +110,8 @@ const Thread = () => {
 												liked: ans.liked,
 												disliked: ans.disliked,
 												createdAt: ans.createdAt,
-												creatorId: thread.creatorId,
-												creatorName: thread.creatorName,
+												creatorId: ans.creatorId,
+												creatorName: ans.creatorName,
 												creatorImage: ans.creatorImage,
 											}}
 										/>

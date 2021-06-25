@@ -14,7 +14,21 @@ export const createQuestion = (post) => async (dispatch) => {
 	try {
 		const { data } = await api.postQuestion(post);
 		dispatch({ type: "CREATE", payload: data });
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const updateQuestion = (post) => async (dispatch) => {
+	try {
+		console.log("action post", post);
+		const { data } = await api.patchQuestion(post);
+
+		console.log("action data", data);
+		dispatch({ type: "UPDATE_QUESTION", payload: data });
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export const questionLike = (post) => async (dispatch) => {

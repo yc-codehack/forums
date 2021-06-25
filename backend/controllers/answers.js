@@ -27,7 +27,7 @@ export const createAnswer = async (req, res) => {
 					answer: {
 						...post,
 						_id: objectId,
-						creator: req.userId,
+						creator: userInfo.accountId,
 						createdAt: new Date().toISOString(),
 						updatedAt: new Date().toISOString(),
 					},
@@ -70,6 +70,31 @@ export const createAnswer = async (req, res) => {
 		};
 
 		return res.status(200).json({ postedAnswer });
+	} catch (error) {
+		console.log(error);
+		return res.status(409).json({ message: error.message });
+	}
+};
+
+// * Update answer
+export const updateAnswer = async (req, res) => {
+	const post = req.body;
+
+	try {
+		await PostQuestion.updateOne(
+			{
+				_id: post.quesId,
+				answer: {
+					$elemMatch: { _id: post.ansId, creator: req.userId },
+				},
+			},
+			{ $set: { "answer.$.description": post.description } }
+		);
+		return res.status(200).json({
+			quesId: post.quesId,
+			ansId: post.ansId,
+			description: post.description,
+		});
 	} catch (error) {
 		console.log(error);
 		return res.status(409).json({ message: error.message });

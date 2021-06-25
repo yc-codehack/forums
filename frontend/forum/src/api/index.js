@@ -34,6 +34,10 @@ export const topCategoryList = () => API.get("/extra/topCategory");
 // create question
 export const postQuestion = (formData) => API.post("/question/new", formData);
 
+// update question
+export const patchQuestion = (formData) =>
+	API.post("/question/update", formData);
+
 // search question autocomplete
 export const searchAutocomplete = (searchItem) =>
 	API.get(`/question/search/autocomplete?searchItem=${searchItem}`);
@@ -51,3 +55,6 @@ export const removeThread = (formData) =>
 
 // post answer
 export const postAnswer = (formData) => API.post("/answer/new/", formData);
+
+// update answer
+export const patchAnswer = (formData) => API.patch("/answer/update/", formData);
