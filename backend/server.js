@@ -13,6 +13,7 @@ app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(cors());
 app.use(express.json());
+// app.use(nodemailer());
 
 // routes
 import userRoutes from "./routes/users.js";

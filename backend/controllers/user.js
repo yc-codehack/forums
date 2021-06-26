@@ -4,6 +4,10 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import UserProfile from "../models/profile.js";
 
+import sendEmail from "./utils/sendEmail.js";
+import nodemailer from "nodemailer";
+// const nodemailer = require("nodemailer");
+
 export const signin = async (req, res) => {
 	const { email, password } = req.body;
 
@@ -106,6 +110,32 @@ export const signup = async (req, res) => {
 					: null
 				: null,
 		};
+
+		// send email
+		try {
+			// let transporter = nodemailer.createTransport({
+			// 	host: "smtp.gmail.com",
+			// 	port: 465,
+			// 	secure: true,
+			// 	auth: {
+			// 		user: "photographylensoflight@gmail.com",
+			// 		pass: "jldzirlyikvpvqsw",
+			// 		// user: "jeweljservices@gmail.com",
+			// 		// pass: "oekrxgyaxzbsizmb",
+			// 	},
+			// });
+
+			// let info = transporter.sendMail({
+			// 	from: "jeweljservices@gmail.com",
+			// 	to: "satijex491@jq600.com",
+			// 	subject: "test",
+			// 	text: "text",
+			// });
+			sendEmail(result.email, "Testing", "Hello");
+			// console.log("mail sent");
+		} catch (error) {
+			console.log(error);
+		}
 
 		return res.status("200").json({ result: result, token });
 	} catch (error) {
