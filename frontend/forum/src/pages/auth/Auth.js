@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import logo from "../../assets/logo/forum_logo.png";
 
 // materialUi
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 
 import DivideOrLine from "../../components/utils/divideOrLine/DivideOrLine.js";
 import ThirdPartyAuth from "../../components/auth/utils/thirdPartyAuth/ThirdPartyAuth.js";
@@ -18,6 +18,7 @@ import Loading from "../../components/utils/loading/Loading.js";
 import AuthImage from "../../assets/auth.png";
 
 import { signin, signup } from "../../actions/auth.js";
+import axios from "axios";
 
 const initialFormDataState = {
 	firstName: "",
@@ -37,6 +38,8 @@ const Auth = () => {
 
 	const [isLoading, setIsLoading] = useState(false);
 
+	const [isSignupComplete, setIsSignupComplete] = useState(false);
+
 	const dispatch = useDispatch();
 	// to redirect page to main after auth
 	const history = useHistory();
@@ -46,16 +49,32 @@ const Auth = () => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		setIsLoading(true);
 
-		console.log(isSignIn);
 		if (isSignIn) {
 			dispatch(signin(formData, history));
 		} else {
-			dispatch(signup(formData, history));
+			// const res = await signup(formData);
+			// console.log(res);
+			// if (res.status === 200) {
+			// 	setIsSignupComplete(true);
+			// }
+			// // dispatch(signup(formData, history));
+
+			try {
+				axios
+					.post("http://localhost:5000/auth/signup", formData)
+					.then((res) => {
+						setIsSignupComplete(true);
+						setIsLoading(false);
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			} catch (error) {}
 		}
 
 		console.log("component/Auth.js", formData);
@@ -107,96 +126,111 @@ const Auth = () => {
 					</div>
 				</div>
 
-				<form onSubmit={handleSubmit} className="auth__mainCredentials">
-					{/* show only is signUp */}
-					{!isSignIn && (
-						<>
+				{!isSignupComplete ? (
+					<>
+						<form
+							onSubmit={handleSubmit}
+							className="auth__mainCredentials"
+						>
+							{/* show only is signUp */}
+							{!isSignIn && (
+								<>
+									<Input
+										name="firstName"
+										label="First Name"
+										handleChange={handleChange}
+										autoFocus
+										type="text"
+									/>
+									<Input
+										name="lastName"
+										label="Last Name"
+										handleChange={handleChange}
+										type="text"
+									/>
+								</>
+							)}
+
+							{/* always show */}
 							<Input
-								name="firstName"
-								label="First Name"
+								name="email"
+								label="Email"
 								handleChange={handleChange}
-								autoFocus
-								type="text"
+								type="email"
 							/>
 							<Input
-								name="lastName"
-								label="Last Name"
+								name="password"
+								label="Password"
+								min={8}
 								handleChange={handleChange}
-								type="text"
+								type={showPassword ? "text" : "password"}
+								handleShowPassword={handleShowPassword}
 							/>
-						</>
-					)}
 
-					{/* always show */}
-					<Input
-						name="email"
-						label="Email"
-						handleChange={handleChange}
-						type="email"
-					/>
-					<Input
-						name="password"
-						label="Password"
-						min={8}
-						handleChange={handleChange}
-						type={showPassword ? "text" : "password"}
-						handleShowPassword={handleShowPassword}
-					/>
+							{/* forgot password link */}
+							{isSignIn && (
+								<Link
+									className="auth__mainCredentialsLink"
+									to="/"
+								>
+									<p>forgot password ?</p>
+								</Link>
+							)}
 
-					{/* forgot password link */}
-					{isSignIn && (
-						<Link className="auth__mainCredentialsLink" to="/">
-							<p>forgot password ?</p>
-						</Link>
-					)}
+							{/* show only is signUp */}
+							{!isSignIn && (
+								<Input
+									name="confirmPassword"
+									label="Repeat Password"
+									handleChange={handleChange}
+									type="password"
+								/>
+							)}
 
-					{/* show only is signUp */}
-					{!isSignIn && (
-						<Input
-							name="confirmPassword"
-							label="Repeat Password"
-							handleChange={handleChange}
-							type="password"
-						/>
-					)}
+							{/* Btn */}
+							<Button
+								type="submit"
+								variant="contained"
+								className="auth__mainCredentialsBtn"
+							>
+								{isSignIn ? "Sign In" : "SIgn Up"}
+							</Button>
+						</form>
 
-					{/* Btn */}
-					<Button
-						type="submit"
-						variant="contained"
-						className="auth__mainCredentialsBtn"
-					>
-						{isSignIn ? "Sign In" : "SIgn Up"}
-					</Button>
-				</form>
+						<div className="auth__mainFooter">
+							{/* DivideLine */}
+							<DivideOrLine color="#e9e9e9" />
 
-				<div className="auth__mainFooter">
-					{/* DivideLine */}
-					<DivideOrLine color="#e9e9e9" />
+							{/* SingIn/SignUp */}
+							{isSignIn ? (
+								<Button
+									variant="contained"
+									className="auth__mainFooterBtn"
+									onClick={handleSwitch}
+								>
+									Sign Up
+								</Button>
+							) : (
+								<Button
+									type="submit"
+									variant="contained"
+									className="auth__mainFooterBtn"
+									onClick={handleSwitch}
+								>
+									Sign In
+								</Button>
+							)}
 
-					{/* SingIn/SignUp */}
-					{isSignIn ? (
-						<Button
-							variant="contained"
-							className="auth__mainFooterBtn"
-							onClick={handleSwitch}
-						>
-							Sign Up
-						</Button>
-					) : (
-						<Button
-							type="submit"
-							variant="contained"
-							className="auth__mainFooterBtn"
-							onClick={handleSwitch}
-						>
-							Sign In
-						</Button>
-					)}
-
-					{/* 3rd part Options */}
-					<ThirdPartyAuth />
-				</div>
+							{/* 3rd part Options */}
+							<ThirdPartyAuth />
+						</div>
+					</>
+				) : (
+					<Typography className="auth__mainVerify" variant="h4">
+						We have sent an verification mail. Please check your
+						mail to verify your identity
+					</Typography>
+				)}
 			</div>
 
 			{/* Components */}

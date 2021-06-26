@@ -10,7 +10,7 @@ export const signin = (formData, history) => async (dispatch) => {
 		console.log(error);
 	}
 };
-export const signup = (formData, history) => async (dispatch) => {
+export const signup = (formData) => async (dispatch) => {
 	try {
 		const { data } = await api.signUp(formData);
 		dispatch({ type: AUTH, data });

@@ -161,6 +161,13 @@
   outline: none;
 }
 
+.auth .auth__main .auth__mainVerify {
+  margin-top: 50%;
+  width: 80%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
 @media only screen and (max-width: 900px) {
   .auth .auth__banner {
     -webkit-box-flex: 0;
