@@ -17,7 +17,7 @@ function sendEmail(receiverEmail, subject, text) {
 		from: "jeweljservices@gmail.com",
 		to: receiverEmail,
 		subject: subject,
-		text: text,
+		html: text,
 	});
 	console.log("mail sent");
 }
