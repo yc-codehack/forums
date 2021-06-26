@@ -15,7 +15,6 @@ import DivideOrLine from "../../components/utils/divideOrLine/DivideOrLine.js";
 import ThirdPartyAuth from "../../components/auth/utils/thirdPartyAuth/ThirdPartyAuth.js";
 import { Input } from "../../components/utils/input/Input.js";
 import Loading from "../../components/utils/loading/Loading.js";
-import AuthImage from "../../assets/auth.png";
 
 import { signin, signup } from "../../actions/auth.js";
 import axios from "axios";
@@ -40,6 +39,10 @@ const Auth = () => {
 
 	const [isSignupComplete, setIsSignupComplete] = useState(false);
 
+	const [isForgotPass, setIsForgotPass] = useState(false);
+
+	const [isForgotPassComplete, setIsForgotPassComplete] = useState(false);
+
 	const dispatch = useDispatch();
 	// to redirect page to main after auth
 	const history = useHistory();
@@ -54,27 +57,33 @@ const Auth = () => {
 
 		setIsLoading(true);
 
-		if (isSignIn) {
-			dispatch(signin(formData, history));
+		if (isForgotPass) {
+			axios
+				.post("http://localhost:5000/auth/forgotPassword", {
+					email: formData.email,
+				})
+				.then((res) => {
+					setIsForgotPassComplete(true);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		} else {
-			// const res = await signup(formData);
-			// console.log(res);
-			// if (res.status === 200) {
-			// 	setIsSignupComplete(true);
-			// }
-			// // dispatch(signup(formData, history));
-
-			try {
-				axios
-					.post("http://localhost:5000/auth/signup", formData)
-					.then((res) => {
-						setIsSignupComplete(true);
-						setIsLoading(false);
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			} catch (error) {}
+			if (isSignIn) {
+				dispatch(signin(formData, history));
+			} else {
+				try {
+					axios
+						.post("http://localhost:5000/auth/signup", formData)
+						.then((res) => {
+							setIsSignupComplete(true);
+							setIsLoading(false);
+						})
+						.catch((err) => {
+							console.log(err);
+						});
+				} catch (error) {}
+			}
 		}
 
 		console.log("component/Auth.js", formData);
@@ -87,6 +96,10 @@ const Auth = () => {
 		setFormData(initialFormDataState);
 		setSignIn((prevIsSignIn) => !prevIsSignIn);
 		setShowPassword(false);
+	};
+
+	const handleForgotPass = () => {
+		setIsForgotPass((prevPass) => !prevPass);
 	};
 
 	return (
@@ -124,16 +137,22 @@ const Auth = () => {
 							</span>
 						</div>
 					</div>
+					{isForgotPass && (
+						<div className="auth__mainHeaderForgotPass">
+							Forgot Password
+						</div>
+					)}
 				</div>
 
-				{!isSignupComplete ? (
+				{!isSignupComplete && !isForgotPassComplete ? (
 					<>
 						<form
 							onSubmit={handleSubmit}
 							className="auth__mainCredentials"
 						>
 							{/* show only is signUp */}
-							{!isSignIn && (
+
+							{!isSignIn && !isForgotPass && (
 								<>
 									<Input
 										name="firstName"
@@ -150,35 +169,36 @@ const Auth = () => {
 									/>
 								</>
 							)}
-
 							{/* always show */}
 							<Input
 								name="email"
 								label="Email"
 								handleChange={handleChange}
 								type="email"
+								fullWidth
 							/>
-							<Input
-								name="password"
-								label="Password"
-								min={8}
-								handleChange={handleChange}
-								type={showPassword ? "text" : "password"}
-								handleShowPassword={handleShowPassword}
-							/>
-
+							{!isForgotPass && (
+								<Input
+									name="password"
+									label="Password"
+									min={8}
+									handleChange={handleChange}
+									type={showPassword ? "text" : "password"}
+									handleShowPassword={handleShowPassword}
+								/>
+							)}
 							{/* forgot password link */}
 							{isSignIn && (
-								<Link
-									className="auth__mainCredentialsLink"
-									to="/"
-								>
-									<p>forgot password ?</p>
+								<Link className="auth__mainCredentialsLink">
+									<p onClick={() => handleForgotPass()}>
+										{!isForgotPass
+											? "forgot password ?"
+											: "Sign In"}
+									</p>
 								</Link>
 							)}
-
 							{/* show only is signUp */}
-							{!isSignIn && (
+							{!isSignIn && !isForgotPass && (
 								<Input
 									name="confirmPassword"
 									label="Repeat Password"
@@ -186,49 +206,54 @@ const Auth = () => {
 									type="password"
 								/>
 							)}
-
 							{/* Btn */}
 							<Button
 								type="submit"
 								variant="contained"
 								className="auth__mainCredentialsBtn"
 							>
-								{isSignIn ? "Sign In" : "SIgn Up"}
+								{isForgotPass
+									? "Confirm"
+									: isSignIn
+									? "Sign In"
+									: "SIgn Up"}
 							</Button>
 						</form>
+						{!isForgotPass && (
+							<div className="auth__mainFooter">
+								{/* DivideLine */}
+								<DivideOrLine color="#e9e9e9" />
 
-						<div className="auth__mainFooter">
-							{/* DivideLine */}
-							<DivideOrLine color="#e9e9e9" />
+								{/* SingIn/SignUp */}
+								{isSignIn ? (
+									<Button
+										variant="contained"
+										className="auth__mainFooterBtn"
+										onClick={handleSwitch}
+									>
+										Sign Up
+									</Button>
+								) : (
+									<Button
+										type="submit"
+										variant="contained"
+										className="auth__mainFooterBtn"
+										onClick={handleSwitch}
+									>
+										Sign In
+									</Button>
+								)}
 
-							{/* SingIn/SignUp */}
-							{isSignIn ? (
-								<Button
-									variant="contained"
-									className="auth__mainFooterBtn"
-									onClick={handleSwitch}
-								>
-									Sign Up
-								</Button>
-							) : (
-								<Button
-									type="submit"
-									variant="contained"
-									className="auth__mainFooterBtn"
-									onClick={handleSwitch}
-								>
-									Sign In
-								</Button>
-							)}
-
-							{/* 3rd part Options */}
-							<ThirdPartyAuth />
-						</div>
+								{/* 3rd part Options */}
+								<ThirdPartyAuth />
+							</div>
+						)}
 					</>
 				) : (
 					<Typography className="auth__mainVerify" variant="h4">
-						We have sent an verification mail. Please check your
-						mail to verify your identity
+						{isForgotPass
+							? "Password Reset email sent!!"
+							: "We have sent an verification mail. Please check mail to verify your identity"}
 					</Typography>
 				)}
 			</div>

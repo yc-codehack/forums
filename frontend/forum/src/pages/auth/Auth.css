@@ -99,6 +99,12 @@
   color: #469ae2;
 }
 
+.auth .auth__main .auth__mainHeader .auth__mainHeaderForgotPass {
+  margin-top: 5rem;
+  font-size: 20px;
+  font-weight: 400px;
+}
+
 .auth .auth__main .auth__mainCredentials {
   margin: 3rem 0;
   display: -webkit-box;
@@ -112,11 +118,12 @@
       -ms-flex-pack: center;
           justify-content: center;
   max-width: 400px;
+  min-width: 300px;
 }
 
 .auth .auth__main .auth__mainCredentials .auth__mainCredentialsLink {
   color: #469ae2;
-  width: 90%;
+  width: 100%;
   cursor: pointer;
 }
 

@@ -62,9 +62,8 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-	const { email, password, firstName, lastName } = req.body;
-
 	try {
+		const { email, password, firstName, lastName } = req.body;
 		// finding user detail in db
 		const existingUser = await User.findOne({ email });
 
@@ -283,5 +282,33 @@ export const verify = async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ message: "Something went wrong" });
+	}
+};
+
+export const forgotPassword = async (req, res) => {
+	try {
+		const { email } = req.body;
+		// finding user detail in db
+		const existingUser = await User.findOne({ email });
+
+		// user exists can't re-register
+		if (!existingUser) {
+			return res.status(400).json({ message: "User does not exists" });
+		}
+		// send email
+		try {
+			const verificationToken = jwt.sign(
+				{ email: result.email, id: result._id },
+				"test",
+				{ expiresIn: "10m" }
+			);
+			const url = `http://localhost:3000/resetPassword/${verificationToken}`;
+			
+
+		
+
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: error.message });
 	}
 };
