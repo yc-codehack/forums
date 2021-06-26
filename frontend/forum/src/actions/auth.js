@@ -13,10 +13,18 @@ export const signin = (formData, history) => async (dispatch) => {
 export const signup = (formData, history) => async (dispatch) => {
 	try {
 		const { data } = await api.signUp(formData);
-		console.log("action/signUp", data);
 		dispatch({ type: AUTH, data });
-		history.push("/");
 	} catch (error) {
 		console.log(error);
+	}
+};
+
+export const verifyUser = async (formData) => {
+	try {
+		const data = await api.verify(formData);
+		return data;
+	} catch (error) {
+		console.log(error);
+		return error;
 	}
 };

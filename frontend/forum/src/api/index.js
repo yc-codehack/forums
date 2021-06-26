@@ -17,6 +17,7 @@ export const fetchRecent = () => API.get("/question/list?filter=recent");
 // AUTH
 export const signIn = (formData) => API.post("/auth/signin", formData);
 export const signUp = (formData) => API.post("/auth/signup", formData);
+export const verify = (formData) => API.post("/auth/verify", formData);
 
 // Like Question
 export const like = (formData) => API.patch("/question/like", formData);

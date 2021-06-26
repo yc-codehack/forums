@@ -253,10 +253,35 @@ export const signup = async (req, res) => {
 };
 
 export const verify = async (req, res) => {
-	const { token } = req.body;
+	console.log("user controller", req.body);
+	try {
+		const { token } = req.body;
 
-	const decodedData = jwt.verify(token, "test");
-	const userId = decodedData?.id;
+		const decodedData = jwt.verify(token, "test");
+		const userId = decodedData?.id;
 
-	await user.updateOne({ _id: userId }, { $set: { idVerified: true } });
+		await User.updateOne({ _id: userId }, { $set: { idVerified: true } });
+
+		const existingUser = await UserProfile.findOne({ accountId: userId });
+
+		const userInfo = await User.findOne({ _id: userId });
+
+		const userData = {
+			email: userInfo.email,
+			name: existingUser.name,
+			_id: existingUser._id,
+			imageUrl: existingUser.image ? existingUser.image : null,
+		};
+
+		const authToken = jwt.sign(
+			{ email: userInfo.email, id: existingUser._id },
+			"test", // REVIEW move the secret text to env file
+			{ expiresIn: "7d" } // REVIEW change the token expire time
+		);
+
+		return res.status(200).json({ result: userData, token: authToken });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "Something went wrong" });
+	}
 };
