@@ -27,6 +27,9 @@ function App() {
 					<Route path="/verify/:token">
 						<VerifyMail />
 					</Route>
+					<Route path="/resetPassword/:token">
+						<Auth type="resetPassword" />
+					</Route>
 				</Switch>
 			</Router>
 		</div>

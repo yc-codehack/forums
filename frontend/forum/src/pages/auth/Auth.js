@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./Auth.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 // image
 import logo from "../../assets/logo/forum_logo.png";
@@ -27,8 +27,12 @@ const initialFormDataState = {
 	confirmPassword: "",
 };
 
-const Auth = () => {
+const Auth = ({ type }) => {
+	const { token } = useParams();
+	const isResetPass = type;
+
 	// states
+
 	const [isSignIn, setSignIn] = useState(true);
 
 	const [showPassword, setShowPassword] = useState(false);
@@ -57,32 +61,56 @@ const Auth = () => {
 
 		setIsLoading(true);
 
-		if (isForgotPass) {
-			axios
-				.post("http://localhost:5000/auth/forgotPassword", {
-					email: formData.email,
-				})
-				.then((res) => {
-					setIsForgotPassComplete(true);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
+		if (isResetPass) {
+			try {
+				axios
+					.post("http://localhost:5000/auth/resetPassword", {
+						token: token,
+						password: formData.password,
+					})
+					.then((res) => {
+						console.log(res);
+						localStorage.setItem(
+							"profile",
+							JSON.stringify({ ...res.data })
+						);
+						history.push("/");
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			} catch (error) {
+				console.log(error);
+			}
 		} else {
-			if (isSignIn) {
-				dispatch(signin(formData, history));
+			if (isForgotPass) {
+				axios
+					.post("http://localhost:5000/auth/forgotPassword", {
+						email: formData.email,
+					})
+					.then((res) => {
+						setIsForgotPassComplete(true);
+						setIsLoading(false);
+					})
+					.catch((err) => {
+						console.log(err);
+					});
 			} else {
-				try {
-					axios
-						.post("http://localhost:5000/auth/signup", formData)
-						.then((res) => {
-							setIsSignupComplete(true);
-							setIsLoading(false);
-						})
-						.catch((err) => {
-							console.log(err);
-						});
-				} catch (error) {}
+				if (isSignIn) {
+					dispatch(signin(formData, history));
+				} else {
+					try {
+						axios
+							.post("http://localhost:5000/auth/signup", formData)
+							.then((res) => {
+								setIsSignupComplete(true);
+								setIsLoading(false);
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					} catch (error) {}
+				}
 			}
 		}
 
@@ -116,7 +144,11 @@ const Auth = () => {
 				{isLoading && (
 					<Loading
 						text={
-							isSignIn
+							isResetPass
+								? "Please hold on while we are updating your details"
+								: isForgotPass
+								? "Please hold on verifying details"
+								: isSignIn
 								? "Please hold on signing you in..."
 								: "Creating your account"
 						}
@@ -152,7 +184,7 @@ const Auth = () => {
 						>
 							{/* show only is signUp */}
 
-							{!isSignIn && !isForgotPass && (
+							{!isSignIn && !isForgotPass && !isResetPass && (
 								<>
 									<Input
 										name="firstName"
@@ -170,13 +202,15 @@ const Auth = () => {
 								</>
 							)}
 							{/* always show */}
-							<Input
-								name="email"
-								label="Email"
-								handleChange={handleChange}
-								type="email"
-								fullWidth
-							/>
+							{!isResetPass && (
+								<Input
+									name="email"
+									label="Email"
+									handleChange={handleChange}
+									type="email"
+									fullWidth
+								/>
+							)}
 							{!isForgotPass && (
 								<Input
 									name="password"
@@ -188,7 +222,7 @@ const Auth = () => {
 								/>
 							)}
 							{/* forgot password link */}
-							{isSignIn && (
+							{isSignIn && !isResetPass && (
 								<Link className="auth__mainCredentialsLink">
 									<p onClick={() => handleForgotPass()}>
 										{!isForgotPass
@@ -198,28 +232,29 @@ const Auth = () => {
 								</Link>
 							)}
 							{/* show only is signUp */}
-							{!isSignIn && !isForgotPass && (
-								<Input
-									name="confirmPassword"
-									label="Repeat Password"
-									handleChange={handleChange}
-									type="password"
-								/>
-							)}
+							{(!isSignIn && !isForgotPass) ||
+								(isResetPass && (
+									<Input
+										name="confirmPassword"
+										label="Repeat Password"
+										handleChange={handleChange}
+										type="password"
+									/>
+								))}
 							{/* Btn */}
 							<Button
 								type="submit"
 								variant="contained"
 								className="auth__mainCredentialsBtn"
 							>
-								{isForgotPass
+								{isForgotPass || isResetPass
 									? "Confirm"
 									: isSignIn
 									? "Sign In"
 									: "SIgn Up"}
 							</Button>
 						</form>
-						{!isForgotPass && (
+						{!isForgotPass && !isResetPass && (
 							<div className="auth__mainFooter">
 								{/* DivideLine */}
 								<DivideOrLine color="#e9e9e9" />
