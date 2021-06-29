@@ -11,8 +11,9 @@ import TopCard from "../../components/utils/topCard/TopCard.js";
 import CreateQues from "../../components/ques/createQues/CreateQues.js";
 
 // materialUI
-import { Button } from "@material-ui/core";
+import { Button, Breadcrumbs } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import HomeIcon from "@material-ui/icons/Home";
 
 function Home({ filter }) {
 	const { categoryName } = useParams();
@@ -28,6 +29,8 @@ function Home({ filter }) {
 	const handleCreateQues = () => {
 		setShowCreateQues((prevShow) => !prevShow);
 	};
+
+	const breadcrumb = `/category/${categoryName}`;
 
 	return (
 		<div className="home">
@@ -51,11 +54,58 @@ function Home({ filter }) {
 						/>
 					)}
 					{filter === "category" ? (
-						<Category />
+						<>
+							<Breadcrumbs aria-label="breadcrumb">
+								<Link className="bread" to="/">
+									<HomeIcon />
+									Home
+								</Link>
+
+								<Link
+									className="activeBread"
+									to="/categoryList"
+									aria-current="page"
+								>
+									Category
+								</Link>
+							</Breadcrumbs>
+							<Category />
+						</>
 					) : filter === "category questions" ? (
-						<QuesList filter={categoryName} sort={-1} />
+						<>
+							<Breadcrumbs aria-label="breadcrumb">
+								<Link className="bread" to="/">
+									<HomeIcon />
+									Home
+								</Link>
+								<Link className="bread" to="/categoryList">
+									Category
+								</Link>
+
+								<Link
+									className="activeBread"
+									to={breadcrumb}
+									aria-current="page"
+								>
+									{categoryName}
+								</Link>
+							</Breadcrumbs>
+							<QuesList filter={categoryName} sort={-1} />
+						</>
 					) : (
-						<QuesList />
+						<>
+							<Breadcrumbs aria-label="breadcrumb">
+								<Link
+									className="activeBread"
+									to="/categoryList"
+									aria-current="page"
+								>
+									<HomeIcon />
+									Home
+								</Link>
+							</Breadcrumbs>
+							<QuesList />
+						</>
 					)}
 				</div>
 				{/* right side */}

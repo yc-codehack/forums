@@ -24,7 +24,6 @@ const QuesList = ({ filter, sort }) => {
 
 	return (
 		<div className="quesList">
-			{filter && <Typography variant="h4">{filter}</Typography>}
 			{!questions.length ? (
 				<CircularProgress />
 			) : (

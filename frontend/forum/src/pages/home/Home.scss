@@ -20,6 +20,24 @@
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
+			// position: relative;
+
+			.MuiBreadcrumbs-root {
+				margin: 1rem auto;
+				width: 90%;
+				font-size: 18px;
+
+				.bread {
+					color: #bdbdbd;
+				}
+
+				.activeBread {
+					color: #333333;
+					.MuiSvgIcon-root {
+						color: #333333;
+					}
+				}
+			}
 		}
 		.home__rightSide {
 			margin: 0.5rem;

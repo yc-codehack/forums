@@ -43,6 +43,24 @@
           flex-direction: column;
 }
 
+.home .home__main .home__middleSide .MuiBreadcrumbs-root {
+  margin: 1rem auto;
+  width: 90%;
+  font-size: 18px;
+}
+
+.home .home__main .home__middleSide .MuiBreadcrumbs-root .bread {
+  color: #bdbdbd;
+}
+
+.home .home__main .home__middleSide .MuiBreadcrumbs-root .activeBread {
+  color: #333333;
+}
+
+.home .home__main .home__middleSide .MuiBreadcrumbs-root .activeBread .MuiSvgIcon-root {
+  color: #333333;
+}
+
 .home .home__main .home__rightSide {
   margin: 0.5rem;
   -webkit-box-flex: 0.25;
