@@ -27,6 +27,11 @@ export const dislike = (formData) => API.patch("/question/dislike", formData);
 
 // category list {category page}
 export const categoryList = () => API.get("/extra/category");
+// category question list
+export const categoryQuestion = (formData) =>
+	API.get(
+		`/question/list?filter=category&filterInfo=${formData.filterInfo}&sort=likeCount&sortInfo=${formData.sortInfo}`
+	);
 
 // top list
 export const topUserList = () => API.get("/extra/topUser");

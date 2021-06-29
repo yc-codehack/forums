@@ -130,19 +130,6 @@ export const getQuestions = async (req, res) => {
 
 			var questionsIs = await Promise.all(
 				questionsList.map(async (question) => {
-					const currentTime = moment(
-						new Date().toISOString(),
-						"YYYY-MM-DD HH:mm:ss"
-					);
-					const createdAt = moment(
-						question.createdAt,
-						"YYYY-MM-DD HH:mm:ss"
-					);
-					const tempTime = moment.duration(
-						currentTime.diff(createdAt)
-					);
-					const newTimeDuration = convertTimeToString(tempTime);
-
 					const userInfo = await UserProfile.findOne({
 						accountId: question.creator,
 					});
@@ -196,36 +183,54 @@ export const getQuestions = async (req, res) => {
 				[filter]: filterInfo,
 			}).sort({ [sort]: sortInfo });
 
-			var questionsIs = questionsList.map(async (question) => {
-				const currentTime = moment(
-					new Date().toISOString(),
-					"YYYY-MM-DD HH:mm:ss"
-				);
-				const createdAt = moment(
-					question.createdAt,
-					"YYYY-MM-DD HH:mm:ss"
-				);
-				const tempTime = moment.duration(currentTime.diff(createdAt));
-				const newTimeDuration = convertTimeToString(tempTime);
-				const userInfo = await UserProfile.findOne({
-					accountId: question.creator,
-				});
-				const properties = {
-					_id: question._id,
-					title: question.title,
-					description: question.description,
-					createdAt: newTimeDuration,
-					likeCount: question.likeCount,
-					dislikeCount: question.dislikeCount,
-					creatorName: userInfo ? userInfo.name : "h",
-					creatorImage: userInfo
-						? userInfo.image
+			var questionsIs = await Promise.all(
+				questionsList.map(async (question) => {
+					const userInfo = await UserProfile.findOne({
+						accountId: question.creator,
+					});
+
+					var isLiked = false;
+					var isDisliked = false;
+
+					// if user is logged in then check if the question is liked by them or not
+					currentUserId &&
+						((isLiked = Boolean(
+							(
+								await UserProfile.find({
+									accountId: currentUserId,
+									likedQuestion: { $in: [question._id] },
+								})
+							).length
+						)),
+						(isDisliked = Boolean(
+							(
+								await UserProfile.find({
+									accountId: currentUserId,
+									dislikedQuestion: { $in: [question._id] },
+								})
+							).length
+						)));
+
+					const properties = {
+						_id: question._id,
+						title: question.title,
+						description: question.description,
+						createdAt: question.createdAt,
+						likeCount: question.likeCount,
+						dislikeCount: question.dislikeCount,
+						creatorName: userInfo ? userInfo.name : "Anonymous",
+						creatorImage: userInfo
 							? userInfo.image
-							: null
-						: null,
-				};
-				return properties;
-			});
+								? userInfo.image
+								: null
+							: null,
+						liked: isLiked,
+						disliked: isDisliked,
+						creatorId: question.creator,
+					};
+					return properties;
+				})
+			);
 		}
 
 		if (questionsIs.length === 0) {

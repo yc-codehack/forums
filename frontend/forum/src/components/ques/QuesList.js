@@ -4,22 +4,27 @@ import Card from "./newCard/Card.js";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { getRecent } from "../../actions/questions.js";
+import { getRecent, getCategoryQuestion } from "../../actions/questions.js";
 
 // material ui
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Typography } from "@material-ui/core";
 
 const QuesList = ({ filter, sort }) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getRecent());
-	}, [dispatch]);
+		filter
+			? dispatch(
+					getCategoryQuestion({ filterInfo: filter, sortInfo: sort })
+			  )
+			: dispatch(getRecent());
+	}, [dispatch, filter, sort]);
 
 	const questions = useSelector((state) => state.Question);
 
 	return (
 		<div className="quesList">
+			{filter && <Typography variant="h4">{filter}</Typography>}
 			{!questions.length ? (
 				<CircularProgress />
 			) : (

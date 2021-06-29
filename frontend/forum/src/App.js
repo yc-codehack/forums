@@ -18,6 +18,9 @@ function App() {
 					<Route path="/categoryList">
 						<Home filter="category" />
 					</Route>
+					<Route path="/category/:categoryName">
+						<Home filter="category questions" />
+					</Route>
 					<Route path="/auth">
 						<Auth />
 					</Route>

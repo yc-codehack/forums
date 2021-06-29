@@ -1,12 +1,20 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import "./Card.css";
-
+import { getCategoryQuestion } from "../../../actions/questions.js";
 // images
 
 function CategoryCard({ item }) {
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const handleClick = () => {
+		history.push(`/category/${item.name}`);
+	};
+
 	return (
-		<div className="card__category">
+		<div className="card__category" onClick={() => handleClick()}>
 			<div className="card__startLine"></div>
 			<div className="card__info">
 				<img className="card__infoImg" src={item.image} alt="" />

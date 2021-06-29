@@ -10,6 +10,15 @@ export const getRecent = () => async (dispatch) => {
 	}
 };
 
+export const getCategoryQuestion = (post) => async (dispatch) => {
+	try {
+		const { data } = await api.categoryQuestion(post);
+		dispatch({ type: "FETCH_RECENT", payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const createQuestion = (post) => async (dispatch) => {
 	try {
 		const { data } = await api.postQuestion(post);

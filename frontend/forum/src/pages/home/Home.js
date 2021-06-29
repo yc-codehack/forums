@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // components
 import Navbar from "../../components/navbar/Navbar.js";
@@ -14,6 +15,7 @@ import { Button } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 function Home({ filter }) {
+	const { categoryName } = useParams();
 	const [showCreateQues, setShowCreateQues] = useState(false);
 
 	const initialFormData = {
@@ -42,13 +44,18 @@ function Home({ filter }) {
 				{/* middle side */}
 				<div className="home__middleSide">
 					{/* Proper naming for the show create Ques fun */}
-					{showCreateQues && (
-						<CreateQues
-							fun={setShowCreateQues}
-							initialFormData={initialFormData}
-						/>
+					<CreateQues
+						fun={setShowCreateQues}
+						initialFormData={initialFormData}
+					/>
 					)}
-					{filter === "category" ? <Category /> : <QuesList />}
+					{filter === "category" ? (
+						<Category />
+					) : filter === "category questions" ? (
+						<QuesList filter={categoryName} sort={-1} />
+					) : (
+						<QuesList />
+					)}
 				</div>
 				{/* right side */}
 				<div className="home__rightSide">
