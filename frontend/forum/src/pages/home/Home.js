@@ -44,10 +44,11 @@ function Home({ filter }) {
 				{/* middle side */}
 				<div className="home__middleSide">
 					{/* Proper naming for the show create Ques fun */}
-					<CreateQues
-						fun={setShowCreateQues}
-						initialFormData={initialFormData}
-					/>
+					{showCreateQues && (
+						<CreateQues
+							fun={setShowCreateQues}
+							initialFormData={initialFormData}
+						/>
 					)}
 					{filter === "category" ? (
 						<Category />
