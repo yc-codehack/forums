@@ -122,11 +122,13 @@ export const getQuestions = async (req, res) => {
 			? authUserInfo(req.headers.authorization.split(" ")[1])
 			: null;
 
+		console.log("pagination", req.paginatedResults);
+
+		var result = {};
+
 		// sort acc to date
 		if (filter == "recent") {
-			var questionsList = await PostQuestion.find().sort({
-				createdAt: -1,
-			});
+			var questionsList = req.paginatedResults.results;
 
 			var questionsIs = await Promise.all(
 				questionsList.map(async (question) => {
@@ -176,12 +178,18 @@ export const getQuestions = async (req, res) => {
 					return properties;
 				})
 			);
+
+			result = {
+				totalPages: req.paginatedResults.totalPages,
+				current: { ...req.paginatedResults.current },
+				next: { ...req.paginatedResults.next },
+				previous: { ...req.paginatedResults.previous },
+				result: { ...questionsIs },
+			};
 		}
 		// filter acc to ( category and user ) and then sort based on (likes and date)
 		else {
-			var questionsList = await PostQuestion.find({
-				[filter]: filterInfo,
-			}).sort({ [sort]: sortInfo });
+			var questionsList = req.paginatedResults.results;
 
 			var questionsIs = await Promise.all(
 				questionsList.map(async (question) => {
@@ -231,12 +239,19 @@ export const getQuestions = async (req, res) => {
 					return properties;
 				})
 			);
+			result = {
+				totalPages: req.paginatedResults.totalPages,
+				current: { ...req.paginatedResults.current },
+				next: { ...req.paginatedResults.next },
+				previous: { ...req.paginatedResults.previous },
+				result: { ...questionsIs },
+			};
 		}
 
 		if (questionsIs.length === 0) {
 			return res.status(400).json({ message: "No data found!!!" });
 		}
-		return res.status(200).json(questionsIs);
+		return res.status(200).json(result);
 	} catch (error) {
 		return res.status(404).json({ message: error.message });
 	}

@@ -68,6 +68,11 @@ const ThreadCard = ({ item }) => {
 		setIsLiked(false);
 	};
 
+	const handleShare = async () => {
+		const currentLink = window.location.href;
+		await navigator.clipboard.writeText(currentLink);
+	};
+
 	// delete
 	const handleDelete = () => {
 		if (item.type === "question") {
