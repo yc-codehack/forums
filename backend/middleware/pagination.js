@@ -24,7 +24,6 @@ const paginatedResults = async (req, res, next) => {
 				.limit(limit)
 				.skip(startIndex);
 			count = await PostQuestion.countDocuments();
-			console.log("count", count);
 		} catch (error) {
 			console.log(error);
 			return res.status(500).json({ message: error.message });

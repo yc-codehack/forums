@@ -12,7 +12,10 @@ API.interceptors.request.use((req) => {
 	return req;
 });
 
-export const fetchRecent = () => API.get("/question/list?filter=recent");
+export const fetchRecent = (formData) =>
+	API.get(
+		`/question/list?filter=recent&page=${formData.page}&limit=${formData.limit}`
+	);
 
 // AUTH
 export const signIn = (formData) => API.post("/auth/signin", formData);

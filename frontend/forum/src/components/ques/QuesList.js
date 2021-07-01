@@ -17,17 +17,21 @@ const QuesList = ({ filter, sort }) => {
 			? dispatch(
 					getCategoryQuestion({ filterInfo: filter, sortInfo: sort })
 			  )
-			: dispatch(getRecent());
+			: dispatch(getRecent({ page: 1, limit: 5 }));
 	}, [dispatch, filter, sort]);
 
 	const questions = useSelector((state) => state.Question);
+	// console.log("questions", questions && questions.result);
+	// console.log("questions", questions && questions.result.length);
 
 	return (
 		<div className="quesList">
-			{!questions.length ? (
+			{!questions.result.length ? (
 				<CircularProgress />
 			) : (
-				questions.map((item) => <Card key={item._id} item={item} />)
+				questions.result.map((item) => (
+					<Card key={item._id} item={item} />
+				))
 			)}
 		</div>
 	);

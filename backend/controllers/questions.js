@@ -122,7 +122,7 @@ export const getQuestions = async (req, res) => {
 			? authUserInfo(req.headers.authorization.split(" ")[1])
 			: null;
 
-		console.log("pagination", req.paginatedResults);
+		// console.log("pagination", req.paginatedResults);
 
 		var result = {};
 
@@ -184,7 +184,7 @@ export const getQuestions = async (req, res) => {
 				current: { ...req.paginatedResults.current },
 				next: { ...req.paginatedResults.next },
 				previous: { ...req.paginatedResults.previous },
-				result: { ...questionsIs },
+				result: questionsIs,
 			};
 		}
 		// filter acc to ( category and user ) and then sort based on (likes and date)

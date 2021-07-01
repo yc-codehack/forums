@@ -1,35 +1,50 @@
 import * as actionType from "../constants/actionType.js";
 // eslint-disable-next-line import/no-anonymous-default-export
-export const Question = (questions = [], action) => {
+export const Question = (
+	questions = {
+		totalPages: 0,
+		next: { page: null, limit: null },
+		previous: { page: null, limit: null },
+		current: { page: null, limit: null },
+		result: [],
+	},
+	action
+) => {
 	switch (action.type) {
 		case "FETCH_RECENT":
+			console.log("reducer", action.payload.result);
 			return action.payload;
 
 		case "LIKE":
-			return questions.map((question) =>
+			return questions.result.map((question) =>
 				question._id === action.payload._id
 					? [...question, action.payload]
 					: question
 			);
 		case "DISLIKE":
-			return questions.map((question) =>
+			return questions.result.map((question) =>
 				question._id === action.payload._id
 					? [...question, action.payload]
 					: question
 			);
 
 		case "CREATE":
-			console.log("reducer=>", [action.payload, ...questions]);
-			return [action.payload, ...questions];
+			console.log("reducer=>", action.payload);
+			return {
+				...questions,
+				result: [action.payload, ...questions.result],
+			};
 
 		case actionType.SEARCH_QUESTION:
 			return action.payload;
 
 		case actionType.DELETE_QUESTION:
-			questions = questions.filter(
+			console.log("delete question reducer", questions);
+			const result = questions.result.filter(
 				(question) => question._id !== action.payload._id
 			);
-			console.log("question reducer", questions);
+			console.log("delete reducer result", result);
+			//console.log("question reducer", questions);
 
 			return questions;
 

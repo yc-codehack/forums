@@ -4,6 +4,7 @@ import {
 	IconButton,
 	Popover,
 	Button,
+	Snackbar,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import "./ThreadCard.css";
@@ -17,6 +18,8 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ShareIcon from "@material-ui/icons/Share";
+import CloseIcon from "@material-ui/icons/Close";
+
 import {
 	threadQuesLike,
 	threadQuesDislike,
@@ -39,6 +42,8 @@ const ThreadCard = ({ item }) => {
 
 	const [isLiked, setIsLiked] = useState(item.liked);
 	const [isDisliked, setIsDisliked] = useState(item.disliked);
+
+	const [isShare, setIsShare] = useState(false);
 
 	const likeHandler = () => {
 		item.type === "question"
@@ -70,7 +75,9 @@ const ThreadCard = ({ item }) => {
 
 	const handleShare = async () => {
 		const currentLink = window.location.href;
+		console.log("current link", currentLink);
 		await navigator.clipboard.writeText(currentLink);
+		setIsShare(true);
 	};
 
 	// delete
@@ -148,6 +155,28 @@ const ThreadCard = ({ item }) => {
 
 	return (
 		<>
+			{/* SnackBar to show clipboard copy msg */}
+			<Snackbar
+				anchorOrigin={{
+					vertical: "bottom",
+					horizontal: "left",
+				}}
+				open={isShare}
+				autoHideDuration={3000}
+				onClose={() => setIsShare(false)}
+				message="Copied"
+				action={
+					<IconButton
+						size="small"
+						aria-label="close"
+						color="inherit"
+						onClick={() => setIsShare(false)}
+					>
+						<CloseIcon fontSize="small" />
+					</IconButton>
+				}
+			/>
+
 			{isEdit ? (
 				item.type === "question" ? (
 					<CreateQues fun={setIsEdit} initialFormData={formData} />
@@ -325,7 +354,7 @@ const ThreadCard = ({ item }) => {
 									</>
 								)}
 								{item.type === "question" && (
-									<IconButton>
+									<IconButton onClick={() => handleShare()}>
 										<ShareIcon />
 									</IconButton>
 								)}

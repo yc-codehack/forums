@@ -1,9 +1,10 @@
 import * as api from "../api";
 
 // Action Creators
-export const getRecent = () => async (dispatch) => {
+export const getRecent = (post) => async (dispatch) => {
 	try {
-		const { data } = await api.fetchRecent();
+		const { data } = await api.fetchRecent(post);
+		console.log("action", data);
 		dispatch({ type: "FETCH_RECENT", payload: data });
 	} catch (error) {
 		console.log(error);
