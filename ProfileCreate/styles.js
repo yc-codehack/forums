@@ -7,6 +7,10 @@ const useStyles = makeStyles((theme) => ({
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
+        [theme.breakpoints.down("sm")]:{
+            paddingLeft : "10px",
+            paddingRight : "10px"
+        }
     },
 
     card:{
