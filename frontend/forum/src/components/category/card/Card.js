@@ -1,33 +1,41 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import "./Card.css";
-
+import { getCategoryQuestion } from "../../../actions/questions.js";
 // images
-import all from "../../../assets/category/all.svg";
 
-function CategoryCard() {
+function CategoryCard({ item }) {
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const handleClick = () => {
+		history.push(`/category/${item.name}`);
+	};
+
 	return (
-		<div className="card__category mt-5">
+		<div className="card__category" onClick={() => handleClick()}>
 			<div className="card__startLine"></div>
 			<div className="card__info">
-				<img className="card__infoImg" src={all} alt="" />
+				<img className="card__infoImg" src={item.image} alt="" />
 				<div className="card__infoText">
-					<h3 className="card__infoTextHeading">All</h3>
-					<p className="card__infoTextPara">
-						Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry.
-					</p>
+					<h3 className="card__infoTextHeading">{item.name}</h3>
+					<p className="card__infoTextPara">{item.description}</p>
 				</div>
 			</div>
 			<div className="card__details">
 				<div className="card__detailsAnalytics">
 					<div className="card__detailsQuestions">
 						<h4>Questions</h4>
-						<p className="card__detailsQuestionsCount">126</p>
+						<p className="card__detailsQuestionsCount">
+							{item.quesCount}
+						</p>
 					</div>
 					<div className="card__detailsAnswers">
 						<h4>Answers</h4>
-						<p className="card__detailsAnswersCount">156</p>
+						<p className="card__detailsAnswersCount">
+							{item.ansCount}
+						</p>
 					</div>
 				</div>
 

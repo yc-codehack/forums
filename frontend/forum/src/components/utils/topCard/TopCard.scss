@@ -1,0 +1,26 @@
+.topUserCard {
+	background-color: white;
+	width: 90%;
+	height: 100%;
+	padding: 1rem;
+
+	.topUserCard__heading {
+		font-size: 18px;
+		cursor: pointer;
+		text-decoration: none;
+		color: #000000;
+	}
+	.topUserCard__top5,
+	.topUserCard__your {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		// justify-content: center;
+	}
+}
+
+.line {
+	width: 90%;
+	height: 1px;
+	background-color: #837878;
+}

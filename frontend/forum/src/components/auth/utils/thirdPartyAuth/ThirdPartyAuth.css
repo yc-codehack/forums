@@ -1,0 +1,113 @@
+.thirdPartyAuth {
+  width: 95%;
+  max-width: 340px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.thirdPartyAuth .thirdPartyAuth__text {
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  width: 100%;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn > .MuiButton-root {
+  margin: 5px;
+  cursor: pointer;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn > .MuiButton-root i {
+  font-size: 16px;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnGoogle {
+  border-color: #4386f5;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnGoogle i {
+  color: #4386f5;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnGoogle:hover {
+  background-color: #4386f5;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnGoogle:hover i {
+  color: whitesmoke;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnFacebook {
+  border-color: #4267b2;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnFacebook i {
+  color: #4267b2;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnFacebook:hover {
+  background-color: #4267b2;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnFacebook:hover i {
+  color: whitesmoke;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnGithub {
+  border-color: #23292e;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnGithub i {
+  color: #23292e;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnGithub:hover {
+  background-color: #23292e;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnGithub:hover i {
+  color: whitesmoke;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnTwitter {
+  border-color: #54abef;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnTwitter i {
+  color: #54abef;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnTwitter:hover {
+  background-color: #54abef;
+}
+
+.thirdPartyAuth .thirdPartyAuth__btn .thirdPartyAuth__btnTwitter:hover i {
+  color: whitesmoke;
+}
+/*# sourceMappingURL=ThirdPartyAuth.css.map */

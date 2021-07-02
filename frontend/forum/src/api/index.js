@@ -1,29 +1,69 @@
 import axios from "axios";
 
-const url = "http://localhost:5000/";
+const API = axios.create({ baseURL: "http://localhost:5000" });
 
-export const fetchRecent = () => axios.get(url + "question/list?filter=recent");
+// * Adds authorisation token in header of api request
+API.interceptors.request.use((req) => {
+	if (localStorage.getItem("profile")) {
+		req.headers.Authorization = `Bearer ${
+			JSON.parse(localStorage.getItem("profile")).token
+		}`;
+	}
+	return req;
+});
+
+export const fetchRecent = (formData) =>
+	API.get(
+		`/question/list?filter=recent&page=${formData.page}&limit=${formData.limit}`
+	);
+
+// AUTH
+export const signIn = (formData) => API.post("/auth/signin", formData);
+export const signUp = (formData) => API.post("/auth/signup", formData);
+export const verify = (formData) => API.post("/auth/verify", formData);
 
 // Like Question
-export const likeQuestion = (data) => {
-	// console.log(data);
-	axios.patch(url + "question/like", data, {
-		headers: {
-			Authorization:
-				"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQGZvcnVtLmNvbSIsImlkIjoiNjBiMGYyZTcyMmE0OTQwNWE2NzcyN2RjIiwiaWF0IjoxNjIyNjkzMTMwLCJleHAiOjE2MjMyOTc5MzB9.OCzRM5gz_o2U5iluvOGmO1wK0OcwSunzAVKDvFrED9A",
-		}, // *TODO Token is hard coded for testing only implement it properly
-	});
-};
+export const like = (formData) => API.patch("/question/like", formData);
 
 // Dislike Question
-export const dislikeQuestion = (data) => {
-	// console.log(data);
-	axios.patch(url + "question/dislike", data, {
-		headers: {
-			Authorization:
-				"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQGZvcnVtLmNvbSIsImlkIjoiNjBiMGYyZTcyMmE0OTQwNWE2NzcyN2RjIiwiaWF0IjoxNjIyNjkzMTMwLCJleHAiOjE2MjMyOTc5MzB9.OCzRM5gz_o2U5iluvOGmO1wK0OcwSunzAVKDvFrED9A",
-		}, // *TODO Token is hard coded for testing only implement it properly
-	});
-};
+export const dislike = (formData) => API.patch("/question/dislike", formData);
 
-export const categoryList = () => axios.get(url + "extra/category");
+// category list {category page}
+export const categoryList = () => API.get("/extra/category");
+// category question list
+export const categoryQuestion = (formData) =>
+	API.get(
+		`/question/list?filter=category&filterInfo=${formData.filterInfo}&sort=likeCount&sortInfo=${formData.sortInfo}`
+	);
+
+// top list
+export const topUserList = () => API.get("/extra/topUser");
+export const topCategoryList = () => API.get("/extra/topCategory");
+
+// create question
+export const postQuestion = (formData) => API.post("/question/new", formData);
+
+// update question
+export const patchQuestion = (formData) =>
+	API.post("/question/update", formData);
+
+// search question autocomplete
+export const searchAutocomplete = (searchItem) =>
+	API.get(`/question/search/autocomplete?searchItem=${searchItem}`);
+
+// search question
+export const searchQuestion = (searchItem) =>
+	API.get(`/question/search?searchItem=${searchItem}`);
+
+// get question
+export const fetchThread = (id) => API.get(`/question/thread?quesId=${id}`);
+
+// delete thread
+export const removeThread = (formData) =>
+	API.post("/question/thread/delete", formData);
+
+// post answer
+export const postAnswer = (formData) => API.post("/answer/new/", formData);
+
+// update answer
+export const patchAnswer = (formData) => API.patch("/answer/update/", formData);

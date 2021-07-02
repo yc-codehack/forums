@@ -1,0 +1,88 @@
+.thread {
+	background-color: white;
+	width: 100%;
+	.thread__header {
+	}
+	.thread__main {
+		padding-top: 3rem;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		.thread__leftSide {
+			flex: 0.25;
+			height: 90vh;
+		}
+		.thread__rightSide {
+			flex: 0.75;
+			display: flex;
+			flex-direction: column;
+			// align-items: center;
+
+			& > .MuiTypography-root {
+				margin-left: 1rem;
+			}
+
+			.btnGrpContainer {
+				width: 85%;
+				display: flex;
+				justify-content: flex-end;
+			}
+
+			form {
+				width: 100%;
+
+				.richEditor {
+					max-width: 85%;
+				}
+			}
+		}
+	}
+}
+.MuiCircularProgress-root {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.line {
+	width: 85%;
+	height: 1px;
+	margin: 0.5rem;
+	background-color: #333333;
+	opacity: 75%;
+}
+
+.popover-text {
+	background-color: #333333;
+	color: whitesmoke;
+	text-align: end;
+	padding: 0.3rem;
+	font-size: 12px !important;
+}
+
+.line {
+	width: 85%;
+	height: 2px;
+	opacity: 50%;
+	background-color: #333333;
+}
+
+@media only screen and (max-width: 900px) {
+	.thread__main {
+		justify-content: center;
+		.thread__rightSide {
+			flex: 1;
+			width: 100%;
+		}
+
+		.thread__leftSide {
+			display: none;
+		}
+	}
+}

@@ -1,0 +1,34 @@
+.topUserCard {
+  background-color: white;
+  width: 90%;
+  height: 100%;
+  padding: 1rem;
+}
+
+.topUserCard .topUserCard__heading {
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000000;
+}
+
+.topUserCard .topUserCard__top5,
+.topUserCard .topUserCard__your {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.line {
+  width: 90%;
+  height: 1px;
+  background-color: #837878;
+}
+/*# sourceMappingURL=TopCard.css.map */

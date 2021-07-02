@@ -1,0 +1,15 @@
+.input {
+	margin: 0.5rem 0;
+	display: grid;
+	place-items: center;
+
+	& > .MuiGrid-root {
+		width: 100%;
+		// max-width: 300px;
+
+		& > .MuiTextField-root {
+			outline: none;
+			border: none;
+		}
+	}
+}

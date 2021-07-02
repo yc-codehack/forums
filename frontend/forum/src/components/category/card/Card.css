@@ -1,7 +1,8 @@
 .card__category {
+  margin: 0.5rem auto;
   border: 1ps solid black;
   width: 90%;
-  max-width: 800px;
+  max-width: 700px;
   height: 200px;
   padding: 2px 1rem 1rem 1rem;
   display: -webkit-box;
@@ -13,14 +14,8 @@
   -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   overflow: hidden;
-  -webkit-transition: ease-out 500ms;
-  transition: ease-out 500ms;
   background-color: white;
-}
-
-.card__category:hover {
-  -webkit-transform: scale(1.009);
-          transform: scale(1.009);
+  cursor: pointer;
 }
 
 .card__category .card__startLine {
@@ -115,6 +110,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin-top: 1rem;
 }
 
 .card__category .card__details .card__detailsLatestQuestion > h4 {
@@ -167,15 +163,20 @@
             align-items: center;
   }
   .card__category .card__details {
-    margin-top: -30px;
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
     width: 90%;
   }
   .card__category .card__details .card__detailsAnalytics {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -ms-flex-pack: distribute;
         justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
   .card__category .card__details .card__detailsAnalytics .card__detailsQuestions,
   .card__category .card__details .card__detailsAnalytics .card__detailsAnswers {
@@ -189,13 +190,17 @@
     -webkit-box-pack: space-evenly;
         -ms-flex-pack: space-evenly;
             justify-content: space-evenly;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-line-pack: center;
+        align-content: center;
   }
-  .card__category .card__details .card__detailsAnalytics .card__detailsQuestions > h4,
-  .card__category .card__details .card__detailsAnalytics .card__detailsAnswers > h4 {
+  .card__category .card__details .card__detailsAnalytics .card__detailsQuestions h4,
+  .card__category .card__details .card__detailsAnalytics .card__detailsAnswers h4 {
     padding-right: 5px;
+    font-size: 14px;
+  }
+  .card__category .card__details .card__detailsAnalytics .card__detailsQuestions p,
+  .card__category .card__details .card__detailsAnalytics .card__detailsAnswers p {
+    font-size: 14px;
   }
   .card__category .card__details .card__detailsLatestQuestion {
     display: none;

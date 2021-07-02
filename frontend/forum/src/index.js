@@ -13,7 +13,7 @@ const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<App className="scrollbox" />
 	</Provider>,
 	document.getElementById("root")
 );

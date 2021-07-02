@@ -1,19 +1,172 @@
+import * as actionType from "../constants/actionType.js";
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (questions = [], action) => {
+export const Question = (
+	questions = {
+		totalPages: 0,
+		next: { page: null, limit: null },
+		previous: { page: null, limit: null },
+		current: { page: null, limit: null },
+		result: [],
+	},
+	action
+) => {
 	switch (action.type) {
 		case "FETCH_RECENT":
-			return action.payload;
+			return {
+				...questions,
+				totalPages: action.payload.totalPages,
+				next: { ...action.payload.next },
+				previous: { ...action.payload.previous },
+				current: { ...action.payload.current },
+				result: [...questions.result, ...action.payload.result],
+			};
 
 		case "LIKE":
-			return questions.map((question) =>
-				question._id === action.payload._id ? action.payload : question
+			return questions.result.map((question) =>
+				question._id === action.payload._id
+					? [...question, action.payload]
+					: question
 			);
 		case "DISLIKE":
-			return questions.map((question) =>
-				question._id === action.payload._id ? action.payload : question
+			return questions.result.map((question) =>
+				question._id === action.payload._id
+					? [...question, action.payload]
+					: question
 			);
+
+		case "CREATE":
+			console.log("reducer=>", action.payload);
+			return {
+				...questions,
+				result: [action.payload, ...questions.result],
+			};
+
+		case actionType.SEARCH_QUESTION:
+			return action.payload;
+
+		case actionType.DELETE_QUESTION:
+			console.log("delete question reducer", questions);
+			const result = questions.result.filter(
+				(question) => question._id !== action.payload._id
+			);
+			console.log("delete reducer result", result);
+			//console.log("question reducer", questions);
+
+			return questions;
 
 		default:
 			return questions;
+	}
+};
+
+export const Autocomplete = (autocomplete_list = [], action) => {
+	switch (action.type) {
+		case actionType.SEARCH_AUTOCOMPLETE:
+			return action.payload.data;
+
+		default:
+			return autocomplete_list;
+	}
+};
+
+export const Thread = (thread = null, action) => {
+	switch (action.type) {
+		case actionType.FETCH_THREAD:
+			return action.payload;
+
+		case actionType.LIKE_THREAD_QUESTION:
+			thread = {
+				...thread,
+				liked: action.payload.liked,
+				disliked: action.payload.disliked,
+				likeCount: action.payload.likeCount,
+				dislikeCount: action.payload.dislikeCount,
+			};
+			return thread;
+
+		case actionType.DISLIKE_THREAD_QUESTION:
+			thread = {
+				...thread,
+				liked: action.payload.liked,
+				disliked: action.payload.disliked,
+				likeCount: action.payload.likeCount,
+				dislikeCount: action.payload.dislikeCount,
+			};
+			return thread;
+
+		case actionType.LIKE_THREAD_ANSWER:
+			return {
+				...thread,
+				answer: thread.answer.map((ans) =>
+					ans.id === action.payload.id
+						? {
+								...ans,
+								likeCount: action.payload.likeCount,
+								dislikeCount: action.payload.dislikeCount,
+								likedCount: action.payload.likedCount,
+								dislikedCount: action.payload.dislikedCount,
+						  }
+						: ans
+				),
+			};
+
+		case actionType.DISLIKE_THREAD_ANSWER:
+			return {
+				...thread,
+				answer: thread.answer.map((ans) =>
+					ans.id === action.payload.id
+						? {
+								...ans,
+								likeCount: action.payload.likeCount,
+								dislikeCount: action.payload.dislikeCount,
+								likedCount: action.payload.likedCount,
+								dislikedCount: action.payload.dislikedCount,
+						  }
+						: ans
+				),
+			};
+
+		case actionType.POST_ANSWER:
+			return {
+				...thread,
+				answer: [...thread.answer, action.payload.postedAnswer],
+			};
+
+		case actionType.DELETE_ANSWER:
+			const answer = thread.answer.filter(
+				(ans) => ans._id !== action.payload._id
+			);
+			answer.splice(answer.indexOf(action.payload._id), 1);
+			console.log("ans reducer", answer);
+			return {
+				...thread,
+				answer: answer,
+			};
+
+		case actionType.UPDATE_QUESTION:
+			return {
+				...thread,
+				title: action.payload.title,
+				description: action.payload.description,
+				category: action.payload.category,
+				subcategory: action.payload.subcategory,
+			};
+
+		case actionType.UPDATE_ANSWER:
+			thread = {
+				...thread,
+				answer: thread.answer.map((ans) =>
+					ans.id === action.payload.ansId
+						? {
+								...ans,
+								["description"]: action.payload.description,
+						  }
+						: ans
+				),
+			};
+			return thread;
+
+		default:
+			return thread;
 	}
 };

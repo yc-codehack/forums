@@ -1,0 +1,38 @@
+
+button.dislike{
+	
+	margin: 0 auto;
+
+	
+	background-color: white;
+	color: black;
+	font-size: 15px;
+    border-color: white;
+    border: 0px;
+}
+button.like{
+
+	margin: 0 auto;
+	margin-left: 10px;
+
+	color: black;
+	background-color:white;
+	border-color: white;
+	border: 0px;
+	font-size: 15px;
+}
+.del{
+    
+	margin: 0 auto;
+background-color: white;
+	
+	border: 0px;
+	
+	
+
+	font-size: 20px;
+}
+.card{
+	padding:1rem;
+	text-align: left;
+}

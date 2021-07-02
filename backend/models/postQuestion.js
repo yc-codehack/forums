@@ -7,6 +7,7 @@ const postQuestionSchema = mongoose.Schema({
 	category: String,
 	subcategory: String,
 	selectedFile: String,
+	email: Boolean,
 	likeCount: {
 		type: Number,
 		default: 0,
