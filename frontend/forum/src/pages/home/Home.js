@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // components
 import Navbar from "../../components/navbar/Navbar.js";
@@ -29,6 +30,8 @@ function Home({ filter }) {
 	const handleCreateQues = () => {
 		setShowCreateQues((prevShow) => !prevShow);
 	};
+
+	const questions = useSelector((state) => state.Question);
 
 	const breadcrumb = `/category/${categoryName}`;
 

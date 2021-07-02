@@ -12,8 +12,14 @@ export const Question = (
 ) => {
 	switch (action.type) {
 		case "FETCH_RECENT":
-			console.log("reducer", action.payload.result);
-			return action.payload;
+			return {
+				...questions,
+				totalPages: action.payload.totalPages,
+				next: { ...action.payload.next },
+				previous: { ...action.payload.previous },
+				current: { ...action.payload.current },
+				result: [...questions.result, ...action.payload.result],
+			};
 
 		case "LIKE":
 			return questions.result.map((question) =>

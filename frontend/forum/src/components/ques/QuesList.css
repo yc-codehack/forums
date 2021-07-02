@@ -15,4 +15,9 @@
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.quesList .MuiTypography-root {
+  text-align: center;
+  margin: 3rem;
+}
 /*# sourceMappingURL=QuesList.css.map */
