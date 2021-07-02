@@ -20,29 +20,24 @@ const QuesList = ({ filter, sort }) => {
 
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(5);
+	const [hasMore, setHasMore] = useState(true);
 
+	const questions = useSelector((state) => state.Question);
 	// 🡻 useRef is used to store data in between the renders
 	const observer = useRef();
 
 	const lastQuestionElementRef = useCallback(
 		(node) => {
-			console.log("ques list 1==>", node);
-			if (isLoading) {
-				return;
-			}
-			if (observer.current) {
-				observer.current.disconnect();
-			}
+			if (isLoading) return;
+			if (observer.current) observer.current.disconnect();
 			observer.current = new IntersectionObserver((entries) => {
-				if (entries[0].isIntersecting) {
-					console.log("QuesList visible");
+				if (entries[0].isIntersecting && hasMore) {
+					setPage(questions.next.page);
 				}
 			});
-			if (node) {
-				observer.current.observer(node);
-			}
+			if (node) observer.current.observe(node);
 		},
-		[isLoading]
+		[isLoading, hasMore]
 	);
 
 	useEffect(() => {
@@ -59,10 +54,13 @@ const QuesList = ({ filter, sort }) => {
 			: dispatch(getRecent({ page: page, limit: limit }));
 	}, [dispatch, filter, sort, page, limit]);
 
-	const questions = useSelector((state) => state.Question);
 	useEffect(() => {
 		if (questions.next.page === null) {
 			setIsLoading(false);
+			setHasMore(false);
+		} else {
+			setIsLoading(false);
+			setHasMore(true);
 		}
 	}, [questions]);
 	return (
@@ -71,15 +69,16 @@ const QuesList = ({ filter, sort }) => {
 				<CircularProgress />
 			) : (
 				questions.result.map((item, index) => {
-					if (questions.result.length == index + 1) {
+					if (questions.result.length === index + 1) {
 						return (
-							<Card
-								ref={(node) => {
-									lastQuestionElementRef(node);
-								}}
-								key={item._id}
-								item={item}
-							/>
+							<>
+								<Card key={item._id} item={item} />
+								<div
+									ref={lastQuestionElementRef}
+									key={item._id}
+									value={index}
+								></div>
+							</>
 						);
 					} else {
 						return <Card key={item._id} item={item} />;
