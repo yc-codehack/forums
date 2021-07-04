@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Thread.css";
+import moment from "moment";
 
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,6 +15,7 @@ import {
 	Tabs,
 	Tab,
 } from "@material-ui/core";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
 import { getThread } from "../../actions/questions.js";
 import { createAnswer, sortAnswer } from "../../actions/answer.js";
@@ -31,6 +33,8 @@ const Thread = () => {
 	const [postAnswer, setPostAnswer] = useState({ quesId: id });
 
 	const [ansFilter, setAnsFilter] = useState(0);
+	const [isThreadClosed, setIsThreadClosed] = useState(false);
+
 	const thread = useSelector((state) => state.Thread);
 
 	const handleChange = (e) => {
@@ -59,6 +63,7 @@ const Thread = () => {
 		setAnsFilter(newValue);
 	};
 
+	// TODO used in sorting ans
 	useEffect(() => {
 		var ans;
 		if (thread) {
@@ -79,6 +84,18 @@ const Thread = () => {
 		}
 	}, [ansFilter, dispatch]);
 
+	useEffect(() => {
+		if (thread !== null) {
+			if (
+				moment.duration(moment().diff(thread.updatedAt)).asDays() > 10
+			) {
+				setIsThreadClosed(true);
+			} else {
+				setIsThreadClosed(false);
+			}
+		}
+	}, [thread]);
+
 	return (
 		<div className="thread">
 			{/* header */}
@@ -95,6 +112,15 @@ const Thread = () => {
 						<CircularProgress />
 					) : (
 						<>
+							{isThreadClosed && (
+								<Button
+									startIcon={<ErrorOutlineIcon />}
+									className="closed-icon"
+									size="small"
+								>
+									closed
+								</Button>
+							)}
 							<ThreadCard
 								item={{
 									type: "question",
@@ -112,7 +138,10 @@ const Thread = () => {
 									creatorImage: thread.creatorImage,
 								}}
 							/>
-							<div className="btnGrpContainer">
+
+							{/* // TODO 1. Need to figure out how to sort array in react and re-render component properly acc. to  */}
+							{/* // TODO 2. Current problem is that the like/dislike btn are not remapping accordingly */}
+							{/* <div className="btnGrpContainer">
 								{thread.answer.length ? (
 									<Tabs
 										indicatorColor="primary"
@@ -125,7 +154,7 @@ const Thread = () => {
 										<Tab label="Oldest" {...a11yProps(2)} />
 									</Tabs>
 								) : null}
-							</div>
+							</div> */}
 							<Typography className="ans__heading" variant="h5">
 								{thread.answer.length
 									? `${thread.answer.length} Answers`
@@ -155,22 +184,24 @@ const Thread = () => {
 									</>
 								))}
 
-							<form onSubmit={handleSubmit}>
-								<RichEditor
-									handleChange={handleChange}
-									name="answer"
-									value={postAnswer.description}
-								/>
-								<div className="thread__answerBtn">
-									<Button
-										type="submit"
-										variant="contained"
-										color="primary"
-									>
-										Post
-									</Button>
-								</div>
-							</form>
+							{!isThreadClosed && (
+								<form onSubmit={handleSubmit}>
+									<RichEditor
+										handleChange={handleChange}
+										name="answer"
+										value={postAnswer.description}
+									/>
+									<div className="thread__answerBtn">
+										<Button
+											type="submit"
+											variant="contained"
+											color="primary"
+										>
+											Post
+										</Button>
+									</div>
+								</form>
+							)}
 						</>
 					)}
 				</div>

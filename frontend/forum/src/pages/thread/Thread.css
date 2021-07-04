@@ -1,6 +1,8 @@
 .thread {
-  background-color: white;
+  background-color: #f5f5f5;
   width: 100%;
+  margin: auto auto 5rem auto;
+  padding-bottom: 7rem;
 }
 
 .thread .thread__main {
@@ -33,6 +35,16 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.thread .thread__main .thread__rightSide .closed-icon {
+  width: 100px;
+  border-radius: 20px;
+  background-color: white;
+  color: rgba(255, 255, 0, 0.836);
+  border: solid rgba(255, 255, 0, 0.836) 2px !important;
+  font-size: 15px;
+  cursor: normal;
 }
 
 .thread .thread__main .thread__rightSide > .MuiTypography-root {

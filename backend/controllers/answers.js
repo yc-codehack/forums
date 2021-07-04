@@ -20,7 +20,7 @@ export const createAnswer = async (req, res) => {
 	const userInfo = await UserProfile.findOne({ accountId: currentUserId });
 
 	try {
-		const newPost = await PostQuestion.updateOne(
+		const newPost = await PostQuestion.updateMany(
 			{ _id: post.quesId },
 			{
 				$push: {
@@ -32,6 +32,7 @@ export const createAnswer = async (req, res) => {
 						updatedAt: new Date().toISOString(),
 					},
 				},
+				updatedAt: new Date().toISOString(),
 			}
 		);
 
@@ -88,7 +89,12 @@ export const updateAnswer = async (req, res) => {
 					$elemMatch: { _id: post.ansId, creator: req.userId },
 				},
 			},
-			{ $set: { "answer.$.description": post.description } }
+			{
+				$set: {
+					"answer.$.description": post.description,
+					updatedAt: new Date().toISOString(),
+				},
+			}
 		);
 		return res.status(200).json({
 			quesId: post.quesId,
@@ -101,6 +107,7 @@ export const updateAnswer = async (req, res) => {
 	}
 };
 
+// ! Not using it right now
 // * Sort answer
 export const getAnswer = async (req, res) => {
 	// extract the parameters from url and store it in variable

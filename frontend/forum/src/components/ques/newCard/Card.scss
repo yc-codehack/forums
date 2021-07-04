@@ -97,6 +97,24 @@
 .card-body {
 	.title-box {
 		cursor: pointer;
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		.closed-icon {
+			width: 70px;
+			height: 25px;
+			border-radius: 20px;
+			background-color: white;
+			color: rgba(255, 255, 0, 0.836);
+			border: solid rgba(255, 255, 0, 0.836) 2px !important;
+			font-size: 9px;
+			// &:hover {
+			// 	color: white;
+			// 	background-color: yellow;
+			// }
+		}
 	}
 	.card-text {
 		cursor: pointer;

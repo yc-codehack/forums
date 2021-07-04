@@ -5,13 +5,16 @@ import { useDispatch } from "react-redux";
 import { questionLike, questionDislike } from "../../../actions/questions.js";
 import moment from "moment";
 
+import PopupCard from "../../utils/popupCard/PopupCard";
+import InnerHTML from "dangerously-set-html-content";
+
 // material ui
 import { Avatar, Popover, Typography } from "@material-ui/core";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
-import PopupCard from "../../utils/popupCard/PopupCard";
-import InnerHTML from "dangerously-set-html-content";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+
 // maertial UI
 import {
 	Button,
@@ -20,6 +23,7 @@ import {
 	DialogContent,
 	DialogContentText,
 	DialogTitle,
+	IconButton,
 } from "@material-ui/core";
 
 import notLogedIn from "../../../assets/popups/notLogedIn.png";
@@ -33,7 +37,7 @@ export default function Ques({ item }) {
 
 	const [isLiked, setIsLiked] = useState(item.liked);
 	const [isDisliked, setIsDisliked] = useState(item.disliked);
-	// const [isLiked, setIsLiked] = useState()
+	const [isClosed, setIsClosed] = useState(false);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -110,6 +114,12 @@ export default function Ques({ item }) {
 		return <div dan></div>;
 	};
 
+	// logic to assign isClosed
+	useEffect(() => {
+		if (moment.duration(moment().diff(item.updatedAt)).asDays() > 10) {
+			setIsClosed(true);
+		}
+	}, []);
 	return (
 		<div>
 			<div
@@ -228,10 +238,15 @@ export default function Ques({ item }) {
 									<h5 className="card-title question overflow-hidden text-left">
 										{item.title}
 									</h5>
-									{/* {user &&
-										user.result._id === item.creatorId && (
-											<i class="fas fa-trash-alt  delete-icon"></i>
-										)} */}
+									{isClosed && (
+										<Button
+											startIcon={<ErrorOutlineIcon />}
+											className="closed-icon"
+											size="small"
+										>
+											closed
+										</Button>
+									)}
 								</div>
 								<p
 									className="card-text  answer overflow-hidden text-left "
