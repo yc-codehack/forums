@@ -40,6 +40,7 @@
 }
 
 .thread .thread__main .thread__rightSide .btnGrpContainer {
+  margin-top: 2rem;
   width: 85%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -47,6 +48,10 @@
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.thread .thread__main .thread__rightSide .ans__heading {
+  margin-top: 3rem;
 }
 
 .thread .thread__main .thread__rightSide form {
@@ -90,6 +95,11 @@
   height: 2px;
   opacity: 50%;
   background-color: #333333;
+}
+
+.MuiButtonBase-root {
+  outline: none !important;
+  border: none !important;
 }
 
 @media only screen and (max-width: 900px) {

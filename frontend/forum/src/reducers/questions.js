@@ -166,6 +166,13 @@ export const Thread = (thread = null, action) => {
 			};
 			return thread;
 
+		case actionType.SORTED_ANSWER:
+			thread = {
+				...thread,
+				answer: action.payload,
+			};
+			return thread;
+
 		default:
 			return thread;
 	}

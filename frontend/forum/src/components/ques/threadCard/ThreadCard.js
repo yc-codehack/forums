@@ -199,6 +199,7 @@ const ThreadCard = ({ item }) => {
 			) : (
 				<>
 					<div className="threadCard">
+						
 						{item.type === "question" && (
 							<div className="threadCard__title">
 								<Typography
@@ -236,7 +237,8 @@ const ThreadCard = ({ item }) => {
 						</div>
 						<div className="threadCard__description">
 							<Typography variant="body1">
-								{item.description.charAt(0) === "<" ? (
+								{item.description &&
+								item.description.charAt(0) === "<" ? (
 									<InnerHTML html={item.description} />
 								) : (
 									item.description

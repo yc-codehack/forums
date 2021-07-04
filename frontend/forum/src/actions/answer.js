@@ -26,3 +26,12 @@ export const answerDelete = (post) => async (dispatch) => {
 		console.log(error);
 	}
 };
+
+export const sortAnswer = (answer) => async (dispatch) => {
+	try {
+		console.log("action", answer);
+		dispatch({ type: "SORTED_ANSWER", payload: answer });
+	} catch (error) {
+		console.log(error);
+	}
+};

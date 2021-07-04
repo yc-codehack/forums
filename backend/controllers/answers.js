@@ -100,3 +100,29 @@ export const updateAnswer = async (req, res) => {
 		return res.status(409).json({ message: error.message });
 	}
 };
+
+// * Sort answer
+export const getAnswer = async (req, res) => {
+	// extract the parameters from url and store it in variable
+
+	try {
+		const quesId = res.body.quesId;
+		const filter = res.body.filter;
+		const sort = res.body.sort;
+
+		// getting info of current user
+		const currentUserId = req.headers.authorization
+			? authUserInfo(req.headers.authorization.split(" ")[1])
+			: null;
+
+		// 🡻 check if question exists or not
+		const question = await PostQuestion.findOne({ _id: quesId });
+		if (!question) {
+			return res.status(400).json({ message: "No data found!!!" });
+		}
+
+		if (filter == "recent") {
+		} else {
+		}
+	} catch (error) {}
+};

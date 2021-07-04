@@ -11,10 +11,13 @@ import {
 	ButtonGroup,
 	Button,
 	CircularProgress,
+	Tabs,
+	Tab,
 } from "@material-ui/core";
 
 import { getThread } from "../../actions/questions.js";
-import { createAnswer } from "../../actions/answer.js";
+import { createAnswer, sortAnswer } from "../../actions/answer.js";
+// import { Sort } from "../../utils/answer/sort/Sort.js";
 import RichEditor from "../../components/richEditor/RichEditor.js";
 
 const Thread = () => {
@@ -26,6 +29,9 @@ const Thread = () => {
 	);
 
 	const [postAnswer, setPostAnswer] = useState({ quesId: id });
+
+	const [ansFilter, setAnsFilter] = useState(0);
+	const thread = useSelector((state) => state.Thread);
 
 	const handleChange = (e) => {
 		setPostAnswer({ ...postAnswer, ["description"]: e });
@@ -41,8 +47,37 @@ const Thread = () => {
 		dispatch(getThread(id));
 	}, [dispatch]);
 
-	const thread = useSelector((state) => state.Thread);
-	// console.log("thread", thread);
+	// tabs
+	function a11yProps(index) {
+		return {
+			id: `simple-tab-${index}`,
+			"aria-controls": `simple-tabpanel-${index}`,
+		};
+	}
+
+	const handleTabChange = (event, newValue) => {
+		setAnsFilter(newValue);
+	};
+
+	useEffect(() => {
+		var ans;
+		if (thread) {
+			ans = thread.answer.slice();
+			if (ansFilter === 0) {
+				ans.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+				dispatch(sortAnswer(ans));
+				console.log("answer=>", ans);
+			} else if (ansFilter === 1) {
+				ans.sort((a, b) => (a.likeCount < b.likeCount ? 1 : -1));
+				dispatch(sortAnswer(ans));
+				console.log("answer=>", ans);
+			} else {
+				ans.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
+				dispatch(sortAnswer(ans));
+				console.log("answer=>", ans);
+			}
+		}
+	}, [ansFilter, dispatch]);
 
 	return (
 		<div className="thread">
@@ -77,24 +112,25 @@ const Thread = () => {
 									creatorImage: thread.creatorImage,
 								}}
 							/>
-							<Typography variant="h5">
+							<div className="btnGrpContainer">
+								{thread.answer.length ? (
+									<Tabs
+										indicatorColor="primary"
+										value={ansFilter}
+										onChange={handleTabChange}
+										aria-label="simple tabs example"
+									>
+										<Tab label="Recent" {...a11yProps(0)} />
+										<Tab label="Votes" {...a11yProps(1)} />
+										<Tab label="Oldest" {...a11yProps(2)} />
+									</Tabs>
+								) : null}
+							</div>
+							<Typography className="ans__heading" variant="h5">
 								{thread.answer.length
 									? `${thread.answer.length} Answers`
 									: "No Answers yet"}
 							</Typography>
-							<div className="btnGrpContainer">
-								{thread.answer.length ? (
-									<ButtonGroup
-										variant="contained"
-										size="small"
-										color="primary"
-									>
-										<Button>Votes</Button>
-										<Button>Oldest</Button>
-										<Button>Recent</Button>
-									</ButtonGroup>
-								) : null}
-							</div>
 							<div className="line"></div>
 
 							{thread.answer &&

@@ -3,7 +3,6 @@ import PostQuestion from "../../models/postQuestion.js";
 
 export const like = async (req, res) => {
 	const post = req.body;
-	// console.log("post", post.quesId);
 
 	if (post.type == "question") {
 		try {

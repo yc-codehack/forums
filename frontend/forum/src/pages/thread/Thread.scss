@@ -23,9 +23,14 @@
 			}
 
 			.btnGrpContainer {
+				margin-top: 2rem;
 				width: 85%;
 				display: flex;
 				justify-content: flex-end;
+			}
+
+			.ans__heading {
+				margin-top: 3rem;
 			}
 
 			form {
@@ -71,6 +76,11 @@
 	height: 2px;
 	opacity: 50%;
 	background-color: #333333;
+}
+
+.MuiButtonBase-root {
+	outline: none !important;
+	border: none !important;
 }
 
 @media only screen and (max-width: 900px) {

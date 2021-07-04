@@ -63,6 +63,7 @@ const QuesList = ({ filter, sort }) => {
 			setHasMore(true);
 		}
 	}, [questions]);
+
 	return (
 		<div className="quesList">
 			{!questions.result.length ? (
@@ -85,14 +86,15 @@ const QuesList = ({ filter, sort }) => {
 					}
 				})
 			)}
-			{questions.result.length && isLoading ? (
-				<>
-					<Typography variant="h5">Loading...</Typography>
-					<LinearProgress />
-				</>
-			) : (
-				<Typography variant="h5">You are all caught up!</Typography>
-			)}
+			{questions.result.length &&
+				(isLoading ? (
+					<>
+						<Typography variant="h5">Loading...</Typography>
+						<LinearProgress />
+					</>
+				) : (
+					<Typography variant="h5">You are all caught up!</Typography>
+				))}
 		</div>
 	);
 };
