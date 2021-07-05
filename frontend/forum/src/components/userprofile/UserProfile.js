@@ -3,6 +3,7 @@ import { CssBaseline, Container, Card, CardActions, CardMedia, CardContent, Typo
 import { AddPhotoAlternate, Create } from '@material-ui/icons';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import useStyles from './styles';
+import {Link} from 'react-router-dom'
 
 
 export default function UserProfile(){
@@ -22,11 +23,16 @@ export default function UserProfile(){
                 <div >
                 <Container className={classes.container}>
                 <Card className={classes.card}>
-                    <CardActions className={classes.toggleBtn}>
+                <CardActions className={classes.toggleBtn}>
+                    <Link to='/user-edit'>
+                        
                         <ToggleButton color='primary' variant='contained'>
                             <a href=""><Create /></a>
                         </ToggleButton>
+                    
+                    </Link>
                     </CardActions>
+                    
                     <CardMedia className={classes.imgHolder}>
                         <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" className={classes.img}/><br></br>
                     </CardMedia>
