@@ -110,7 +110,7 @@ const Thread = () => {
 				<div className="thread__rightSide">
 					{!thread ? (
 						<CircularProgress />
-					) : (
+					) : thread._id == id ? (
 						<>
 							{isThreadClosed && (
 								<Button
@@ -203,6 +203,8 @@ const Thread = () => {
 								</form>
 							)}
 						</>
+					) : (
+						<CircularProgress />
 					)}
 				</div>
 			</div>
