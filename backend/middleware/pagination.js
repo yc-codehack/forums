@@ -9,6 +9,8 @@ const paginatedResults = async (req, res, next) => {
 	const sort = req.query.sort;
 	const sortInfo = req.query.sortInfo;
 
+	const searchItem = req.query.searchItem;
+
 	const startIndex = (page - 1) * limit;
 	const endIndex = page * limit;
 

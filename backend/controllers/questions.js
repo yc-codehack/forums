@@ -268,6 +268,8 @@ export const searchQuestions = async (req, res) => {
 			title: { $regex: searchItem, $options: "i" }, // ** Uses regex to get fuzzy search functionality and option i make it case insensitive
 		}).sort({ likeCount: -1 });
 
+		// var questionsList = req.paginatedResults.results;
+
 		// **TODO Review and try to implement text index
 		// const questionList = await PostQuestion.find({
 		// 	$text: { $search: searchItem, $caseSensitive: true },
@@ -275,16 +277,6 @@ export const searchQuestions = async (req, res) => {
 
 		var questionsIs = await Promise.all(
 			questionsList.map(async (question) => {
-				const currentTime = moment(
-					new Date().toISOString(),
-					"YYYY-MM-DD HH:mm:ss"
-				);
-				const createdAt = moment(
-					question.createdAt,
-					"YYYY-MM-DD HH:mm:ss"
-				);
-				const tempTime = moment.duration(currentTime.diff(createdAt));
-				const newTimeDuration = convertTimeToString(tempTime);
 				const userInfo = await UserProfile.findOne({
 					accountId: question.creator,
 				});

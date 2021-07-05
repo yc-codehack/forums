@@ -64,6 +64,11 @@ const QuesList = ({ filter, sort }) => {
 		}
 	}, [questions]);
 
+	console.log("quesList", questions);
+	// useEffect(() => {
+
+	// }, [questions]);
+
 	return (
 		<div className="quesList">
 			{!questions.result.length ? (

@@ -41,8 +41,16 @@ export const Question = (
 				result: [action.payload, ...questions.result],
 			};
 
-		case actionType.SEARCH_QUESTION:
-			return action.payload;
+		case "SEARCH":
+			console.log("reducer", action.payload);
+			return {
+				...questions,
+				totalPages: 1,
+				next: { page: null, limit: 50 },
+				previous: { page: null, limit: 50 },
+				current: { page: 1, limit: 50 },
+				result: [...action.payload],
+			};
 
 		case actionType.DELETE_QUESTION:
 			console.log("delete question reducer", questions);

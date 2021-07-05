@@ -100,6 +100,7 @@ export const autocompleteSearch = (post) => async (dispatch) => {
 export const questionSearch = (post) => async (dispatch) => {
 	try {
 		const { data } = await api.searchQuestion(post);
+		console.log("action", data);
 		dispatch({ type: "SEARCH", payload: data });
 	} catch (error) {
 		console.log(error);

@@ -53,7 +53,7 @@ export const searchAutocomplete = (searchItem) =>
 
 // search question
 export const searchQuestion = (searchItem) =>
-	API.get(`/question/search?searchItem=${searchItem}`);
+	API.get(`/question/search?filter=search&searchItem=${searchItem}`);
 
 // get question
 export const fetchThread = (id) => API.get(`/question/thread?quesId=${id}`);
