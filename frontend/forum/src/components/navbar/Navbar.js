@@ -178,7 +178,7 @@ const Navbar = () => {
 										className="navbar__userInfoCardSetting"
 										onClick={() => setSidebarOpen(false)}
 									>
-										<p>Settings</p>
+										<p>Profile</p>
 										<SettingsIcon />
 									</div>
 

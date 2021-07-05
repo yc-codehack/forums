@@ -180,6 +180,7 @@
     -webkit-box-flex: 0;
         -ms-flex: 0;
             flex: 0;
+    display: none;
   }
   .auth .auth__main {
     -webkit-box-flex: 1;
