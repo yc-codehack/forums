@@ -247,7 +247,7 @@ export const getQuestions = async (req, res) => {
 				current: { ...req.paginatedResults.current },
 				next: { ...req.paginatedResults.next },
 				previous: { ...req.paginatedResults.previous },
-				result: { ...questionsIs },
+				result: questionsIs,
 			};
 		}
 

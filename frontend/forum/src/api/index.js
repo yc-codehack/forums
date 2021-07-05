@@ -33,7 +33,7 @@ export const categoryList = () => API.get("/extra/category");
 // category question list
 export const categoryQuestion = (formData) =>
 	API.get(
-		`/question/list?filter=category&filterInfo=${formData.filterInfo}&sort=likeCount&sortInfo=${formData.sortInfo}`
+		`/question/list?filter=category&filterInfo=${formData.filterInfo}&sort=likeCount&sortInfo=${formData.sortInfo}&page=${formData.page}&limit=${formData.limit}`
 	);
 
 // top list

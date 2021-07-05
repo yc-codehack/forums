@@ -39,7 +39,7 @@ function CategoryCard({ item }) {
 					</div>
 				</div>
 
-				<div className="card__detailsLatestQuestion">
+				{/* <div className="card__detailsLatestQuestion">
 					<h4 className="card__detailsLatestQuestionHeading">
 						Latest Question
 					</h4>
@@ -54,7 +54,7 @@ function CategoryCard({ item }) {
 							Are their any simple way
 						</p>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

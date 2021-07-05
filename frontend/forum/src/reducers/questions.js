@@ -12,6 +12,16 @@ export const Question = (
 ) => {
 	switch (action.type) {
 		case "FETCH_RECENT":
+			if (action.payload.current.page == 1) {
+				return {
+					...questions,
+					totalPages: action.payload.totalPages,
+					next: { ...action.payload.next },
+					previous: { ...action.payload.previous },
+					current: { ...action.payload.current },
+					result: [...action.payload.result],
+				};
+			}
 			return {
 				...questions,
 				totalPages: action.payload.totalPages,
@@ -19,6 +29,16 @@ export const Question = (
 				previous: { ...action.payload.previous },
 				current: { ...action.payload.current },
 				result: [...questions.result, ...action.payload.result],
+			};
+
+		case "CATEGORY_QUESTION":
+			return {
+				...questions,
+				totalPages: 1,
+				next: { page: null, limit: 50 },
+				previous: { page: null, limit: 50 },
+				current: { page: 1, limit: 50 },
+				result: [...action.payload],
 			};
 
 		case "LIKE":
