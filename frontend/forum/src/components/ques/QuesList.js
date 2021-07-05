@@ -78,7 +78,7 @@ const QuesList = ({ filter, sort }) => {
 					if (questions.result.length === index + 1) {
 						return (
 							<>
-								<Card key={item._id} item={item} />
+								<Card item={item} />
 								<div
 									ref={lastQuestionElementRef}
 									key={item._id}
@@ -87,7 +87,7 @@ const QuesList = ({ filter, sort }) => {
 							</>
 						);
 					} else {
-						return <Card key={item._id} item={item} />;
+						return <Card item={item} />;
 					}
 				})
 			)}

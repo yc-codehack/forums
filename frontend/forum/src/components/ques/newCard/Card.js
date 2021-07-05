@@ -29,7 +29,6 @@ import {
 import notLogedIn from "../../../assets/popups/notLogedIn.png";
 
 export default function Ques({ item }) {
-	console.log("card", item);
 	const [user, setUser] = useState(
 		JSON.parse(localStorage.getItem("profile")) // * Getting data of user saved in local storage
 	);
@@ -107,12 +106,7 @@ export default function Ques({ item }) {
 	};
 
 	const handleRedirect = () => {
-		console.log("hi");
 		history.push(`/thread/${item._id}`);
-	};
-
-	const setHtml = (str) => {
-		return <div dan></div>;
 	};
 
 	// logic to assign isClosed
