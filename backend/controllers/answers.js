@@ -59,6 +59,7 @@ export const createAnswer = async (req, res) => {
 			description: answer[0].answer[0].description,
 			likeCount: answer[0].answer[0].likeCount,
 			dislikeCount: answer[0].answer[0].dislikeCount,
+			creatorId: answer[0].answer[0].creator,
 			createdAt: answer[0].answer[0].createdAt,
 			creatorName: userInfo ? userInfo.name : "Anonymous",
 			creatorImage: userInfo

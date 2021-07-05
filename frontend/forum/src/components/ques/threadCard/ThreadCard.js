@@ -199,7 +199,6 @@ const ThreadCard = ({ item }) => {
 			) : (
 				<>
 					<div className="threadCard">
-						
 						{item.type === "question" && (
 							<div className="threadCard__title">
 								<Typography
@@ -340,6 +339,7 @@ const ThreadCard = ({ item }) => {
 								</Popover>
 							</div>
 							<div className="threadCard__footerOptions">
+								{console.log("creatorId", item.creatorId)}
 								{user && user.result._id === item.creatorId && (
 									<>
 										<IconButton
