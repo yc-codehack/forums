@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getRecent, getCategoryQuestion } from "../../actions/questions.js";
 
+import { SelectBox } from "../utils/input/Input";
 // material ui
 import {
 	CircularProgress,
@@ -13,7 +14,7 @@ import {
 	LinearProgress,
 } from "@material-ui/core";
 
-const QuesList = ({ filter, sort }) => {
+const QuesList = ({ filter, sort, sortInfo }) => {
 	const dispatch = useDispatch();
 
 	const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +22,8 @@ const QuesList = ({ filter, sort }) => {
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(5);
 	const [hasMore, setHasMore] = useState(true);
+
+	const [sortValue, setSortValue] = useState("Recent");
 
 	const questions = useSelector((state) => state.Question);
 	// 🡻 useRef is used to store data in between the renders
@@ -51,8 +54,17 @@ const QuesList = ({ filter, sort }) => {
 						limit: limit,
 					})
 			  )
-			: dispatch(getRecent({ page: page, limit: limit }));
-	}, [dispatch, filter, sort, page, limit]);
+			: sortValue === "Recent"
+			? dispatch(getRecent({ page: page, limit: limit }))
+			: dispatch(
+					getRecent({
+						page: page,
+						limit: limit,
+						sort: "likeCount",
+						sortInfo: sortValue == "Increasing likes" ? -1 : 1,
+					})
+			  );
+	}, [dispatch, filter, sort, page, limit, sortValue]);
 
 	useEffect(() => {
 		if (questions.next.page === null) {
@@ -64,13 +76,35 @@ const QuesList = ({ filter, sort }) => {
 		}
 	}, [questions]);
 
-	console.log("quesList", questions);
-	// useEffect(() => {
+	// filters
+	const handleSortChange = (e) => {
+		setSortValue(e.target.value);
+	};
 
-	// }, [questions]);
+	useEffect(() => {}, [sortValue]);
 
 	return (
 		<div className="quesList">
+			{questions.result.length && !filter && (
+				<div class="filter">
+					<div className="filter__wrapper">
+						<SelectBox
+							autoWidth
+							name="filter"
+							label=""
+							variant="outlined"
+							menuArray={[
+								"Recent",
+								"Increasing likes",
+								"Decreasing likes",
+							]}
+							size="small"
+							handleChange={handleSortChange}
+							value={sortValue}
+						/>
+					</div>
+				</div>
+			)}
 			{!questions.result.length ? (
 				<CircularProgress />
 			) : (

@@ -17,7 +17,19 @@ const paginatedResults = async (req, res, next) => {
 	const result = {};
 	var count;
 
-	if (filter == "recent") {
+	if (filter == "recent" && sort == "likeCount") {
+		try {
+			result.results = await PostQuestion.find()
+				.sort({ [sort]: sortInfo })
+				.limit(limit)
+				.skip(startIndex);
+			count = await PostQuestion.countDocuments();
+			console.log(result.results);
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json({ message: error.message });
+		}
+	} else if (filter == "recent") {
 		try {
 			result.results = await PostQuestion.find()
 				.sort({

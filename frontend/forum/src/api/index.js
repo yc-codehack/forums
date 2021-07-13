@@ -14,7 +14,7 @@ API.interceptors.request.use((req) => {
 
 export const fetchRecent = (formData) =>
 	API.get(
-		`/question/list?filter=recent&page=${formData.page}&limit=${formData.limit}`
+		`/question/list?filter=recent&page=${formData.page}&limit=${formData.limit}&sort=${formData.sort}&sortInfo=${formData.sortInfo}`
 	);
 
 // AUTH

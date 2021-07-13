@@ -115,6 +115,9 @@ export default function Ques({ item }) {
 			setIsClosed(true);
 		}
 	}, []);
+
+	console.log("quesn", item);
+
 	return (
 		<div>
 			<div
@@ -171,9 +174,7 @@ export default function Ques({ item }) {
 								</Typography>
 							</Popover>
 
-							<div className="row-md-1 ">
-								{question.likeCount}
-							</div>
+							<div className="row-md-1 ">{item.likeCount}</div>
 							<div
 								className="row-md-1 arrow"
 								onClick={

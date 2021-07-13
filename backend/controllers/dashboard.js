@@ -70,3 +70,5 @@ export const getTopCategory = async (req, res) => {
 		return res.status(409).json({ message: error.message });
 	}
 };
+
+// export const createUserProfile = async (req, res) => {};

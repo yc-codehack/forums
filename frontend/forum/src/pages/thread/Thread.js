@@ -184,7 +184,7 @@ const Thread = () => {
 									</>
 								))}
 
-							{!isThreadClosed && (
+							{!isThreadClosed && user && (
 								<form onSubmit={handleSubmit}>
 									<RichEditor
 										handleChange={handleChange}
