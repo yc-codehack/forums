@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+// const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({ baseURL: "https://yc-forum-v1.herokuapp.com" });
 
 // * Adds authorisation token in header of api request
 API.interceptors.request.use((req) => {
