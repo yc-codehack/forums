@@ -64,10 +64,13 @@ const Auth = ({ type }) => {
 		if (isResetPass) {
 			try {
 				axios
-					.post("http://localhost:5000/auth/resetPassword", {
-						token: token,
-						password: formData.password,
-					})
+					.post(
+						"https://yc-forum-v1.herokuapp.com/auth/resetPassword",
+						{
+							token: token,
+							password: formData.password,
+						}
+					)
 					.then((res) => {
 						console.log(res);
 						localStorage.setItem(
@@ -85,9 +88,12 @@ const Auth = ({ type }) => {
 		} else {
 			if (isForgotPass) {
 				axios
-					.post("http://localhost:5000/auth/forgotPassword", {
-						email: formData.email,
-					})
+					.post(
+						"https://yc-forum-v1.herokuapp.com/auth/forgotPassword",
+						{
+							email: formData.email,
+						}
+					)
 					.then((res) => {
 						setIsForgotPassComplete(true);
 						setIsLoading(false);
@@ -101,7 +107,10 @@ const Auth = ({ type }) => {
 				} else {
 					try {
 						axios
-							.post("http://localhost:5000/auth/signup", formData)
+							.post(
+								"https://yc-forum-v1.herokuapp.com/auth/signup",
+								formData
+							)
 							.then((res) => {
 								setIsSignupComplete(true);
 								setIsLoading(false);
